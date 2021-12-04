@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <p align="center">
     <img src="assets/preview.png"/>
 </p>
@@ -85,3 +86,6 @@ Vibe is using [react-feather](https://www.npmjs.com/package/react-feather) for i
 A nice overview over all available icons can be found on <https://feathericons.com/>.
 
 *Note:* In order to use a Feather icon in react, convert the name to camel case. (I.e. `alert-circle` becomes `AlertCircle`).
+=======
+# template
+>>>>>>> 6faffcd6edd5cb2b6c2966b1e47533630a1b0572
