@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ToggleSidebarButton from './components/ToggleSidebarButton';
 import PageLoader from '../PageLoader/PageLoader';
 
-import { Navbar, NavbarToggler, Collapse, Nav } from 'reactstrap';
+import { Navbar, Collapse, Nav } from 'reactstrap';
 import { matchPath } from 'react-router-dom';
 
 export default class Header extends Component {
@@ -14,6 +14,7 @@ export default class Header extends Component {
     };
     console.dir(props)
   }
+
   toggle = () => {
     this.setState(prevState => ({
       isOpen: !prevState.isOpen,
@@ -58,6 +59,7 @@ export default class Header extends Component {
             <ToggleSidebarButton
               toggleSidebar={this.props.toggleConversationList}
               isSidebarCollapsed={this.props.conversationListCollapsed}
+              icon='comments'
             />
             <PageLoader />
           </Navbar>

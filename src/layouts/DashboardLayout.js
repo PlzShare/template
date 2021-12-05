@@ -111,7 +111,7 @@ export default class DashboardLayout extends Component {
             {!this.state.conversationListCollapsed 
             && 
             <div className="scrollable sidebar sidebar-right">
-              <ConversationList callBackOnClickListItem={this.enterChatRoom}/>
+              <ConversationList callBackOnClickListItem={this.enterChatRoom}  callBackCollapseConversationList={()=> this.setState({conversationListCollapsed: true})}/>
             </div>}
             {
               !this.state.chatRoomCollapsed

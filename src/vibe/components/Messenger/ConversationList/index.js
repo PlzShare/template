@@ -8,7 +8,7 @@ import axios from 'axios';
 import './ConversationList.css';
 
 export default function ConversationList(props) {
-  const {callBackOnClickListItem} = props 
+  const {callBackOnClickListItem, callBackCollapseConversationList} = props 
   const [conversations, setConversations] = useState([]);
   useEffect(() => {
     getConversations()
@@ -32,7 +32,7 @@ export default function ConversationList(props) {
         <Toolbar
           title="Messenger"
           leftItems={[
-            <ToolbarButton key="cog" icon="ion-ios-cog"/>
+            <ToolbarButton key="cog" icon="ion-md-arrow-round-forward" callBackOnClick={callBackCollapseConversationList}/>
           ]}
           rightItems={[
             <ToolbarButton key="add" icon="ion-ios-add-circle-outline" />
