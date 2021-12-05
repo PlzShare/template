@@ -7,7 +7,7 @@ export default function ConversationSearch() {
         <input
           type="search"
           className="conversation-search-input"
-          placeholder="Search Messages"
+          placeholder="검색"
         />
       </div>
     );

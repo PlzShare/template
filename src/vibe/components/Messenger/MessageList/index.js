@@ -4,6 +4,7 @@ import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
 import Message from '../Message';
 import moment from 'moment';
+import data from '../../../../assets/json/data.json';
 
 import './MessageList.css';
 
@@ -14,73 +15,32 @@ export default function MessageList(props) {
   const [messages, setMessages] = useState([])
 
   useEffect(() => {
+    console.log('최초 메세지 리스트 가져오기');        
     getMessages();
   },[])
 
-  
+  // 정대겸
+  const callbackMessage = {
+    add: function(message) {
+        // 오토 인크리먼트
+        message.id = 1;
+        message.author = MY_USER_ID;
+        message.timestamp = new Date().getTime();
+        setMessages([...messages, message]);
+    }
+  }
+
+  // 정대겸
+  // apple : 내 대화
+  // orange : 상대 대화
+  // 더미데이터 추가?
   const getMessages = () => {
-     var tempMessages = [
-        {
-          id: 1,
-          author: 'apple',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 2,
-          author: 'orange',
-          message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 3,
-          author: 'orange',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 4,
-          author: 'apple',
-          message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 5,
-          author: 'apple',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 6,
-          author: 'apple',
-          message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 7,
-          author: 'orange',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 8,
-          author: 'orange',
-          message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 9,
-          author: 'apple',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 10,
-          author: 'orange',
-          message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-          timestamp: new Date().getTime()
-        },
-      ]
+     var tempMessages = [];
+      // 정대겸
+      data.map(x=>(x.timestamp = new Date().getTime()));
+      // 메세지 개행부분
+      // data.map(x=>(x.message = x.message.split('\n')));
+      tempMessages.push(...data);
       setMessages([...messages, ...tempMessages])
   }
 
@@ -163,7 +123,7 @@ export default function MessageList(props) {
           <ToolbarButton key="money" icon="ion-ios-card" />,
           <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
           <ToolbarButton key="emoji" icon="ion-ios-happy" />
-        ]}/>
+        ]} callbackMessage={callbackMessage}/>
       </div>
     );
 }
