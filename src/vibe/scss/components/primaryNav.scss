@@ -84,6 +84,10 @@
 
   .nav-item {
     position: relative;
+    
+    a{
+      font-size : .85rem;
+    }
 
     &.active {
       > a {
@@ -111,7 +115,7 @@
 
           a {
             padding-left: 45px;
-
+            
             &.active {
               background: darken($sidenavBgHover, 6%);
             }

@@ -1,6 +1,11 @@
 export default {
   top: [
     {
+      divider: true,
+    },
+  ],
+  bottom: [
+    {
       name: 'Home',
       url: '/home',
       icon: 'Home',
@@ -54,10 +59,6 @@ export default {
           url: '/elements/loaders',
         },
         {
-          name: 'Avatars',
-          url: '/elements/avatars',
-        },
-        {
           name: 'Progress Bars',
           url: '/elements/progressbars',
         },
@@ -76,10 +77,6 @@ export default {
           url: '/pages/blank',
         },
         {
-          name: 'Sub Navigation',
-          url: '/pages/subnav',
-        },
-        {
           name: '404',
           url: '/pages/404',
         },
@@ -93,41 +90,6 @@ export default {
         }
       ],
     },
-    {
-      name: 'Apps',
-      icon: 'Cloud',
-      children: [
-        {
-          name: 'Analytics',
-          url: '/apps/analytics',
-        },
-        {
-          name: 'Invoice',
-          url: '/apps/invoice',
-        },
-        {
-          name: 'Activity Feed',
-          url: '/apps/feed',
-        },
-        {
-          name: 'CMS',
-          url: '/apps/cms',
-        },
-      ],
-    },
-    {
-      divider: true,
-    },
-    {
-      name: 'Widgets',
-      url: '/widgets',
-      icon: 'Package',
-      badge: {
-        text: 'NEW',
-      },
-    },
-  ],
-  bottom: [
     {
       name: 'Get Vibe',
       url: 'https://github.com/NiceDash/Vibe',

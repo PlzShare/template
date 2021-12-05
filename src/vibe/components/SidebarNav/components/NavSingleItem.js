@@ -10,7 +10,7 @@ const NavSingleItem = ({ item }) => {
 
     return (
       <li className="nav-item">
-        <a href={item.url} target={item.target} rel={rel}>
+        <a href={item.url} target={item.target} rel={rel} >
           {item.icon && Icon && <Icon className="side-nav-icon" />}
           <span className="nav-item-label">{item.name}</span>
           {item.badge && <NavBadge color={item.badge.variant} text={item.badge.text} />}
@@ -22,7 +22,7 @@ const NavSingleItem = ({ item }) => {
     const url = item.url.charAt(0) === '/' ? item.url : `/${item.url}`;
 
     return (
-      <li className="nav-item">
+      <li className="nav-item" >
         <NavLink to={url} activeClassName="active">
           {item.icon && Icon && <Icon className="side-nav-icon" />}
           <span className="nav-item-label">{item.name}</span>
