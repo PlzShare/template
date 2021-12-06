@@ -3,7 +3,9 @@ import reactFeature from '../assets/images/react-feature.svg';
 import sassFeature from '../assets/images/sass-feature.svg';
 import bootstrapFeature from '../assets/images/bootstrap-feature.svg';
 import responsiveFeature from '../assets/images/responsive-feature.svg';
-import { Card, CardBody, Row, Col } from 'reactstrap';
+import { Card, CardBody, Row, Col, Button } from 'reactstrap';
+
+import '../assets/scss/components/main.scss';
 
 class Dashboard extends Component {
   render() {
@@ -12,94 +14,33 @@ class Dashboard extends Component {
     };
 
     return (
-      <div>
-        <Row>
-          <Col md={6}>
-            <div className="home-hero" style={heroStyles}>
-              <h1>Welcome to Vibe.</h1>
-              <p className="text-muted">
-                Discover this UI dashboard framework that will help speed up
-                your next web application project.
-              </p>
+      <div className='workspacemain'>
+        <h2>User님의 워크스페이스 목록</h2>
+      
+        <Row className="row">
+          <Col md={12}>
+              <div className="workspacebox">
+                <h2>워크스페이스 1</h2>
+                <a href='none' className="in" >IN</a>
+                <a href='none' className="out">OUT</a>
+
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col md={6}>
-            <Card>
-              <CardBody className="display-flex">
-                <img
-                  src={reactFeature}
-                  style={{ width: 70, height: 70 }}
-                  alt="react.js"
-                  aria-hidden={true}
-                />
-                <div className="m-l">
-                  <h2 className="h4">React.js</h2>
-                  <p className="text-muted">
-                    Built to quickly get your MVPs off the ground.
-                  </p>
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col md={6}>
-            <Card>
-              <CardBody className="display-flex">
-                <img
-                  src={bootstrapFeature}
-                  style={{ width: 70, height: 70 }}
-                  alt="Bootstrap"
-                  aria-hidden={true}
-                />
-                <div className="m-l">
-                  <h2 className="h4">Bootstrap 4</h2>
-                  <p className="text-muted">
-                    The most popular framework to get your layouts built.
-                  </p>
-                </div>
-              </CardBody>
-            </Card>
+
+        <Row className='workspacemain'>
+          <Col md={12}>
+              <div className="workspacebox">
+                <h2>워크스페이스 2</h2>
+                <a href='none' className="in" >IN</a>
+                <a href='none' className="out">OUT</a>
+
+            </div>
           </Col>
         </Row>
-        <Row>
-          <Col md={6}>
-            <Card>
-              <CardBody className="display-flex">
-                <img
-                  src={sassFeature}
-                  style={{ width: 70, height: 70 }}
-                  alt="Sass"
-                  aria-hidden={true}
-                />
-                <div className="m-l">
-                  <h2 className="h4">Sass</h2>
-                  <p className="text-muted">
-                    Easily change the design system styles to fit your needs.
-                  </p>
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col md={6}>
-            <Card>
-              <CardBody className="display-flex">
-                <img
-                  src={responsiveFeature}
-                  style={{ width: 70, height: 70 }}
-                  alt="Responsive"
-                  aria-hidden={true}
-                />
-                <div className="m-l">
-                  <h2 className="h4">Responsive</h2>
-                  <p className="text-muted">
-                    Designed for screens of all sizes.
-                  </p>
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+       
+             <Button color="primary" block><i ></i>&nbsp;&nbsp;새로운 워크스페이스 생성</Button>{' '}
+              
       </div>
     );
   }

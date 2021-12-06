@@ -1,0 +1,52 @@
+import React from 'react';
+import {Button} from 'reactstrap';
+
+const Mypage = () => {
+  return (
+    <div className="outer">
+        <h2 className="mypage">마이페이지</h2>
+
+        <div className='folder row'>
+
+          <div className="box_left">
+            <div className="profile"></div>
+                <div className="btns">
+                    <Button className="firstbutton" color="success" >생성하기</Button>
+                    <Button className="secondbutton" color="secondary" >취소하기</Button>
+                </div >
+          </div>
+            
+            <div className="box_right">
+              <div className="right-top">
+                  <div className="id">
+                      <p>아이디</p>
+                      <input type="text" placeholder="ID" disabled value="뀨승현"></input>
+                  </div>
+                  <div className="password">
+                      <p>비밀번호</p>
+                      <input type="password" placeholder="PASSWORD"></input>
+                  </div>
+              </div>
+              <div className="right_bottom">
+                  <div className="name">
+                      <p>이름</p>
+                      <input type="text" placeholder="NAME"></input>
+                  </div>
+                  <div className="nickname">
+                      <p>닉네임</p>
+                      <input type="text" placeholder="NICKNAME"></input>
+                  </div>
+              </div>
+
+            </div>
+        
+        </div>
+        <div className="btn_bottom">
+            <Button className="firstbutton" color="primary">수정하기</Button>
+            <Button className="secondbutton" color="secondary" >취소하기</Button>
+        </div>
+    </div>
+  );
+};
+
+export default Mypage;

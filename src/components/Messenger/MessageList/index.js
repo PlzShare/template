@@ -17,7 +17,16 @@ export default function MessageList(props) {
     getMessages();
   },[])
 
-  
+   // 정대겸
+   const callbackMessage = {
+    add: function(message) {
+        // 오토 인크리먼트
+        message.id = 1;
+        message.author = MY_USER_ID;
+        message.timestamp = new Date().getTime();
+        setMessages([...messages, message]);
+    }
+  }
   const getMessages = () => {
      var tempMessages = [
         {
@@ -150,7 +159,6 @@ export default function MessageList(props) {
           rightItems={[
             <ToolbarButton key="info" icon="ion-md-exit" callBackOnClick={ callBackOnClickExit}/>,
             <ToolbarButton key="video" icon="ion-ios-videocam" />,
-            <ToolbarButton key="phone" icon="ion-ios-call" />
           ]}
         />
 
@@ -163,7 +171,7 @@ export default function MessageList(props) {
           <ToolbarButton key="money" icon="ion-ios-card" />,
           <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
           <ToolbarButton key="emoji" icon="ion-ios-happy" />
-        ]}/>
+        ]} callbackMessage={callbackMessage}/>
       </div>
     );
 }
