@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { Button, Badge, NavItem, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Header, SidebarNav, Footer, PageContent, PageAlert, Page } from '../components';
 import Logo from '../assets/images/vibe-logo.svg';
-import nav from '../_nav_ref';
+import nav from '../_nav3';
 import routes from '../router';
 import ContextProviders from '../components/utilities/ContextProviders';
 import handleKeyAccessibility, { handleClickAccessibility } from '../helpers/handleTabAccessibility';

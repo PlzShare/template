@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import {Form} from 'react-bootstrap';
+import Sharelogo from '../../assets/images/logo2.png';
 
 export class Register extends Component {
   render() {
@@ -10,38 +12,33 @@ export class Register extends Component {
             <div className="col-lg-4 mx-auto">
               <div className="auth-form-light text-left py-5 px-4 px-sm-5">
                 <div className="brand-logo">
-                  {/* <img src={require("../../assets/images/logo.svg")} alt="logo" /> */}
+                  <img src={Sharelogo} alt="logo" /> 
                 </div>
-                <h4>New here?</h4>
-                <h6 className="font-weight-light">Signing up is easy. It only takes a few steps</h6>
+              
                 <form className="pt-3">
                   <div className="form-group">
-                    <input type="text" className="form-control form-control-lg" id="exampleInputUsername1" placeholder="Username" />
+                    <input type="text" className="form-control form-control-lg" id="exampleInputUsername1" placeholder="ID" />
                   </div>
                   <div className="form-group">
-                    <input type="email" className="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email" />
+                    <input type="text" className="form-control form-control-lg" id="exampleInputUsername1" placeholder="Name" />
                   </div>
                   <div className="form-group">
-                    <select className="form-control form-control-lg" id="exampleFormControlSelect2">
-                      <option>Country</option>
-                      <option>United States of America</option>
-                      <option>United Kingdom</option>
-                      <option>India</option>
-                      <option>Germany</option>
-                      <option>Argentina</option>
-                    </select>
+                    <input type="text" className="form-control form-control-lg" id="exampleInputUsername1" placeholder="NickName" />
                   </div>
                   <div className="form-group">
                     <input type="password" className="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password" />
                   </div>
+                  <div className="form-group">
+                    <input type="password" className="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password Confirm" />
+                  </div>
                   <div className="mb-4">
-                    <div className="form-check">
+                    {/* <div className="form-check">
                       <label className="form-check-label text-muted">
                         <input type="checkbox" className="form-check-input" />
                         <i className="input-helper"></i>
                         I agree to all Terms & Conditions
                       </label>
-                    </div>
+                    </div> */}
                   </div>
                   <div className="mt-3">
                     <Link className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" to="/dashboard">SIGN UP</Link>

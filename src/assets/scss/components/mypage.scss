@@ -1,0 +1,101 @@
+.outer{
+    position:relative;
+}
+
+.mypage{
+    font-size: 2.2rem ;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.folder{
+    width:100%;
+    height: 100vh;
+    // background-color: rosybrown;
+    position: relative;
+    margin-top: 6%;
+}
+.folder .box_left{
+    position: absolute;
+    left: 5%;
+    width: 350px ;
+    height: 350px;
+    // border:1px solid #888;
+}
+.box_left>.profile{
+    position: absolute;
+    left: 20%;
+    width: 250px ;
+    height: 250px;
+    background-color: rgb(4, 36, 51);
+}
+.folder .btns{
+    position: absolute;
+    bottom: 8%;
+    left: 23%;
+}
+
+.firstbutton{
+    width: 105px;
+    margin-right: 7px;
+}
+
+.secondbutton{
+    width: 105px;
+    margin-left: 7px;
+}
+
+.inputuser{
+    margin-left: 380px;
+    width: 750px;
+    height: 300px;
+    background-color: rosybrown;
+    position: relative;
+}
+.folder>.box_right{
+    position: absolute;
+    top:11px;
+    right: 5%;
+    width: 720px;
+    height: 291px;
+    //  background-color: royalblue;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.folder>.box_right p{
+    font-size: 1.6rem;
+    margin-bottom: 5px;
+}
+.box_right>div{
+    float: left;
+}
+.box_right input{
+    width: 265px;
+    height: 38px;
+    background: #fff;
+    border: 1px solid #d5dce6;
+    box-shadow: inset 0 2px 0 0 #f2f5f8;
+    padding-left: 15px;
+    box-sizing: border-box;
+    color: #bbb;
+    font-size: 0.9rem;
+}
+
+input::-webkit-input-placeholder {
+     color: #bbb;
+    font-size: 0.9rem;
+    }
+.box_right>div:nth-child(2){
+   margin-left: 50px;
+}
+.box_right .id{
+    margin-bottom: 50px;
+}
+.box_right .name{
+    margin-bottom: 50px;
+}
+
+.btn_bottom{
+    position: absolute;
+    bottom: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+

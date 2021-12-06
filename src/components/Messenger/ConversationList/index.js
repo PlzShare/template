@@ -10,9 +10,16 @@ import './ConversationList.css';
 export default function ConversationList(props) {
   const {callBackOnClickListItem, callBackCollapseConversationList} = props 
   const [conversations, setConversations] = useState([]);
+  const [keyword, setKeyword] = useState('');
+  
   useEffect(() => {
     getConversations()
   },[])
+
+  const notifyKeywordChanged = (keyword) => {
+    // console.log(keyword); // 입력받은 값이 전부 소문자로 변경됐는가 확인
+    setKeyword(keyword);
+  };
 
  const getConversations = () => {
     axios.get('https://randomuser.me/api/?results=20').then(response => {
@@ -38,9 +45,14 @@ export default function ConversationList(props) {
             <ToolbarButton key="add" icon="ion-ios-add-circle-outline" />
           ]}
         />
-        <ConversationSearch />
+        {/* 검색 컴포넌트 - 정대겸 */}
+        <ConversationSearch keyword={keyword} callback={notifyKeywordChanged}/>
         {
-          conversations.map(conversation =>
+          conversations
+            .filter(conversation => 
+              conversation.name.indexOf(keyword) !== -1 ||
+              conversation.text.indexOf(keyword) !== -1 )
+            .map(conversation =>
             <ConversationListItem
               callBackOnClick={callBackOnClickListItem}
               key={conversation.name}
