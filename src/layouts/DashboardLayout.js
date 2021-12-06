@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Button, Badge, NavItem, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { Header, SidebarNav, Footer, PageContent, PageAlert, Page } from '../vibe';
+import { Header, SidebarNav, Footer, PageContent, PageAlert, Page } from '../components';
 import Logo from '../assets/images/vibe-logo.svg';
 import nav from '../_nav_ref';
-import routes from '../views';
-import ContextProviders from '../vibe/components/utilities/ContextProviders';
-import handleKeyAccessibility, { handleClickAccessibility } from '../vibe/helpers/handleTabAccessibility';
-import ConversationList from '../vibe/components/Messenger/ConversationList'
-import MessageList from '../vibe/components/Messenger/MessageList';
+import routes from '../router';
+import ContextProviders from '../components/utilities/ContextProviders';
+import handleKeyAccessibility, { handleClickAccessibility } from '../helpers/handleTabAccessibility';
+import ConversationList from '../components/Messenger/ConversationList'
+import MessageList from '../components/Messenger/MessageList';
 // import ToggleSidebarButton from '../vibe/components/ToggleSidebarButton';
 const MOBILE_SIZE = 992;
 

@@ -1,4 +1,4 @@
-import Dashboard from './pages/Dashboard';
+import Dashboard from '../layouts/Dashboard';
 import Buttons from './elements/Buttons';
 import Alerts from './elements/Alerts';
 import Grid from './elements/Grid';
@@ -10,14 +10,14 @@ import Breadcrumbs from './elements/Breadcrumbs';
 import Forms from './elements/Forms';
 import Loaders from './elements/Loaders';
 
-import BlankPage from './pages/BlankPage';
+import BlankPage from '../layouts/BlankPage';
 import Modals from './elements/Modals';
 import ProgressBars from './elements/ProgressBars';
 import PaginationPage from './elements/Pagination';
-import ErrorPage from './pages/404';
+import ErrorPage from '../layouts/404';
 
-import LoginPage from './pages/user-pages/Login';
-import RegisterPage from './pages/user-pages/Register'; 
+import LoginPage from '../layouts/user-pages/Login';
+import RegisterPage from '../layouts/user-pages/Register'; 
 // See React Router documentation for details: https://reacttraining.com/react-router/web/api/Route
 const pageList = [
   {

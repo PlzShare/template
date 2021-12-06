@@ -5,7 +5,6 @@ import {
   Card,
   CardBody,
 } from 'reactstrap';
-
 export default class BreadcrumbsPage extends Component {
   constructor() {
     super();

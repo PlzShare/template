@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import reactFeature from '../../assets/images/react-feature.svg';
-import sassFeature from '../../assets/images/sass-feature.svg';
-import bootstrapFeature from '../../assets/images/bootstrap-feature.svg';
-import responsiveFeature from '../../assets/images/responsive-feature.svg';
+import reactFeature from '../assets/images/react-feature.svg';
+import sassFeature from '../assets/images/sass-feature.svg';
+import bootstrapFeature from '../assets/images/bootstrap-feature.svg';
+import responsiveFeature from '../assets/images/responsive-feature.svg';
 import { Card, CardBody, Row, Col } from 'reactstrap';
 
 class Dashboard extends Component {
