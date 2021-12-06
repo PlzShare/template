@@ -1,4 +1,6 @@
 import React, {useRef} from 'react';
+import ToolbarButton from '../ToolbarButton';
+
 import './Compose.css';
 
 export default function Compose(props) {
@@ -41,6 +43,8 @@ export default function Compose(props) {
             className="compose-input"
           />
 
+          {/* 검색어 전송 아이콘 */}
+          <ToolbarButton key="send" icon="ion-ios-send"/>
           {
             props.rightItems
           }

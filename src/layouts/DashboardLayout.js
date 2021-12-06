@@ -117,7 +117,7 @@ export default class DashboardLayout extends Component {
               !this.state.chatRoomCollapsed
               &&
               <div className="scrollable sidebar sidebar-right">
-                <MessageList callBackOnClickExit={this.exitChatRoom}/>
+                <MessageList callBackOnClickExit={this.exitChatRoom} title={'aaaaaaaaaaaa'}/>
                 </div>
             }
             

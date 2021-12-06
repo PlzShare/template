@@ -4,14 +4,14 @@ import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
 import Message from '../Message';
 import moment from 'moment';
-import data from '../../../../assets/json/data.json';
+import data from '../../../../assets/json/data-message.json';
 
 import './MessageList.css';
 
 const MY_USER_ID = 'apple';
 
 export default function MessageList(props) {
-  const {callBackOnClickExit} = props
+  const {callBackOnClickExit, title} = props
   const [messages, setMessages] = useState([])
 
   useEffect(() => {
@@ -106,11 +106,11 @@ export default function MessageList(props) {
     return(
       <div className="message-list">
         <Toolbar
-          title="Conversation Title"
+          title={title}
           rightItems={[
             <ToolbarButton key="info" icon="ion-md-exit" callBackOnClick={ callBackOnClickExit}/>,
-            <ToolbarButton key="video" icon="ion-ios-videocam" />,
-            <ToolbarButton key="phone" icon="ion-ios-call" />
+            <ToolbarButton key="video" icon="ion-ios-videocam" />
+            // <ToolbarButton key="phone" icon="ion-ios-call" />
           ]}
         />
 
