@@ -1,0 +1,59 @@
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import {Form} from 'react-bootstrap';
+import Sharelogo from '../../assets/images/logo2.png';
+
+export class Register extends Component {
+  render() {
+    return (
+      <div>
+        <div className="d-flex align-items-center auth px-0">
+          <div className="row w-100 mx-0">
+            <div className="col-lg-4 mx-auto">
+              <div className="auth-form-light text-left py-5 px-4 px-sm-5">
+                <div className="brand-logo">
+                  <img src={Sharelogo} alt="logo" /> 
+                </div>
+              
+                <form className="pt-3">
+                  <div className="form-group">
+                    <input type="text" className="form-control form-control-lg" id="exampleInputUsername1" placeholder="ID" />
+                  </div>
+                  <div className="form-group">
+                    <input type="text" className="form-control form-control-lg" id="exampleInputUsername1" placeholder="Name" />
+                  </div>
+                  <div className="form-group">
+                    <input type="text" className="form-control form-control-lg" id="exampleInputUsername1" placeholder="NickName" />
+                  </div>
+                  <div className="form-group">
+                    <input type="password" className="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password" />
+                  </div>
+                  <div className="form-group">
+                    <input type="password" className="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password Confirm" />
+                  </div>
+                  <div className="mb-4">
+                    {/* <div className="form-check">
+                      <label className="form-check-label text-muted">
+                        <input type="checkbox" className="form-check-input" />
+                        <i className="input-helper"></i>
+                        I agree to all Terms & Conditions
+                      </label>
+                    </div> */}
+                  </div>
+                  <div className="mt-3">
+                    <Link className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" to="/dashboard">SIGN UP</Link>
+                  </div>
+                  <div className="text-center mt-4 font-weight-light">
+                    Already have an account? <Link to="/user-pages/login" className="text-primary">Login</Link>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
+export default Register

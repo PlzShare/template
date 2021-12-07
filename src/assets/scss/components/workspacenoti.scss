@@ -1,0 +1,28 @@
+.workspaceinvite{
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.workspaceinvite>.row{
+    margin-bottom: 3%;
+}
+
+.workspaceinvite>h2{
+    margin: 2% 0 4% 0;
+}
+.invitebox{
+    background-color: #fff;
+    width: 900px;
+    height: 130px;
+    margin-left: 5%;
+    position: relative;
+    border: 1px solid #d5dce6;
+    box-shadow: inset 0 2px 0 0 #f2f5f8;
+}
+
+.invitebox>h2{
+    font-size: 1.5rem;
+    position: absolute;
+    top:50%;
+    left: 2%;
+    transform: translateY(-50%)
+}
+
