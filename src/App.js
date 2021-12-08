@@ -4,7 +4,7 @@ import DashboardLayout from './layouts/DashboardLayout';
 import './assets/scss/styles.scss';
 import axios from 'axios';
 export default function App() {
-  // axios.defaults.baseURL = '/api'
+  axios.defaults.baseURL = '/api'
   // axios
   //   .get('/workspaces/1/channels/1/documents')
   //   .then((response) => {
