@@ -53,6 +53,7 @@ export default class SidebarNav extends Component {
                     <NavSpacer />
                     {navItems(this.props.nav.bottom)}
                   </ul>
+                  {/* <div><button>dsfsdf</button></div> */}
                 </nav>
               </div>
               {this.props.isSidebarCollapsed && <NavOverlay onClick={this.props.toggleSidebar} />}

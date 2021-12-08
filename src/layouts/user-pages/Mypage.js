@@ -1,7 +1,26 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {Button} from 'reactstrap';
+import profile from '../../assets/images/profile.jpg';
+import axios from 'axios';
 
-const Mypage = () => {
+ const Mypage = () => {
+    const[user,setUser] = useState({});
+
+    // user 가져오기
+    const fetchUserInfo = async () =>{
+        try{
+            const response = await axios.get('/users/24')
+            setUser(response.data.data)
+        }catch (err){
+            console.error(err);
+        }
+    }
+    
+    useEffect(() =>{
+        fetchUserInfo()
+    },[])
+
+
   return (
     <div className="outer">
         <h2 className="mypage">마이페이지</h2>
@@ -9,7 +28,19 @@ const Mypage = () => {
         <div className='folder row'>
 
           <div className="box_left">
-            <div className="profile"></div>
+            <div className="profile">
+                <img src={profile}></img>
+                <input> 
+                        {/* // ref={imgInput}
+                        // className="imgInput" 
+                        // type="file" 
+                        // accept="image/*" 
+                        // ref={imgInput} 
+                        // id="imgInput" 
+                        // name="file"
+                        // onChange={onImgChange}  */}
+                </input>
+            </div>
                 <div className="btns">
                     <Button className="firstbutton" color="success" >생성하기</Button>
                     <Button className="secondbutton" color="secondary" >취소하기</Button>
@@ -20,21 +51,21 @@ const Mypage = () => {
               <div className="right-top">
                   <div className="id">
                       <p>아이디</p>
-                      <input type="text" placeholder="ID" disabled value="뀨승현"></input>
+                      <input type="text" placeholder="ID" disabled value={user.id} readOnly></input>
                   </div>
                   <div className="password">
                       <p>비밀번호</p>
-                      <input type="password" placeholder="PASSWORD"></input>
+                      <input className="password" type="password" placeholder="PASSWORD"></input>
                   </div>
               </div>
               <div className="right_bottom">
                   <div className="name">
                       <p>이름</p>
-                      <input type="text" placeholder="NAME"></input>
+                      <input type="text" placeholder="NAME" disabled value={user.name}></input>
                   </div>
                   <div className="nickname">
                       <p>닉네임</p>
-                      <input type="text" placeholder="NICKNAME"></input>
+                      <input className="nickname" type="text" placeholder={user.nickname}></input>
                   </div>
               </div>
 
