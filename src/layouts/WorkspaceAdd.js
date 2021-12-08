@@ -2,9 +2,11 @@ import React, { useState,useRef } from 'react';
 import '../assets/scss/components/workspaceadd.scss';
 import { Button } from 'reactstrap';
 
+import axios from 'axios';
+
 // 게스트북의 WriteForm
 const BlankPage = (e) => {
-    const refForm = useRef()
+    const refForm = useRef();
     const workspaceManagement = {
         insert: async function () {
             try {
@@ -13,7 +15,7 @@ const BlankPage = (e) => {
                 //     throw `validation ${input.placeholder} is empty`;
                 // }
 
-                const userNo = 4
+                const userNo = 4 // 테스트 넘버
                 console.log(userNo);
                 const response = await fetch(`/api/workspaces/${userNo}`, {
                     method: 'post',
