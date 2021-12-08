@@ -5,7 +5,7 @@
 .mypage{
     font-size: 2.2rem ;
     font-family: 'Noto Sans KR', sans-serif;
-}
+} 
 .folder{
     width:100%;
     height: 100vh;
@@ -56,7 +56,6 @@
     right: 5%;
     width: 720px;
     height: 291px;
-    //  background-color: royalblue;
     font-family: 'Noto Sans KR', sans-serif;
 }
 .folder>.box_right p{
@@ -74,12 +73,12 @@
     box-shadow: inset 0 2px 0 0 #f2f5f8;
     padding-left: 15px;
     box-sizing: border-box;
-    color: #bbb;
+    color: #333;
     font-size: 0.9rem;
 }
 
 input::-webkit-input-placeholder {
-     color: #bbb;
+    color: #bbb;
     font-size: 0.9rem;
     }
 .box_right>div:nth-child(2){
@@ -98,4 +97,5 @@ input::-webkit-input-placeholder {
     left: 50%;
     transform: translateX(-50%);
 }
+
 

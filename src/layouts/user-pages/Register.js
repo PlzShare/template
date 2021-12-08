@@ -16,7 +16,7 @@ export class Register extends Component {
      }
       this.refForm = null
 
-    }
+    } 
  
     handleSubmit = async(e)=>{
         e.preventDefault();
