@@ -50,7 +50,6 @@ const Invite = () => {
           </Col>
         </Row>
       </div>
-
        )
       
   }

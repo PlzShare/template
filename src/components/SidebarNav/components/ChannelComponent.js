@@ -9,11 +9,14 @@ const ChannelComponent = ({callBackToggle, isOpen}) => {
 
     const createChannel = async () => {
         const response = await axios.post('/workspaces/2/channels',{
-            name : nameInput.current.value,
-            desc : descInput.current.value
+          name : nameInput.current.value,
+          desc : descInput.current.value
         })
-        
+        console.log(response.data.result)
+        console.log(response.data.message)       
         console.dir(response.data.data)
+        callBackToggle();
+        
         // fetch의 주소에서 '2' 이 부분은 워크스페이스 번호를 넘겨줘야함
           // const response = await fetch(`api/workspaces/2/channels`,{
           //   method: 'post',
@@ -25,12 +28,10 @@ const ChannelComponent = ({callBackToggle, isOpen}) => {
           //       "name": nameInput.current.value,
           //       "desc": descInput.current.value
           //   })
-          // });
-          callBackToggle();
-          
+          // });         
     }
+    
 
-    console.log()
     
     return (
             <Modal isOpen={isOpen} toggle={callBackToggle}>
