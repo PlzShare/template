@@ -32,13 +32,18 @@ const BlankPage = () => {
   
   return (
     <div className="add">
+      <div className="box">
         <h2 className="firstName">워크스페이스 환경설정</h2>
         <h1 className="secondName">💻 워크스페이스 이름</h1>
         <input className="nameinput" placeholder="변경할 워크스페이스 이름을 입력해주세요."></input>
         <h1 className="secondName">🔒 관리자 권한 변경</h1>
         <Select options={Countries} components={animatedComponents} onChange={selectBoxChange}/>
-
-        <p className="Button"><Button color="secondary" size="lg">취소하기</Button>{'      '}<Button onClick={pushData} color="primary" size="lg">변경하기</Button></p>
+      </div>
+        <div className="buttons">
+          <Button color="secondary" size="lg">취소하기</Button>
+          <Button onClick={pushData} color="primary" size="lg">변경하기</Button>
+          <Button color="danger" size="lg">삭제하기</Button>
+        </div>
     </div>
   );
 };
