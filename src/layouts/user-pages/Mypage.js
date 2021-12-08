@@ -15,7 +15,7 @@ import axios from 'axios';
             console.error(err);
         }
     }
-    
+        
     useEffect(() =>{
         fetchUserInfo()
     },[])
