@@ -1,14 +1,19 @@
+import { Fragment } from 'react';
+import ChannelComponent from './components/SidebarNav/components/ChannelComponent';
+import DocumantComponent from './components/SidebarNav/components/DocumentComponent';
+import MemberAddComponent from './components/SidebarNav/components/MemberAddComponent';
+
 export default {
   top: [
     {
       name: '워크스페이스1',
-      url: '/home',
+      url: '/WorkspaceMain',
       icon: 'Layers',
     },
     {
       name: '환경설정',
-      url: '/setting',
       icon: 'Settings',
+      url: '/set',
     },
     {
       name: '채널',
@@ -49,9 +54,11 @@ export default {
           url: '/member',
         },
         {
-          name: '멤버추가',
+          name: '멤버초대',
           icon: 'Plus',
           url: '/memberplus',
+          isButton: true,
+          getComponent: (toggle, isOpen) => <MemberAddComponent callBackToggle={toggle} isOpen={isOpen}/>,
         },
 
       ],
@@ -59,12 +66,16 @@ export default {
     {
       name: '채널추가',
       icon: 'FolderPlus',
-      url: 'ddd'
+      url: 'ddd',
+      isButton : true,
+      getComponent: (toggle, isOpen) => <ChannelComponent callBackToggle={toggle} isOpen={isOpen}/>,
     },
     {
       name: '문서추가',
       icon: 'FilePlus',
       url: 'ddd',
+      isButton : true,
+      getComponent: (toggle, isOpen) => <DocumantComponent callBackToggle={toggle} isOpen={isOpen}/>,
 
     },
   ],
