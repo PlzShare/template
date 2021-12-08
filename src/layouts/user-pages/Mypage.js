@@ -22,12 +22,12 @@ import profile from '../../assets/images/profile.jpg';
             setUser(result.data)
 
             console.dir(result.data)
-
+ 
         }catch (err){
             console.error(err);
         }
     }
-    
+
     useEffect(() =>{
         fetchUserInfo()
     },[])
