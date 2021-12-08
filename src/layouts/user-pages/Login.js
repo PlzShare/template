@@ -4,7 +4,10 @@ import {Form} from 'react-bootstrap';
 import Sharelogo from '../../assets/images/logo2.png';
 
 
+
 export class Login extends Component {
+
+
   render() {
     return (
       <div>
@@ -28,25 +31,8 @@ export class Login extends Component {
                   </Form.Group>
                   <div className="mt-3">
                     <Link className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" to="/dashboard">SIGN IN</Link>
+                    <Link className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" to="/dashboard">JOIN</Link>
                   </div>
-                  {/* <div className="my-2 d-flex justify-content-between align-items-center">
-                    <div className="form-check">
-                      <label className="form-check-label text-muted">
-                        <input type="checkbox" className="form-check-input"/>
-                        <i className="input-helper"></i>
-                        Keep me signed in
-                      </label>
-                    </div>
-                    <a href="!#" onClick={event => event.preventDefault()} className="auth-link text-black">Forgot password?</a>
-                  </div> */}
-                  {/* <div className="mb-2">
-                    <button type="button" className="btn btn-block btn-facebook auth-form-btn">
-                      <i className="mdi mdi-facebook mr-2"></i>Connect using facebook
-                    </button>
-                  </div> */}
-                  {/* <div className="text-center mt-4 font-weight-light">
-                    Don't have an account? <Link to="/user-pages/register" className="text-primary">Create</Link>
-                  </div> */}
                 </Form>
               </div>
             </div>
