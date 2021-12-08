@@ -12,7 +12,7 @@ const BlankPage = () => {
         </div>
         <div className='folder'>
             <div className='documentbody'>
-            <div class='triangle'></div>
+            <div className='triangle'></div>
                     <p> 문서</p>
              </div>
         </div>

@@ -5,6 +5,10 @@
 
 	.modal-header {
 		border-bottom: 0;
+		.modal-title{
+			font-weight: bold;
+			font-size: 25px;
+		}
 	}
 
 	.modal-content {
@@ -20,6 +24,21 @@
 		border-radius: $cardRoundedCorner;
 		@include cardShadow;
 		padding: $panelPadding;
+
+		h5 {
+			font-size: 17px;
+		}
+
+		.channelModalInput{
+			width: 370px;
+			height: 37px;
+    		margin-bottom: 40px;
+		}
+
+		.memberModalInput{
+			width: 170px;
+			height: 37px;
+		}
 	}
 
 	&.fade {

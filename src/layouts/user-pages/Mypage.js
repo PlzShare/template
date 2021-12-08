@@ -5,6 +5,7 @@ import profile from '../../assets/images/profile.jpg';
  const Mypage = () => {
     const[user,setUser] = useState({});
 
+    // user 가져오기
     const fetchUserInfo = async () =>{
         try{
             const response = await fetch('/api/users/24',{
@@ -26,9 +27,11 @@ import profile from '../../assets/images/profile.jpg';
             console.error(err);
         }
     }
+    
     useEffect(() =>{
         fetchUserInfo()
     },[])
+
 
   return (
     <div className="outer">

@@ -2,7 +2,6 @@ export default {
   top: [
     {
       name: '초대알림',
-      url: '/home',
       icon: 'Bell',
       children: [
         {
@@ -17,20 +16,23 @@ export default {
     },
     {
       name: '워크스페이스알림',
-      url: '/setting',
       icon: 'Bell',
       children: [
         {
           name: '워크스페이스1',
-          url: 'workspacebell',
+          url: '/workspacenoti',
           badge: {
             text: 'NEW',
           },
         },
         {
           name: '워크스페이스2',
-          url: 'workspacebell',
-        }
+          url: '/workspacenoti',
+        },
+        {
+          name: '워크스페이스3',
+          url: '/workspacenoti',
+        },
       ]
     },
   ],
