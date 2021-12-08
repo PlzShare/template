@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {Button} from 'reactstrap';
 import profile from '../../assets/images/profile.jpg';
+import axios from 'axios';
 
  const Mypage = () => {
     const[user,setUser] = useState({});
@@ -8,26 +9,13 @@ import profile from '../../assets/images/profile.jpg';
     // user 가져오기
     const fetchUserInfo = async () =>{
         try{
-            const response = await fetch('/api/users/24',{
-                method: 'get',
-                header: {
-                  'Content-Type': 'application/json',
-                  'Accept': 'application/json'
-                },
-                body: null
-            })
-
-            const result = await response.json()
-
-            setUser(result.data)
-
-            console.dir(result.data)
- 
+            const response = await axios.get('/users/24')
+            setUser(response.data.data)
         }catch (err){
             console.error(err);
         }
     }
-
+    
     useEffect(() =>{
         fetchUserInfo()
     },[])
