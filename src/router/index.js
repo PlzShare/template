@@ -22,6 +22,7 @@ import WorkspaceMain from '../layouts/WorkspaceMain';
 import WorkspaceAdd from '../layouts/WorkspaceAdd';
 import Workspacenoti from '../layouts/user-pages/Workspacenoti'
 import Setting from '../layouts/Setting';
+import Invited from '../layouts/user-pages/Invited';
 import Invite from '../layouts/user-pages/Invite';
 import Mypage from '../layouts/user-pages/Mypage';
  
@@ -157,7 +158,12 @@ const pageList = [
   {
     name: '초대된 워크스페이스',
     path: '/invited',
-    component: BlankPage,
+    component: Invited,
+  },
+  {
+    name: '초대한 워크스페이스',
+    path: '/invite',
+    component: Invite,
   },
   {
     name: '초대한 워크스페이스',
