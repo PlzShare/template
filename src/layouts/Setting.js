@@ -1,13 +1,28 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import '../assets/scss/components/setting.scss';
-import {Button} from 'reactstrap';
+import axios from 'axios';
+import { Button } from 'reactstrap';
 
 const BlankPage = () => {
 
-  const [selectdata, setSelectData] = useState();
+  const [selectdata, setSelectData] = useState([]);
+  const [userList, setUserList] = useState([]);
   const animatedComponents = makeAnimated();
+
+  useEffect(() => {
+      fetchList();
+  },[]);
+  
+  // console.dir(userList)
+  const fetchList = async () => {
+      const response = await axios.get('/workspace-users/10/3')
+      response.data.data.forEach(e => {e['label'] = e.id; e['value'] = e.id})
+
+      setUserList(response.data.data.filter( el => el.userNo != 3))
+      // console.response.data.data
+  }
 
   const pushData = () =>{
       console.log(selectdata);
@@ -36,8 +51,8 @@ const BlankPage = () => {
         <h1 className="secondName">💻 워크스페이스 이름</h1>
         <input className="nameinput" placeholder="변경할 워크스페이스 이름을 입력해주세요."></input>
         <h1 className="secondName">🔒 관리자 권한 변경</h1>
-        <Select options={Countries} components={animatedComponents} onChange={selectBoxChange}/>
-
+        <Select options={userList} components={animatedComponents} onChange={selectBoxChange}
+                        />
         <p className="Button"><Button color="secondary" size="lg">취소하기</Button>{'      '}<Button onClick={pushData} color="primary" size="lg">변경하기</Button></p>
     </div>
   );

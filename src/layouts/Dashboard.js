@@ -42,16 +42,16 @@ const Dashboard = () => {
         </div>
       </Col>
     );
+    return (
+      <div className='workspacemain'>
+        <h2>에쿠쿵 님의 워크스페이스 목록</h2>
+        <Row className='workspacemain'>
+          {workspaceLists}
+        </Row>
+             <Button color="primary" block>새로운 워크스페이스 생성</Button>{' '}
+      </div>
+    );
 
-  return (
-    <div className='workspacemain' >
-      <h2>에쿠쿵 님의 워크스페이스 목록</h2>
-      <Row>
-        {workspaceLists}
-      </Row>
-      <Button color="primary" block><i ></i>&nbsp;&nbsp;새로운 워크스페이스 생성</Button>{' '}
-    </div>
-  );
 }
 
 export default Dashboard;
