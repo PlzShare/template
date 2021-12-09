@@ -27,6 +27,7 @@ export default function MessageList(props) {
         setMessages([...messages, message]);
     }
   }
+  
   const getMessages = () => {
      var tempMessages = [
         {
