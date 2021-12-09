@@ -25,6 +25,7 @@ import Setting from '../layouts/Setting';
 import Invited from '../layouts/user-pages/Invited';
 import Invite from '../layouts/user-pages/Invite';
 import Mypage from '../layouts/user-pages/Mypage';
+import DocumentEditor from '../components/Editor/DocumentEditor';
  
 // See React Router documentation for details: https://reacttraining.com/react-router/web/api/Route
 const pageList = [
@@ -187,6 +188,11 @@ const pageList = [
     path: '/pages/404',
     component: ErrorPage,
   },
+  {
+    name: 'edit-document',
+    path: '/edit-document',
+    component: DocumentEditor
+  }
 
 ];
 
