@@ -37,7 +37,7 @@ const BlankPage = () => {
         <h1 className="secondName">💻 워크스페이스 이름</h1>
         <input className="nameinput" placeholder="변경할 워크스페이스 이름을 입력해주세요."></input>
         <h1 className="secondName">🔒 관리자 권한 변경</h1>
-        <Select options={Countries} components={animatedComponents} onChange={selectBoxChange}/>
+        <Select className="select" options={Countries} components={animatedComponents} onChange={selectBoxChange}/>
       </div>
         <div className="buttons">
           <Button color="secondary" size="lg">취소하기</Button>

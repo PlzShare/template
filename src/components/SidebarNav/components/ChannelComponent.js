@@ -46,7 +46,7 @@ const ChannelComponent = ({callBackToggle, isOpen}) => {
                     </div>
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="primary" onClick={createChannel}>생성하기</Button>{' '}
+                  <Button color="primary" onClick={createChannel}>생성하기</Button>
                   <Button color="secondary" onClick={callBackToggle}>취소하기</Button>
                 </ModalFooter>
             </Modal>

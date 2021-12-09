@@ -43,9 +43,6 @@ export class Register extends Component {
             return;
           }
 
-
-
-
         // 비밀번호 확인
           // if(e.target.pwdconfirm.value == e.target.password.value){
           //   e.target.password.value = e.target.pwdconfirm.value 
