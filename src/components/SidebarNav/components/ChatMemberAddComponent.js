@@ -1,18 +1,14 @@
 import React, {useEffect, useState}  from 'react';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import TagsInput from '../../TagsInput'
 import axios from 'axios';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
-const MemberAddComponent = ({callBackToggle, isOpen}) => {
-
+const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
     const [selectdata, setSelectData] = useState([]);
     const [userList, setUserList] = useState([]);
     const animatedComponents = makeAnimated();
-
-    const selectedTags = tags => console.log(tags);
 
     useEffect(() => {
         fetchList();
@@ -20,9 +16,10 @@ const MemberAddComponent = ({callBackToggle, isOpen}) => {
     
     // console.dir(userList)
     const fetchList = async () => {
-        const response = await axios.get('/workspace-users/28')
+        const response = await axios.get('/workspace-users/10/3')
         response.data.data.forEach(e => {e['label'] = e.id; e['value'] = e.id})
-        setUserList(response.data.data)
+
+        setUserList(response.data.data.filter( el => el.userNo != 3))
         // console.response.data.data
     }
 
@@ -40,11 +37,14 @@ const MemberAddComponent = ({callBackToggle, isOpen}) => {
 
     return (
         <Modal isOpen={isOpen} toggle={callBackToggle}>
-                <ModalHeader toggle={callBackToggle}>멤버 초대</ModalHeader>
+                <ModalHeader toggle={callBackToggle}>채팅 생성</ModalHeader>
                 <ModalBody>
                     <div>
                         <h5>🔹 초대할 멤버 아이디</h5>
-                        <TagsInput selectedTags={selectedTags} />
+                        <Select options={userList} components={animatedComponents} isMulti 
+                        onChange={selectBoxChange}
+                        />
+                        
                     </div>
                 </ModalBody>
                 <ModalFooter>
@@ -55,4 +55,4 @@ const MemberAddComponent = ({callBackToggle, isOpen}) => {
     );
 };
 
-export default MemberAddComponent;
+export default ChatMemberAddComponent;
