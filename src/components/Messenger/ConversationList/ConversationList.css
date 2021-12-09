@@ -11,7 +11,7 @@
   width: 25vw;
   height: 100vh;
   overflow: scroll;
-  position: absolute;
+  position: fixed;
   right: 0;
   z-index: 100;
 }
