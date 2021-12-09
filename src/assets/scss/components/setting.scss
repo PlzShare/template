@@ -1,27 +1,44 @@
 .add{
     position:relative;
     width: 100%;
+    .box{
+        margin-bottom: 50px;
+        
+        .firstName {
+            font-size: 2.2rem ;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .secondName{
+            font-size: 1.7rem;
+            font-family: 'Noto Sans KR', sans-serif;
+            margin-top: 1em;
+        }
+        .nameinput{
+            width: 65%;
+            height: 45px;
+            margin-top: 1em;
+        }
+        .select{
+            width: 65% !important;
+        }
+    }
+
+    .buttons{
+        position: absolute;
+        left: 50%;
+        transform:translateX(-50%);
+        
+        Button{
+            margin: 0 13px 0 13px;
+        }
+
 }
 
-.firstName {
-    font-size: 2.2rem ;
-    font-family: 'Noto Sans KR', sans-serif;
-}
 
-.secondName{
-    font-size: 1.7rem;
-    font-family: 'Noto Sans KR', sans-serif;
-    margin-top: 1em;
-}
-.nameinput{
-    width: 65%;
-    height: 45px;
-    margin-top: 1em;
-}
 
-.Button{
-    margin-top: 8rem;
-    position: absolute;
-    left: 50%;
-    transform:translateX(-50%);
+
+
+
+
 }

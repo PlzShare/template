@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import {Form} from 'react-bootstrap';
+import axios from 'axios';
 import Sharelogo from '../../assets/images/logo2.png';
 
 export class Register extends Component {
@@ -18,37 +18,59 @@ export class Register extends Component {
 
     } 
  
-    handleSubmit = async(e)=>{
-        e.preventDefault();
-
-      // 비밀번호 확인
-        if(e.target.pwdconfirm.value == e.target.password.value){
-          e.target.password.value = e.target.pwdconfirm.value 
+      handleSubmit = async(e)=>{
+         e.preventDefault();
+          // 비밀번호 확인
+          if(e.target.pwdconfirm.value == e.target.password.value){
+            e.target.password.value = e.target.pwdconfirm.value 
+          
+              try {
+                const response = await axios.post('/users/join', {
+            
+                    id : e.target.id.value,
+                    name : e.target.name.value,
+                    nickname : e.target.nickname.value,
+                    password : e.target.password.value
+                  
+                });
+                
+              } catch(err) {
+                    console.error(err);
+                }  
         
-            try {
-              const response = await fetch('/api/users/join', {
-                method: 'post',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                  id : e.target.id.value,
-                  name : e.target.name.value,
-                  nickname : e.target.nickname.value,
-                  password : e.target.password.value
-                })
-              });
-              
-            } catch(err) {
-                  console.error(err);
-              }  
-      
-        }else{
-          alert("비밀번호가 일치하지 않습니다.")
-          return;
-        }
-    }
+          }else{
+            alert("비밀번호가 일치하지 않습니다.")
+            return;
+          }
+
+        // 비밀번호 확인
+          // if(e.target.pwdconfirm.value == e.target.password.value){
+          //   e.target.password.value = e.target.pwdconfirm.value 
+          
+          //     try {
+          //       const response = await fetch('/api/users/join', {
+          //         method: 'post',
+          //         headers: {
+          //           'Content-Type': 'application/json',
+          //           'Accept': 'application/json'
+          //         },
+          //         body: JSON.stringify({
+          //           id : e.target.id.value,
+          //           name : e.target.name.value,
+          //           nickname : e.target.nickname.value,
+          //           password : e.target.password.value
+          //         })
+          //       });
+                
+          //     } catch(err) {
+          //           console.error(err);
+          //       }  
+        
+          // }else{
+          //   alert("비밀번호가 일치하지 않습니다.")
+          //   return;
+          // }
+       }
 
   render() {
     return (
