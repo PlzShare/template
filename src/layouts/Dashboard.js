@@ -3,10 +3,12 @@ import reactFeature from '../assets/images/react-feature.svg';
 import sassFeature from '../assets/images/sass-feature.svg';
 import bootstrapFeature from '../assets/images/bootstrap-feature.svg';
 import responsiveFeature from '../assets/images/responsive-feature.svg';
-import { Card, CardBody, Row, Col, Button, Container } from 'reactstrap';
+import { Card, CardBody, Row, Col, Button, NavItem, Container } from 'reactstrap';
 import WorkspaceAdd from './WorkspaceAdd';
 import axios from 'axios';
 import '../assets/scss/components/main.scss';
+import { NavLink } from 'react-router-dom';
+
 
 const Dashboard = () => {
   const [names, setNames] = useState([]);
@@ -27,24 +29,23 @@ const Dashboard = () => {
       e.preventDefault();
 
       const deleteNo = e.target.id;
-      await axios.delete(`/workspace-users/${testUserNo}/${deleteNo}`);
+      await axios.delete(`/workspaces/workspace-users/${testUserNo}/${deleteNo}`);
 
       console.log("삭제한 워크스페이스 번호:" + deleteNo);
       setNames([...(names.filter(name => name.no != deleteNo))])
     }
   }
 
-  console.log(names)
   const workspaceLists =
     names.map((e) =>
-      <Col md={12} key={`dashboard_workspaceList_${e.no}`}>
+      <Col md={12} key={`dashboard_workspaceList_${e.no}`} >
         <div className="workspacebox">
-        <h2>{e.name}</h2>
-          <a href='none' className="in" >IN</a>
-
-          {/* <a href='none' className="out" >OUT</a> */}
-          <a href='#' className="out" id={e.no} onClick={dashBoardManagement.leave}>OUT</a>
-
+        {/* 제목 눌러도 들어갈 수 있게? */}
+        <h2>
+          <NavLink to="#" id={e.no}>{e.name}</NavLink>
+        </h2>
+          <NavLink to="#" className="in" id={e.no}>IN</NavLink>
+          <NavLink to="#" className="out" id={e.no} onClick={dashBoardManagement.leave}>OUT</NavLink>
         </div>
       </Col>
     );
