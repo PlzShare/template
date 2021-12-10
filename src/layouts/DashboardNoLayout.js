@@ -9,7 +9,6 @@ import ContextProviders from '../components/utilities/ContextProviders';
 import handleKeyAccessibility, { handleClickAccessibility } from '../helpers/handleTabAccessibility';
 import ConversationList from '../components/Messenger/ConversationList'
 import MessageList from '../components/Messenger/MessageList';
-// import ToggleSidebarButton from '../vibe/components/ToggleSidebarButton';
 const MOBILE_SIZE = 992;
 
 export default class DashboardLayout extends Component {
@@ -103,7 +102,7 @@ export default class DashboardLayout extends Component {
                 <Switch>
                   {routes.map((page, key) => (
                     <Route path={page.path} component={page.component} key={key} />
-                    ))}
+                  ))}
                   <Redirect from="/" to="/home" />
                 </Switch>
               </PageContent>
@@ -165,12 +164,6 @@ function HeaderNav() {
           </DropdownItem>
         </DropdownMenu>
       </UncontrolledDropdown>
-{/* {this.props.children} */}
-      
-      {/* <ToggleSidebarButton
-          toggleSidebar={true}
-          isSidebarCollapsed={true}
-      /> */}
     </React.Fragment>
   );
 }
