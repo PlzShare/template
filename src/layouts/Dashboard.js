@@ -37,7 +37,7 @@ const Dashboard = () => {
         <div className="workspacebox">
         <h2>{name}</h2>
           <a href='none' className="in" >IN</a>
-          <a href='none' className="in" >OUT</a>
+          <a href='none' className="out" >OUT</a>
           {/* <a href='#' className="out" id={no} onClick={dashBoardManagement.leave}>OUT</a> */}
         </div>
       </Col>
