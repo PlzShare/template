@@ -29,7 +29,7 @@ const Dashboard = () => {
       const deleteNo = e.target.id;
       await axios.delete(`/workspace-users/${testUserNo}/${deleteNo}`);
 
-      console.log(deleteNo);
+      console.log("삭제한 워크스페이스 번호:" + deleteNo);
       setNames([...(names.filter(name => name.no != deleteNo))])
     }
   }
