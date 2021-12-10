@@ -16,7 +16,7 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
     
     // console.dir(userList)
     const fetchList = async () => {
-        const response = await axios.get('/workspace-users/10/3')
+        const response = await axios.get('/workspace-users/138/23')
         response.data.data.forEach(e => {e['label'] = e.id; e['value'] = e.id})
 
         setUserList(response.data.data.filter( el => el.userNo != 3))

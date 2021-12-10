@@ -3,7 +3,7 @@ import reactFeature from '../assets/images/react-feature.svg';
 import sassFeature from '../assets/images/sass-feature.svg';
 import bootstrapFeature from '../assets/images/bootstrap-feature.svg';
 import responsiveFeature from '../assets/images/responsive-feature.svg';
-import { Card, CardBody, Row, Col, Button, NavItem, Container } from 'reactstrap';
+import { Card, CardBody, Row, Col, Button, Container } from 'reactstrap';
 import WorkspaceAdd from './WorkspaceAdd';
 import axios from 'axios';
 import '../assets/scss/components/main.scss';
@@ -53,6 +53,9 @@ const Dashboard = () => {
     return (
       <div className='workspacemain'>
         <h2>{testUserNo}번 님의 워크스페이스 목록</h2>
+        <div>
+          <input type="text" placeholder="Enter item to be searched" />
+        </div>
         <Row className='workspacemain'>
           {workspaceLists}
         </Row>
