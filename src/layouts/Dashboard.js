@@ -15,16 +15,11 @@ const Dashboard = () => {
     dashBoardManagement.list();
   }, []);
 
-  // 아무리 해도 @RequestBody 방식으로 몬하것어서
-  // 일단 이렇게 함... 야발...
   const testUserNo = 4 // 테스트 넘버
-
   const dashBoardManagement = {
     list: async () => {
-
       const response = await axios.get(`/workspaces/${testUserNo}`);
       setNames([...response.data.data]);
-
     },
 
     leave: async(e) => {
@@ -32,14 +27,13 @@ const Dashboard = () => {
       e.preventDefault();
 
       const deleteNo = e.target.id;
-      await axios.put('/workspace-users', {
-        userNo: testUserNo,
-        workspaceNo: deleteNo
-      })
+      await axios.delete(`/workspace-users/${testUserNo}/${deleteNo}`);
+
       console.log(deleteNo);
       setNames([...(names.filter(name => name.no != deleteNo))])
     }
   }
+
   console.log(names)
   const workspaceLists =
     names.map((e) =>
@@ -52,6 +46,7 @@ const Dashboard = () => {
         </div>
       </Col>
     );
+
     return (
       <div className='workspacemain'>
         <h2>{testUserNo}번 님의 워크스페이스 목록</h2>

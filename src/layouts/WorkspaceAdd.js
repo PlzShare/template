@@ -5,8 +5,6 @@ import TagsInput from '../components/TagsInput'
 import "../assets/scss/components/tag.scss"
 import axios from 'axios';
 
-
-
 // 게스트북의 WriteForm
 const WorkspaceAdd = (e) => {
     const nameInput = useRef();
@@ -17,6 +15,7 @@ const WorkspaceAdd = (e) => {
             name: nameInput.current.value,
             userNo: 4
         })
+        console.log("4번 계정에 워크스페이스 추가 성공");
     }
 
     return (
