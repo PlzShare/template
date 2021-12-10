@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import DashboardLayout from './layouts/DashboardLayout';
-
 import './assets/scss/styles.scss';
 import axios from 'axios';
 import Login from './layouts/user-pages/Login';

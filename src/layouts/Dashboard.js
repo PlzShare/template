@@ -22,7 +22,7 @@ const Dashboard = () => {
       setNames([...response.data.data]);
     },
 
-    leave: async(e) => {
+    leave: async (e) => {
       // 스크롤 이동 막기
       e.preventDefault();
 
