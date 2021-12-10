@@ -1,0 +1,75 @@
+.workspacemain{
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.workspacemain>.row{
+    margin-bottom: 3%;
+}
+
+.workspacemain>h2{
+    margin: 2% 0 4% 0;
+}
+.workspacebox{
+    background-color: #fff;
+    width: 900px;
+    height: 130px;
+    margin-left: 5%;
+    position: relative;
+    border: 1px solid #d5dce6;
+    box-shadow: inset 0 2px 0 0 #f2f5f8;
+}
+
+.workspacebox>h2{
+    position: absolute;
+    top:50%;
+    left: 2%;
+    transform: translateY(-50%)
+}
+
+.workspacebox>a{
+    text-decoration: none;
+    line-height: 49px;
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    color: #fff;
+    text-align: center;
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+    border-radius: 4px;
+}
+.workspacebox .in{
+    right: 13%;
+    background-color: #127cd8;
+}
+.workspacebox .out{
+    right: 5%;
+    border: 1px solid #d2d2d2;
+    color: #616161;
+    background: #f8f8fa;
+}
+
+.addwork{
+     width: 100%;
+     position: relative;
+}
+
+.addwork>.add{
+    width: 900px;
+    height: 50px;
+    background-color: #fff;
+    margin-left: 5%;
+}
+.addwork>.add>h4{
+    text-align: center;
+    line-height: 49px;
+}
+.workspacemain .btn{
+    width:900px;
+    height: 60px;
+    margin-left: 5%;
+    font-size: 1.3rem;
+}
+
+
+
