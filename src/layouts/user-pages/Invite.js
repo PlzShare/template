@@ -31,10 +31,18 @@ export class Invite extends Component {
                 <h2>"User3"님이  워크스페이스2에 초대하였습니다.</h2>
                 <a href='none' className="yes" >수락</a>
                 <a href='none' className="no">거절</a>
+
             </div>
           </Col>
         </Row>
-      </div>)
+
+        
+       
+            
+
+      </div>
+
+       )
       }
   }
   
