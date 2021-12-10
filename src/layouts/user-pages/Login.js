@@ -30,8 +30,8 @@ export class Login extends Component {
                     <Form.Control type="password" placeholder="Password" size="lg" className="h-auto" />
                   </Form.Group>
                   <div className="mt-3">
-                    <Link className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" to="/dashboard">SIGN IN</Link>
-                    <Link className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" to="/dashboard">JOIN</Link>
+                    <Link className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" to="/dashboard">로그인</Link>
+                    <Link className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" to="/register">회원가입</Link>
                   </div>
                 </Form>
               </div>
