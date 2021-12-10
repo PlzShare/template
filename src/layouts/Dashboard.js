@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import reactFeature from '../assets/images/react-feature.svg';
-import sassFeature from '../assets/images/sass-feature.svg';
-import bootstrapFeature from '../assets/images/bootstrap-feature.svg';
-import responsiveFeature from '../assets/images/responsive-feature.svg';
-import { Card, CardBody, Row, Col, Button, Container } from 'reactstrap';
-import WorkspaceAdd from './WorkspaceAdd';
+import { Row, Col, Button } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../assets/scss/components/main.scss';
 
@@ -13,7 +9,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     dashBoardManagement.list();
-  }, []);
+  },[]);
 
   const testUserNo = 4 // 테스트 넘버
   const dashBoardManagement = {
@@ -55,7 +51,9 @@ const Dashboard = () => {
         <Row className='workspacemain'>
           {workspaceLists}
         </Row>
-             <Button color="primary" block>새로운 워크스페이스 생성</Button>{' '}
+            <Link to="/WorkspaceAdd">
+              <Button color="primary" block>새로운 워크스페이스 생성</Button>{' '}
+            </Link>
       </div>
     );
 
