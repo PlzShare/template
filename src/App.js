@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import DashboardLayout from './layouts/DashboardLayout';
 import './assets/scss/styles.scss';
 import axios from 'axios';
+import Login from './layouts/user-pages/Login';
+import Register from './layouts/user-pages/Register';
 export default function App() {
   axios.defaults.baseURL = '/api'
   // axios
@@ -14,7 +16,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route component={DashboardLayout} />
+        <Route path='/login' component={Login}/>
+        <Route path='/register' component={Register}/>
+        <Route path='/' component={DashboardLayout} />
       </Switch>
     </BrowserRouter>
   );

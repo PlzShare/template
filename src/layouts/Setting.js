@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
+import { Link } from 'react-router-dom';
 import makeAnimated from 'react-select/animated';
 import '../assets/scss/components/setting.scss';
 import axios from 'axios';
@@ -52,10 +53,14 @@ const BlankPage = () => {
         <h1 className="secondName">💻 워크스페이스 이름</h1>
         <input className="nameinput" placeholder="변경할 워크스페이스 이름을 입력해주세요."></input>
         <h1 className="secondName">🔒 관리자 권한 변경</h1>
-        <Select options={userList} components={animatedComponents} onChange={selectBoxChange}/>
+        <div className="nameinput">
+          <Select options={userList} components={animatedComponents} onChange={selectBoxChange}/>
+        </div>
       </div>
       <div className="buttons">
-        <Button color="secondary" size="lg">취소하기</Button>
+        {/* <Link to='/home'> */}
+          <Button color="secondary" size="lg">취소하기</Button>
+        {/* </Link> */}
         <Button onClick={pushData} color="primary" size="lg">변경하기</Button>
         <Button color="danger" size="lg">삭제하기</Button>
       </div>

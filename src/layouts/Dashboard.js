@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import reactFeature from '../assets/images/react-feature.svg';
 import sassFeature from '../assets/images/sass-feature.svg';
 import bootstrapFeature from '../assets/images/bootstrap-feature.svg';
@@ -15,36 +15,43 @@ const Dashboard = () => {
     dashBoardManagement.list();
   }, []);
 
-  // 아무리 해도 @RequestBody 방식으로 몬하것어서
-  // 일단 이렇게 함... 야발...
+  const testUserNo = 4 // 테스트 넘버
   const dashBoardManagement = {
     list: async () => {
-      const testUserNo = 4 // 테스트 넘버
-      const response = await axios.get(`/workspaces/${testUserNo}`)
-      setNames(response.data.data.map(x => [x.no, x.name]));
+      const response = await axios.get(`/workspaces/${testUserNo}`);
+      setNames([...response.data.data]);
     },
 
-    // leave: async(e) => {
-    //   const response = await axios.leave(`/workspaces/${e.target.id}`)
-    //   console.dir(e.target)
-    //   setNames(names.filter(el => el.no != e.target.id))
-    // }
+    leave: async(e) => {
+      // 스크롤 이동 막기
+      e.preventDefault();
+
+      const deleteNo = e.target.id;
+      await axios.delete(`/workspace-users/${testUserNo}/${deleteNo}`);
+
+      console.log(deleteNo);
+      setNames([...(names.filter(name => name.no != deleteNo))])
+    }
   }
 
+  console.log(names)
   const workspaceLists =
-    names.map(([no, name]) =>
-      <Col md={12}>
+    names.map((e) =>
+      <Col md={12} key={`dashboard_workspaceList_${e.no}`}>
         <div className="workspacebox">
-        <h2>{name}</h2>
+        <h2>{e.name}</h2>
           <a href='none' className="in" >IN</a>
-          <a href='none' className="out" >OUT</a>
-          {/* <a href='#' className="out" id={no} onClick={dashBoardManagement.leave}>OUT</a> */}
+
+          {/* <a href='none' className="out" >OUT</a> */}
+          <a href='#' className="out" id={e.no} onClick={dashBoardManagement.leave}>OUT</a>
+
         </div>
       </Col>
     );
+
     return (
       <div className='workspacemain'>
-        <h2>에쿠쿵 님의 워크스페이스 목록</h2>
+        <h2>{testUserNo}번 님의 워크스페이스 목록</h2>
         <Row className='workspacemain'>
           {workspaceLists}
         </Row>

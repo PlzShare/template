@@ -12,18 +12,6 @@ const MemberAddComponent = ({callBackToggle, isOpen}) => {
 
     const selectedTags = tags => console.log(tags);
 
-    // useEffect(() => {
-    //     fetchList();
-    // },[]);
-    
-    // // console.dir(userList)
-    // const fetchList = async () => {
-    //     const response = await axios.get('/workspace-users/28')
-    //     response.data.data.forEach(e => {e['label'] = e.id; e['value'] = e.id})
-    //     setUserList(response.data.data)
-    //     // console.response.data.data
-    // }
-
     const pushData = () =>{
         console.log(selectdata);
         callBackToggle();
