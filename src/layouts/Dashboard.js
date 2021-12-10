@@ -16,7 +16,6 @@ const Dashboard = () => {
   }, []);
 
   // 아무리 해도 @RequestBody 방식으로 몬하것어서
-  // 일단 이렇게 함... 야발...
   const dashBoardManagement = {
     list: async () => {
       const testUserNo = 4 // 테스트 넘버
@@ -37,7 +36,7 @@ const Dashboard = () => {
         <div className="workspacebox">
         <h2>{name}</h2>
           <a href='none' className="in" >IN</a>
-          <a href='none' className="in" >OUT</a>
+          <a href='none' className="out" >OUT</a>
           {/* <a href='#' className="out" id={no} onClick={dashBoardManagement.leave}>OUT</a> */}
         </div>
       </Col>
