@@ -5,6 +5,7 @@ import './assets/scss/styles.scss';
 import axios from 'axios';
 import Login from './layouts/user-pages/Login';
 import Register from './layouts/user-pages/Register';
+import WorkList from './layouts/WorkList';
 export default function App() {
   axios.defaults.baseURL = '/api'
   // axios
@@ -15,10 +16,14 @@ export default function App() {
   // fetch('/api/workspaces/1/channels/1/documents')
   return (
     <BrowserRouter>
+      
       <Switch>
         <Route path='/login' component={Login}/>
         <Route path='/register' component={Register}/>
+
         {/* <Route path='/workspace' component={Worksp}/> */}
+        <Route path='/worklist' component={WorkList}/>
+
         <Route path='/' component={DashboardLayout} />
       </Switch>
     </BrowserRouter>
