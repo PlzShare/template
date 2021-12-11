@@ -4,11 +4,8 @@ import NavSpacer from './components/NavSpacer';
 import NavOverlay from './components/NavOverlay';
 import NavDivider from './components/NavDivider';
 import NavSingleItem from './components/NavSingleItem';
-import MemberChildren from './components/MemberChildren';
-import PageAlertContext from '../PageAlert/PageAlertContext'
-import ChannelChildren from './components/ChannelChildren';
 import NavDropdownItem from './components/NavDropdownItem';
-import WorkspaceNotiChildren from './components/WorkspaceNotiChildren';
+import PageAlertContext from '../PageAlert/PageAlertContext';
 
 export default class SidebarNav extends Component {
   constructor(props) {
@@ -23,16 +20,7 @@ export default class SidebarNav extends Component {
 
     const itemType = (item, index) => {
       if (item.children) {
-
-        if(item.type == 'channel'){
-          return <ChannelChildren key={index} item={item} isSidebarCollapsed={this.props.isSidebarCollapsed} />;
-        }else if(item.type == 'member'){
-          return <MemberChildren key={index} item={item} isSidebarCollapsed={this.props.isSidebarCollapsed} />;
-        }else if(item.type == 'workspacenoti'){
-          return <WorkspaceNotiChildren key={index} item={item} isSidebarCollapsed={this.props.isSidebarCollapsed} />;
-        }else{
-          return <NavDropdownItem key={index} item={item} isSidebarCollapsed={this.props.isSidebarCollapsed} />;
-        }
+        return <NavDropdownItem key={index} item={item} isSidebarCollapsed={this.props.isSidebarCollapsed} />;
       } else if (item.divider) {
         return <NavDivider key={index} />;
       } else {
