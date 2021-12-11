@@ -47,6 +47,7 @@ const DocumentEditor = () => {
                 <div className="document-editor__toolbar"></div>
                 <div className="document-editor__editable-container">
                     <div className="document-editor__editable">
+                        <h1>asdasd</h1>
                         <p>The initial editor data.</p>
                     </div>
                 </div>

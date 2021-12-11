@@ -15,7 +15,6 @@ export default {
       ]
     },
     {
-      type :'workspacenoti',
       name: '워크스페이스알림',
       icon: 'Bell',
       children: [
