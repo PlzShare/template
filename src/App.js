@@ -20,6 +20,9 @@ export default function App() {
       <Switch>
         <Route path='/login' component={Login}/>
         <Route path='/register' component={Register}/>
+
+        {/* <Route path='/workspace' component={Worksp}/> */}
+
         <Route path='/worklist' component={WorkList}/>
 
         <Route path='/' component={DashboardLayout} />
