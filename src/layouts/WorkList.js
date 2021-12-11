@@ -71,11 +71,14 @@ const Dashboard = () => {
             </nav>
         </header>
 
-        <h2>{testUserNo}번 님의 워크스페이스 목록</h2>
-        <Row className='workspacemain'>
-          {workspaceLists}
-        </Row>
-             <Button color="primary" block>새로운 워크스페이스 생성</Button>
+        <div className='main'>
+              <h2>{testUserNo}번 님의 워크스페이스 목록</h2>
+              <Row>
+                {workspaceLists}
+              </Row>
+                  <Button color="primary" block>새로운 워크스페이스 생성</Button>
+        </div>
+
       </div>
     );
 }
