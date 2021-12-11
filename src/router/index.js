@@ -29,7 +29,6 @@ import EditDocument from '../components/Editor/EditDocument';
 import CreateDoument from '../components/Editor/CreateDocument';
 import DocumentEditor from '../components/Editor/DocumentEditor';
 import Channel from '../components/Channel/Channel';
-
 // See React Router documentation for details: https://reacttraining.com/react-router/web/api/Route
 const pageList = [
   {

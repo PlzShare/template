@@ -21,6 +21,7 @@ export default function App() {
         <Route path='/register' component={Register}/>
 
         {/* <Route path='/workspace' component={Worksp}/> */}
+
         <Route path='/worklist' component={WorkList}/>
 
         <Route path='/' component={DashboardLayout} />
