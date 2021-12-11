@@ -4,4 +4,4 @@ const NavDivider = () => {
   return <li className="separator" />;
 };
 
-export default NavDivider;
+export default NavDivider; 
