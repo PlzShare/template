@@ -22,7 +22,7 @@ import WorkspaceMain from '../layouts/WorkspaceMain';
 import WorkspaceAdd from '../layouts/WorkspaceAdd';
 import Workspacenoti from '../layouts/user-pages/Workspacenoti'
 import Setting from '../layouts/Setting';
-import Invited from '../layouts/user-pages/Invited';
+import Invited from '../layouts/user-pages/invited';
 import Invite from '../layouts/user-pages/Invite';
 import Mypage from '../layouts/user-pages/Mypage';
 import DocumentEditor from '../components/Editor/DocumentEditor';

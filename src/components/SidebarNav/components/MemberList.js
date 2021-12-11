@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 // import Modal from "react-modal";
 import * as Feather from 'react-feather';
 import NavBadge from './NavBadge';
-import nav3 from '../../../_nav3';
 // import  '../../../assets/scss/components/modals.scss';
 
 const NavSingleItem = ({ item }) => {
@@ -35,22 +34,13 @@ const NavSingleItem = ({ item }) => {
 
     return (
       <li className="nav-item" >
-        {item.isButton ?
-          <a href='' onClick={(e) => {
-            e.preventDefault();
-            setModals(true)}}>
-            {item.getComponent(toggle, modals)}
-            {item.icon && Icon && <Icon className="side-nav-icon" />}
-            <span className="nav-item-label">{item.name}</span>
-            {item.badge && <NavBadge color={item.badge.variant} text={item.badge.text} />}
-          </a> 
-          : 
-          <NavLink to={url} activeClassName="active">
+        
+          <NavLink to={'#'} activeClassName="active">
             {item.icon && Icon && <Icon className="side-nav-icon" />}
             <span className="nav-item-label">{item.name}</span>
             {item.badge && <NavBadge color={item.badge.variant} text={item.badge.text} />}
           </NavLink>
-        }
+
       </li>
     );
   }
