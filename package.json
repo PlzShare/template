@@ -9,6 +9,7 @@
   "dependencies": {
     "@babel/core": "7.12.3",
     "@ckeditor/ckeditor5-build-decoupled-document": "^31.1.0",
+    "@ckeditor/ckeditor5-export-word": "^31.1.0",
     "@ckeditor/ckeditor5-react": "^3.0.3",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.3",
     "@svgr/webpack": "5.5.0",
