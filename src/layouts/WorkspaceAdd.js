@@ -3,7 +3,6 @@ import '../assets/scss/components/workspaceadd.scss';
 import { Button } from 'reactstrap';
 import TagsInput from '../components/TagsInput'
 import "../assets/scss/components/tag.scss"
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 // 게스트북의 WriteForm
@@ -26,13 +25,7 @@ const WorkspaceAdd = (e) => {
             <input ref={nameInput} name="name" className="nameinput" placeholder="워크스페이스 이름을 입력해주세요."></input>
             <h1 className="secondName">💻 멤버 초대</h1>
             <TagsInput selectedTags={selectedTags} />
-            <p className="Button">
-                <Link to="/dashboard">
-                    <Button color="secondary" size="lg">취소하기</Button>{'      '}
-                    <Button onClick={createWorkspace} color="primary" size="lg">생성하기</Button>
-                </Link>
-                
-            </p>
+            <p className="Button"><Button color="secondary" size="lg">취소하기</Button>{'      '}<Button onClick={createWorkspace} color="primary" size="lg">생성하기</Button></p>
         </div>
     );
 };
