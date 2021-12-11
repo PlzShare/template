@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {Form} from 'react-bootstrap';
 import { Row, Col, Button } from 'reactstrap';
 
+
 export class Invite extends Component {
     render() {
       return (
@@ -34,9 +35,15 @@ export class Invite extends Component {
             </div>
           </Col>
         </Row>
+
+        
+       
+            
+
       </div>
-      )
-    }
+
+       )
+      }
   }
   
   export default Invite
