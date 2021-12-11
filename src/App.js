@@ -16,7 +16,6 @@ export default function App() {
   // fetch('/api/workspaces/1/channels/1/documents')
   return (
     <BrowserRouter>
-      
       <Switch>
         <Route path='/login' component={Login}/>
         <Route path='/register' component={Register}/>
