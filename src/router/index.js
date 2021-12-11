@@ -22,11 +22,11 @@ import WorkspaceMain from '../layouts/WorkspaceMain';
 import WorkspaceAdd from '../layouts/WorkspaceAdd';
 import Workspacenoti from '../layouts/user-pages/Workspacenoti'
 import Setting from '../layouts/Setting';
-import Invited from '../layouts/user-pages/invited';
+import Invited from '../layouts/user-pages/Invited';
 import Invite from '../layouts/user-pages/Invite';
 import Mypage from '../layouts/user-pages/Mypage';
 import DocumentEditor from '../components/Editor/DocumentEditor';
- 
+
 // See React Router documentation for details: https://reacttraining.com/react-router/web/api/Route
 const pageList = [
   {
