@@ -91,28 +91,29 @@ export default class DashboardLayout extends Component {
               {...this.props}
             />
 
-            <Page className={`app ${sidebarCollapsedClass}`}>
-              <Header
-                toggleSidebar={this.toggleSideCollapse}
-                isSidebarCollapsed={sidebarCollapsed}
-                toggleConversationList={this.toggleConversationList}
-                conversationListCollapsed={conversationListCollapsed}
-                routes={routes}
-                {...this.props}
-              >
-                <HeaderNav />
-                {!this.state.conversationListCollapsed
+              {!this.state.conversationListCollapsed
                   &&
                   <div className=" scrollable sidebar sidebar-right " >
                     <ConversationList callBackOnClickListItem={this.enterChatRoom} callBackCollapseConversationList={() => { this.setState({ conversationListCollapsed: true }) }} />
-                  </div>}
-                {
-                  !this.state.chatRoomCollapsed
+                  </div>
+              }
+              {!this.state.chatRoomCollapsed
                   &&
                   <div className="scrollable sidebar sidebar-right">
                     <MessageList callBackOnClickExit={this.exitChatRoom} />
                   </div>
-                }
+              }
+            <Page>
+              <Header
+                isSidebarCollapsed={sidebarCollapsed}
+                toggleConversationList={this.toggleConversationList}
+                conversationListCollapsed={conversationListCollapsed}
+                toggleSidebar={this.toggleSideCollapse}
+                routes={routes}
+                {...this.props}
+              >
+               
+                <HeaderNav />
               </Header>
               <PageContent>
                 <Switch>
@@ -123,10 +124,9 @@ export default class DashboardLayout extends Component {
                 </Switch>
               </PageContent>
             </Page>
-
-
           </div>
-          <Footer>
+
+          {/* <Footer>
             <span>Copyright © 2019 Nice Dash. All rights reserved.</span>
             <span>
               <a href="#!">Terms</a> | <a href="#!">Privacy Policy</a>
@@ -137,7 +137,7 @@ export default class DashboardLayout extends Component {
                 🌮
               </span>
             </span>
-          </Footer>
+          </Footer> */}
 
         </div>
       </ContextProviders>

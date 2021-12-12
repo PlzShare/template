@@ -11,7 +11,8 @@
   width: 100%;
   position: relative;
   margin-left: $sidebarWidth;
-  margin-right: 25vw;
+  // margin-right: 25vw;
+ 
   &.has-alert {
     margin-top: 48px;
   }
@@ -58,7 +59,6 @@
   .side-menu-collapsed {
     #page-content {
       margin-left: 50px;
-      
     }
   }
  
