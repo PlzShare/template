@@ -7,7 +7,7 @@ const DocumentComponent = ({callBackToggle, isOpen}) => {
         <Modal isOpen={isOpen} toggle={callBackToggle}>
                 <ModalHeader toggle={callBackToggle}>문서 에디터</ModalHeader>
                 <ModalBody>
-                    
+              
                 </ModalBody>
                 <ModalFooter>
                   <Button color="primary" onClick={callBackToggle}>생성하기</Button>{' '}

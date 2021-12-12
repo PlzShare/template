@@ -1,3 +1,6 @@
+
+// import ChannelComponent from './components/SidebarNav/components/ChannelComponent';
+// import DocumantComponent from './components/SidebarNav/components/DocumentComponent';
 import ChannelComponent from './components/SidebarNav/components/ChannelComponent';
 import MemberAddComponent from './components/SidebarNav/components/MemberAddComponent';
 
@@ -47,6 +50,6 @@ export default {
     }
   ],
   bottom: [
-    
+
   ],
 };
