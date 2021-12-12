@@ -13,7 +13,7 @@ const Mypage = () => {
     // user 가져오기
     const fetchUserInfo = async () => {
         try {
-            const response = await axios.get('/users/24')
+            const response = await axios.get('/users/26')
 
             setUser(response.data.data)
 
@@ -40,7 +40,7 @@ const Mypage = () => {
                 formData.append('nickname', refNickname.current.value)
 
                 // Post
-                const response = await axios.put(`/users/24`, formData, {
+                const response = await axios.put(`/users/26`, formData, {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
 
@@ -99,7 +99,6 @@ const Mypage = () => {
                             onSubmit={handleSubmit}
                             ref={refForm}
                         >
-                            {/* <img src={user.profile} ></img>  */}
                             <span style={{
                                 backgroundImage: `url(${user.profile})`
                             }} />
@@ -110,7 +109,6 @@ const Mypage = () => {
                                 onChange={hadleImageFile} />
                         </form>
                     </div>
-
                 </div>
 
                 <div className="box_right">

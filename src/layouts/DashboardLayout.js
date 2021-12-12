@@ -91,7 +91,7 @@ export default class DashboardLayout extends Component {
               {...this.props}
             />
 
-            <Page>
+            <Page className={`app ${sidebarCollapsedClass}`}>
               <Header
                 toggleSidebar={this.toggleSideCollapse}
                 isSidebarCollapsed={sidebarCollapsed}

@@ -11,7 +11,7 @@
   width: 100%;
   position: relative;
   margin-left: $sidebarWidth;
-
+  margin-right: 25vw;
   &.has-alert {
     margin-top: 48px;
   }
@@ -54,12 +54,14 @@
 // Responsive
 
 //collapsed side menu
-@media screen and (min-width: $breakPointSm) {
+@media screen and (min-width: $breakPointSm) { 
   .side-menu-collapsed {
     #page-content {
       margin-left: 50px;
+      
     }
   }
+ 
 }
 @media screen and (max-width: $breakPointSm) {
   #page-content {
