@@ -25,8 +25,10 @@ import Setting from '../layouts/Setting';
 import Invited from '../layouts/user-pages/Invited';
 import Invite from '../layouts/user-pages/Invite';
 import Mypage from '../layouts/user-pages/Mypage';
+import EditDocument from '../components/Editor/EditDocument';
+import CreateDoument from '../components/Editor/CreateDocument';
 import DocumentEditor from '../components/Editor/DocumentEditor';
- 
+import Channel from '../components/Channel/Channel';
 // See React Router documentation for details: https://reacttraining.com/react-router/web/api/Route
 const pageList = [
   {
@@ -143,8 +145,8 @@ const pageList = [
   },
   {
     name: '채널',
-    path: '/channel',
-    component: BlankPage,
+    path: '/channel/:no',
+    component: Channel,
   },
   {
     name: '멤버',
@@ -189,10 +191,20 @@ const pageList = [
     component: ErrorPage,
   },
   {
+    name: 'create-document',
+    path: '/create-document',
+    component: CreateDoument
+  },
+  {
     name: 'edit-document',
     path: '/edit-document',
+    component: EditDocument
+  },
+  {
+    name: 'test-document',
+    path: '/test-document',
     component: DocumentEditor
-  }
+  },
 
 ];
 

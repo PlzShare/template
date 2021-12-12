@@ -1,6 +1,5 @@
-
-// import ChannelComponent from './components/SidebarNav/components/ChannelComponent';
-// import DocumantComponent from './components/SidebarNav/components/DocumentComponent';
+import ChannelComponent from './components/SidebarNav/components/ChannelComponent';
+import DocumantComponent from './components/SidebarNav/components/DocumentComponent';
 import MemberAddComponent from './components/SidebarNav/components/MemberAddComponent';
 
 export default {
@@ -13,35 +12,22 @@ export default {
     {
       name: '환경설정',
       icon: 'Settings',
-      url: '/set'
+      url: '/set',
     },
     {
+      type : 'channel',
+      name: '채널',
+      icon: 'Folder',
+      children: [
+
+      ],
+    },
+    {
+      type : 'member',
       name: '멤버목록',
       icon: 'Users',
       children: [
-        {
-          name: '용수',
-          url: '/member',
-        },
-        {
-          name: '대겸',
-          url: '/member',
-        },
-        {
-          name: '다슬',
-          url: '/member',
-        },
-        {
-          name: '승현',
-          url: '/member',
-        },
-        {
-          name: '멤버초대',
-          icon: 'Plus',
-          url: '/memberplus',
-          isButton: true,
-          getComponent: (toggle, isOpen) => <MemberAddComponent callBackToggle={toggle} isOpen={isOpen}/>,
-        },
+        
 
       ],
     },
@@ -59,7 +45,14 @@ export default {
     //   isButton : true,
     //   getComponent: (toggle, isOpen) => <DocumantComponent callBackToggle={toggle} isOpen={isOpen}/>,
 
-    // },
+    //},
+    {
+      name: '멤버초대',
+      icon: 'UserPlus',
+      url: '/memberplus',
+      isButton: true,
+      getComponent: (toggle, isOpen) => <MemberAddComponent callBackToggle={toggle} isOpen={isOpen}/>,
+    }
   ],
   bottom: [
 

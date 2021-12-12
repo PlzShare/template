@@ -6,7 +6,12 @@ import NavDivider from './components/NavDivider';
 import NavSingleItem from './components/NavSingleItem';
 import NavDropdownItem from './components/NavDropdownItem';
 import PageAlertContext from '../PageAlert/PageAlertContext';
+
 import navlogo from '../../assets/images/logo1.png';
+import MemberChildren from './components/MemberChildren';
+import WorkspaceNotiChildren from './components/WorkspaceNotiChildren';
+import ChannelChildren from './components/ChannelChildren';
+
 
 export default class SidebarNav extends Component {
   constructor(props) {
@@ -21,7 +26,15 @@ export default class SidebarNav extends Component {
 
     const itemType = (item, index) => {
       if (item.children) {
-        return <NavDropdownItem key={index} item={item} isSidebarCollapsed={this.props.isSidebarCollapsed} />;
+        if(item.type == 'channel'){
+          return <ChannelChildren key={index} item={item} isSidebarCollapsed={this.props.isSidebarCollapsed} />;
+        }else if(item.type == 'member'){
+          return <MemberChildren key={index} item={item} isSidebarCollapsed={this.props.isSidebarCollapsed} />;
+        }else if(item.type == 'workspacenoti'){
+          return <WorkspaceNotiChildren key={index} item={item} isSidebarCollapsed={this.props.isSidebarCollapsed} />;
+        }else{
+          return <NavDropdownItem key={index} item={item} isSidebarCollapsed={this.props.isSidebarCollapsed} />;
+        }
       } else if (item.divider) {
         return <NavDivider key={index} />;
       } else {

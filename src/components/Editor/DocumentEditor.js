@@ -1,12 +1,28 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document/build/ckeditor';
 // import ExportWord from '@ckeditor/ckeditor5-export-pdf/src/exportword';
 import axios from 'axios'
 
-const DocumentEditor = () => {
-    const createEditor = () => {
-        DecoupledEditor
-        .create( document.querySelector( '.document-editor__editable' ))
+const DocumentEditor = ({initDocumentData, callBackOnChange}) => {
+    initDocumentData && window.editor && window.editor.setData(initDocumentData.contents)
+  
+
+    const createEditor = async () => {
+        const editor = await DecoupledEditor.create( document.querySelector( '.document-editor__editable' ))
+        console.log(editor)
+        const toolbarContainer = document.querySelector( '.document-editor__toolbar' );
+        toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+        
+        console.log(callBackOnChange)
+        if(callBackOnChange){
+            editor.model.document.on('change:data', (e) =>{
+                console.dir(e)
+            })
+        }
+        
+        window['editor'] = editor;
+        
+        // DecoupledEditor.create( document.querySelector( '.document-editor__editable' ))
         // plugins: [ExportWord],
         // toolbar: ['exportWord'],
         // exportWord: {
@@ -19,36 +35,28 @@ const DocumentEditor = () => {
         // cloudServices: {
         //     '
         // }
-        .then( editor => {
-            const toolbarContainer = document.querySelector( '.document-editor__toolbar' );
-            toolbarContainer.appendChild( editor.ui.view.toolbar.element );
-            window['editor'] = editor;
-        } )
-        .catch( err => {
-            console.error( err );
-        } );
+        // .then( editor => {
+        //     const toolbarContainer = document.querySelector( '.document-editor__toolbar' );
+        //     toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+        //     window['editor'] = editor;
+        // } )
+        // .catch( err => {
+        //         console.error( err );
+        //     } );
+        console.log('crated editor')
     }
-    useEffect(createEditor, [])
+    console.log('=======================================================================')
+    useEffect(() => {
+        createEditor()
+    }, [])
 
-    const save = () => {
-        const testUrl = '/workspaces/1/channels/10/documents'
-        axios.post(testUrl,{
-            title:'test Title',
-            contents:window.editor.getData(),
-            channelNo: 10
-        })
-        console.log(window.editor.getData())        
-    }
 
     return (
         <Fragment>
-            <button className='btn-primary' onClick={save}>저장</button>
             <div className="document-editor">
                 <div className="document-editor__toolbar"></div>
                 <div className="document-editor__editable-container">
                     <div className="document-editor__editable">
-                        <h1>asdasd</h1>
-                        <p>The initial editor data.</p>
                     </div>
                 </div>
             </div>
