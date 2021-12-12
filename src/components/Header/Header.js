@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ToggleSidebarButton from './components/ToggleSidebarButton';
+import ToggleSidebarButtonRight from './components/ToggleSidebarButtonRight';
 import PageLoader from '../PageLoader/PageLoader';
 
 import { Navbar, Collapse, Nav } from 'reactstrap';
@@ -20,6 +21,11 @@ export default class Header extends Component {
       isOpen: !prevState.isOpen,
     }));
   };
+
+  click=() =>{
+
+  }
+
 
   getPageTitle = () => {
     let name;
@@ -56,10 +62,11 @@ export default class Header extends Component {
               </Nav>
             </Collapse>
             
-            <ToggleSidebarButton
+            <ToggleSidebarButtonRight
               toggleSidebar={this.props.toggleConversationList}
               isSidebarCollapsed={this.props.conversationListCollapsed}
               icon='comments'
+              onClick={this.click()}
             />
             <PageLoader />
           </Navbar>
