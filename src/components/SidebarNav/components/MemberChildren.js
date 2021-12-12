@@ -19,7 +19,7 @@ export default function NavDropdownItem(props) {
   };
 
   const fetchList = async () => {
-    const response = await axios.get('/workspace-users/138/23')
+    const response = await axios.get('/workspaces/workspace-users/138/23')
     response.data.data.forEach((user) => {user.url = `/member/${user.userNo}`; user.name=user.nickname;});
     setList(response.data.data)
     console.log(list , "하하하하하하하하하하");

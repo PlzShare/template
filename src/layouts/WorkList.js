@@ -32,20 +32,22 @@ const Dashboard = () => {
       setNames([...(names.filter(name => name.no != deleteNo))])
     }
   }
-
+  const outHandler = () => {
+    console.log('out!!!!!!!!!!')
+  }
 
   const workspaceLists =
     names.map((e) =>
-    <Col className="list" md={12} key={`dashboard_workspaceList_${e.no}`} >
-    <div className="workspacebox">
-      {/* 제목 눌러도 들어갈 수 있게? */}
-      <h2>
-        <NavLink to="#" id={e.no}>{e.name}</NavLink>
-      </h2>
-      <NavLink to="#" className="in" id={e.no}>IN</NavLink>
-      <NavLink to="#" className="out" id={e.no} onClick={dashBoardManagement.leave}>OUT</NavLink>
-    </div>
-  </Col>
+      <Col className="list" md={12} key={`dashboard_workspaceList_${e.no}`} >
+        <div className="workspacebox">
+          {/* 제목 눌러도 들어갈 수 있게? */}
+          <h3 className='workspace-title'>
+            <span to='' id={e.no}>{e.name}</span>
+          </h3>
+          <NavLink to={`/workspacemain/${e.no}`} className="in" id={e.no}>IN</NavLink>
+          <NavLink to="#" className="out" id={e.no} onClick={dashBoardManagement.leave}>OUT</NavLink>
+        </div>
+      </Col>
     );
 
   return (

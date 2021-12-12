@@ -53,7 +53,7 @@ const pageList = [
   },
   {
     name : '워크스페이스1',
-    path : '/workspacemain',
+    path : '/workspacemain/:no',
     component: WorkspaceMain
   },
   {

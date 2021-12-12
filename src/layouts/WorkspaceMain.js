@@ -1,20 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FontAwesomeIcon from 'react-fontawesome';
 import ChannelComponent from '../components/SidebarNav/components/ChannelComponent';
 import DocumantComponent from '../components/SidebarNav/components/DocumentComponent';
 import '../assets/scss/components/workspacemain.scss';
 import { Col, Row } from 'reactstrap';
+import { Folder } from 'react-feather';
+import axios from 'axios';
 
-const BlankPage = () => {
+const BlankPage = ({match}) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenFile, setIsOpenFile] = useState(false)
+  const [channelList, setChannelList] = useState([])
+  const [documentList, setDocumentList] = useState([])
+
+  const workspaceNo = match.params.no
   const toggle = () => {
     setIsOpen(!isOpen)
   }
-  const [isOpenFile, setIsOpenFile] = useState(false)
   const toggleFile = () => {
     setIsOpen(!isOpenFile)
   }
   const size=3
+
+  const fetchChannels = async () => {
+    const response = await axios.get(`/workspaces/${workspaceNo}/channels`)
+    setChannelList(response.data.data)
+    console.log(response.data.data)
+  }
+  const fetchDocument = async () => {
+    
+  }
+  useEffect(() => {
+    fetchChannels()
+    fetchDocument()
+  },[])
   
   return (
     <div className='workspacemain'>
@@ -31,69 +50,20 @@ const BlankPage = () => {
           </span>
   
         </div>
-        <ChannelComponent callBackToggle={toggle} isOpen={isOpen}/>
+        <ChannelComponent callBackToggle={toggle} isOpen={isOpen} workspaceNo={workspaceNo}/>
         <DocumantComponent callBackToggle={toggleFile} isOpen={isOpenFile}/>
 
           <Row>
-              <Col md={size}>
-                <div className='folder'>
-                  <div className='boxtop'></div>
-                  <div className='boxbody'>
-                    <p> 채널 1</p>
+              {channelList.map((channel) => 
+                <Col md={size} key={channel.no}>
+                  <div className='folder'>
+                    <div className='boxtop'></div>
+                    <div className='boxbody'>
+                      <p>{channel.name}</p>
+                    </div>
                   </div>
-                </div>
-              </Col>
-              <Col md={size}>
-                <div className='folder'>
-                  <div className='boxtop'></div>
-                  <div className='boxbody'>
-                    <p> 채널 1</p>
-                  </div>
-                </div>
-              </Col>
-              <Col md={size}>
-                <div className='folder'>
-                  <div className='boxtop'></div>
-                  <div className='boxbody'>
-                    <p> 채널 1</p>
-                  </div>
-                </div>
-              </Col>
-              <Col md={size}>
-                <div className='folder'>
-                  <div className='boxtop'></div>
-                  <div className='boxbody'>
-                    <p> 채널 1</p>
-                  </div>
-                </div>
-              </Col>
-              <Col md={size}>
-                <div className='folder'>
-                  <div className='boxtop'></div>
-                  <div className='boxbody'>
-                    <p> 채널 1</p>
-                  </div>
-                </div>
-              </Col>
-              <Col md={size}>
-                <div className='folder'>
-                  <div className='boxtop'></div>
-                  <div className='boxbody'>
-                    <p> 채널 1</p>
-                  </div>
-                </div>
-              </Col>
-              <Col md={size}>
-                <div className='folder'>
-                  <div className='boxtop'></div>
-                  <div className='boxbody'>
-                    <p> 채널 1</p>
-                  </div>
-                </div>
-              </Col>
-              
-            
-             
+                </Col>
+              )}
             </Row>
             <Row>
               <Col xl={size}>
