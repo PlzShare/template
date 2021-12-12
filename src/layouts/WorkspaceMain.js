@@ -3,6 +3,7 @@ import FontAwesomeIcon from 'react-fontawesome';
 import ChannelComponent from '../components/SidebarNav/components/ChannelComponent';
 import DocumantComponent from '../components/SidebarNav/components/DocumentComponent';
 import '../assets/scss/components/workspacemain.scss';
+import { Col, Row } from 'reactstrap';
 
 const BlankPage = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -13,6 +14,8 @@ const BlankPage = () => {
   const toggleFile = () => {
     setIsOpen(!isOpenFile)
   }
+  const size=3
+  
   return (
     <div className='workspacemain'>
         <div className='adds'>
@@ -31,18 +34,127 @@ const BlankPage = () => {
         <ChannelComponent callBackToggle={toggle} isOpen={isOpen}/>
         <DocumantComponent callBackToggle={toggleFile} isOpen={isOpenFile}/>
 
-        <div className='folder'>
-                <div className='boxtop'></div>
-                <div className='boxbody'>
+          <Row>
+              <Col md={size}>
+                <div className='folder'>
+                  <div className='boxtop'></div>
+                  <div className='boxbody'>
                     <p> 채널 1</p>
+                  </div>
                 </div>
-        </div>
-        <div className='folder'>
-            <div className='documentbody'>
-            <div className='triangle'></div>
-                    <p> 문서</p>
-             </div>
-        </div>
+              </Col>
+              <Col md={size}>
+                <div className='folder'>
+                  <div className='boxtop'></div>
+                  <div className='boxbody'>
+                    <p> 채널 1</p>
+                  </div>
+                </div>
+              </Col>
+              <Col md={size}>
+                <div className='folder'>
+                  <div className='boxtop'></div>
+                  <div className='boxbody'>
+                    <p> 채널 1</p>
+                  </div>
+                </div>
+              </Col>
+              <Col md={size}>
+                <div className='folder'>
+                  <div className='boxtop'></div>
+                  <div className='boxbody'>
+                    <p> 채널 1</p>
+                  </div>
+                </div>
+              </Col>
+              <Col md={size}>
+                <div className='folder'>
+                  <div className='boxtop'></div>
+                  <div className='boxbody'>
+                    <p> 채널 1</p>
+                  </div>
+                </div>
+              </Col>
+              <Col md={size}>
+                <div className='folder'>
+                  <div className='boxtop'></div>
+                  <div className='boxbody'>
+                    <p> 채널 1</p>
+                  </div>
+                </div>
+              </Col>
+              <Col md={size}>
+                <div className='folder'>
+                  <div className='boxtop'></div>
+                  <div className='boxbody'>
+                    <p> 채널 1</p>
+                  </div>
+                </div>
+              </Col>
+              
+            
+             
+            </Row>
+            <Row>
+              <Col xl={size}>
+                  <div className='document'>
+                    <div className='documentbody'>
+                      <div className='triangle'></div>
+                      <p> 문서</p>
+                    </div>
+                  </div>
+              </Col>
+              <Col xl={size}>
+                  <div className='document'>
+                    <div className='documentbody'>
+                      <div className='triangle'></div>
+                      <p> 문서</p>
+                    </div>
+                  </div>
+              </Col>
+              <Col xl={size}>
+                  <div className='document'>
+                    <div className='documentbody'>
+                      <div className='triangle'></div>
+                      <p> 문서</p>
+                    </div>
+                  </div>
+              </Col>
+              <Col xl={size}>
+                  <div className='document'>
+                    <div className='documentbody'>
+                      <div className='triangle'></div>
+                      <p> 문서</p>
+                    </div>
+                  </div>
+              </Col>
+              <Col xl={size}>
+                  <div className='document'>
+                    <div className='documentbody'>
+                      <div className='triangle'></div>
+                      <p> 문서</p>
+                    </div>
+                  </div>
+              </Col>
+              <Col xl={size}>
+                  <div className='document'>
+                    <div className='documentbody'>
+                      <div className='triangle'></div>
+                      <p> 문서</p>
+                    </div>
+                  </div>
+              </Col>
+              <Col xl={size}>
+                  <div className='document'>
+                    <div className='documentbody'>
+                      <div className='triangle'></div>
+                      <p> 문서</p>
+                    </div>
+                  </div>
+              </Col>
+             
+           
+          </Row>
     </div>
   );
 };
