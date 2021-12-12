@@ -1,3 +1,7 @@
+
+// import ChannelComponent from './components/SidebarNav/components/ChannelComponent';
+// import DocumantComponent from './components/SidebarNav/components/DocumentComponent';
+import MemberAddComponent from './components/SidebarNav/components/MemberAddComponent';
 export default {
   top: [
     {
@@ -11,70 +15,70 @@ export default {
       url: '/set',
     },
     {
+      name: '채널',
+      icon: 'Folder',
+      children: [
+        {
+          name: '채널1',
+          url: '/channel',
+        },
+        {
+          name: '채널2',
+          url: '/channel',
+        },
+        {
+          name: '채널3',
+          url: '/channel',
+        },
+      ],
+    },
+    {
       name: '멤버목록',
       icon: 'Users',
       children: [
         {
           name: '용수',
-          url: '.',
+          url: '/member',
         },
         {
           name: '대겸',
-          url: '.',
+          url: '/member',
         },
         {
           name: '다슬',
-          url: '.',
+          url: '/member',
         },
         {
           name: '승현',
-          url: '.',
+          url: '/member',
         },
         {
           name: '멤버초대',
           icon: 'Plus',
           url: '/memberplus',
           isButton: true,
-          ModalHeader: '멤버 초대',
-          ModalBody1: <div>
-                          <h5>🔹 초대할 멤버 아이디</h5>
-                          <input className="memberModalInput" placeholder="ID"></input>
-                      </div>,
-          ok: '초대하기',
-          cancel: '취소하기'
+          getComponent: (toggle, isOpen) => <MemberAddComponent callBackToggle={toggle} isOpen={isOpen}/>,
         },
 
       ],
     },
-    {
-      name: '채널추가',
-      icon: 'FolderPlus',
-      url: '',
-      isButton : true,
-      ModalHeader: '채널 생성',
-      ModalBody1: <div>
-                      <h5>🔹 채널이름</h5>
-                      <input className="channelModalInput" placeholder="채널 이름을 입력해주세요"></input>
-                      <div/>
-                      <h5>🔹 채널설명</h5>
-                      <input className="channelModalInput" placeholder="채널 설명을 입력해주세요"></input>
-                  </div>,
-      ok: '생성하기',
-      cancel: '취소하기'
-    },
-    {
-      name: '문서추가',
-      icon: 'FilePlus',
-      url: '',
-      isButton : true,
-      ModalHeader: '문서 에디터',
-      ModalBody: '문서 에디터 넣어야함',
-      ok: '생성하기',
-      cancel: '취소하기'
+    // {
+    //   name: '채널추가',
+    //   icon: 'FolderPlus',
+    //   url: 'ddd',
+    //   isButton : true,
+    //   getComponent: (toggle, isOpen) => <ChannelComponent callBackToggle={toggle} isOpen={isOpen}/>,
+    // },
+    // {
+    //   name: '문서추가',
+    //   icon: 'FilePlus',
+    //   url: 'ddd',
+    //   isButton : true,
+    //   getComponent: (toggle, isOpen) => <DocumantComponent callBackToggle={toggle} isOpen={isOpen}/>,
 
-    },
+    // },
   ],
   bottom: [
-    
+
   ],
 };

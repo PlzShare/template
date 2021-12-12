@@ -1,6 +1,6 @@
-import { Fragment } from 'react';
-import ChannelComponent from './components/SidebarNav/components/ChannelComponent';
-import DocumantComponent from './components/SidebarNav/components/DocumentComponent';
+
+// import ChannelComponent from './components/SidebarNav/components/ChannelComponent';
+// import DocumantComponent from './components/SidebarNav/components/DocumentComponent';
 import MemberAddComponent from './components/SidebarNav/components/MemberAddComponent';
 
 export default {
@@ -13,25 +13,7 @@ export default {
     {
       name: '환경설정',
       icon: 'Settings',
-      url: '/set',
-    },
-    {
-      name: '채널',
-      icon: 'Folder',
-      children: [
-        {
-          name: '채널1',
-          url: '/channel',
-        },
-        {
-          name: '채널2',
-          url: '/channel',
-        },
-        {
-          name: '채널3',
-          url: '/channel',
-        },
-      ],
+      url: '/set'
     },
     {
       name: '멤버목록',
@@ -63,21 +45,21 @@ export default {
 
       ],
     },
-    {
-      name: '채널추가',
-      icon: 'FolderPlus',
-      url: 'ddd',
-      isButton : true,
-      getComponent: (toggle, isOpen) => <ChannelComponent callBackToggle={toggle} isOpen={isOpen}/>,
-    },
-    {
-      name: '문서추가',
-      icon: 'FilePlus',
-      url: 'ddd',
-      isButton : true,
-      getComponent: (toggle, isOpen) => <DocumantComponent callBackToggle={toggle} isOpen={isOpen}/>,
+    // {
+    //   name: '채널추가',
+    //   icon: 'FolderPlus',
+    //   url: 'ddd',
+    //   isButton : true,
+    //   getComponent: (toggle, isOpen) => <ChannelComponent callBackToggle={toggle} isOpen={isOpen}/>,
+    // },
+    // {
+    //   name: '문서추가',
+    //   icon: 'FilePlus',
+    //   url: 'ddd',
+    //   isButton : true,
+    //   getComponent: (toggle, isOpen) => <DocumantComponent callBackToggle={toggle} isOpen={isOpen}/>,
 
-    },
+    // },
   ],
   bottom: [
 
