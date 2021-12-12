@@ -63,6 +63,7 @@ export default class DashboardLayout extends Component {
     console.log('toggle')
     this.setState(prevState => ({ conversationListCollapsed: !prevState.conversationListCollapsed }))
   }
+  
   enterChatRoom = () => {
     console.log('chatroom')
     this.setState({ conversationListCollapsed: true })
@@ -77,9 +78,10 @@ export default class DashboardLayout extends Component {
   render() {
     const { sidebarCollapsed, conversationListCollapsed } = this.state;
     const sidebarCollapsedClass = sidebarCollapsed ? 'side-menu-collapsed' : '';
+    const chatRoomCollapsed = this.state.conversationListCollapsed == false || this.state.chatRoomCollapsed == false ? 'side-menu-right' : '';
     return (
       <ContextProviders>
-        <div className={`app ${sidebarCollapsedClass}`}>
+        <div className={`app ${sidebarCollapsedClass} ${chatRoomCollapsed}`}>
           <PageAlert />
           <div className="app-body">
             <SidebarNav
@@ -90,29 +92,30 @@ export default class DashboardLayout extends Component {
               toggleSidebar={this.toggleSideCollapse}
               {...this.props}
             />
+            {!this.state.conversationListCollapsed
+              &&
+              <div className=" scrollable sidebar sidebar-right " >
+                <ConversationList callBackOnClickListItem={this.enterChatRoom} callBackCollapseConversationList={() => { this.setState({ conversationListCollapsed: true }) }} />
+              </div>
+            }
+            {!this.state.chatRoomCollapsed
+              &&
+              <div className="scrollable sidebar sidebar-right">
+                <MessageList callBackOnClickExit={this.exitChatRoom} />
+              </div>
+            }
 
-            <Page className={`app ${sidebarCollapsedClass}`}>
+            <Page>
               <Header
-                toggleSidebar={this.toggleSideCollapse}
                 isSidebarCollapsed={sidebarCollapsed}
                 toggleConversationList={this.toggleConversationList}
                 conversationListCollapsed={conversationListCollapsed}
+                toggleSidebar={this.toggleSideCollapse}
                 routes={routes}
                 {...this.props}
               >
+
                 <HeaderNav />
-                {!this.state.conversationListCollapsed
-                  &&
-                  <div className=" scrollable sidebar sidebar-right " >
-                    <ConversationList callBackOnClickListItem={this.enterChatRoom} callBackCollapseConversationList={() => { this.setState({ conversationListCollapsed: true }) }} />
-                  </div>}
-                {
-                  !this.state.chatRoomCollapsed
-                  &&
-                  <div className="scrollable sidebar sidebar-right">
-                    <MessageList callBackOnClickExit={this.exitChatRoom} />
-                  </div>
-                }
               </Header>
               <PageContent>
                 <Switch>
@@ -123,10 +126,9 @@ export default class DashboardLayout extends Component {
                 </Switch>
               </PageContent>
             </Page>
-
-
           </div>
-          <Footer>
+
+          {/* <Footer>
             <span>Copyright © 2019 Nice Dash. All rights reserved.</span>
             <span>
               <a href="#!">Terms</a> | <a href="#!">Privacy Policy</a>
@@ -137,7 +139,7 @@ export default class DashboardLayout extends Component {
                 🌮
               </span>
             </span>
-          </Footer>
+          </Footer> */}
 
         </div>
       </ContextProviders>
