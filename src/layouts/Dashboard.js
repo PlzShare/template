@@ -3,6 +3,7 @@ import { Row, Col, Button } from 'reactstrap';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import '../assets/scss/components/main.scss';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const [names, setNames] = useState([]);
@@ -50,8 +51,10 @@ const Dashboard = () => {
       <Row>
         {workspaceLists}
       </Row>
-      <Button color="primary" block>새로운 워크스페이스 생성</Button>{' '}
-    </div>
+      <Link to="/WorkspaceAdd">
+              <Button color="primary" block>새로운 워크스페이스 생성</Button>{' '}
+            </Link>    
+      </div>
   );
 
 }
