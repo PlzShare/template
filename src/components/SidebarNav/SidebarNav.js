@@ -18,7 +18,7 @@ export default class SidebarNav extends Component {
     super(props);
     this.state = {};
   }
-
+ 
   render() {
     const navItems = items => {
       return items.map((item, index) => itemType(item, index));
