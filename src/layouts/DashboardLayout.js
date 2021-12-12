@@ -3,7 +3,10 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { Button, Badge, NavItem, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Header, SidebarNav, Footer, PageContent, PageAlert, Page } from '../components';
 import Logo from '../assets/images/vibe-logo.svg';
-import nav from '../_nav3';
+import nav from '../_nav';    // 채널scrollable sidebar sidebar-right
+// import nav from '../_nav2';   // 알림
+// import nav from '../_nav3';     // 워크스페이스
+
 import routes from '../router';
 import ContextProviders from '../components/utilities/ContextProviders';
 import handleKeyAccessibility, { handleClickAccessibility } from '../helpers/handleTabAccessibility';
@@ -18,7 +21,7 @@ export default class DashboardLayout extends Component {
     this.state = {
       sidebarCollapsed: false,
       conversationListCollapsed: true,
-      chatRoomCollapsed : true,
+      chatRoomCollapsed: true,
       isMobile: window.innerWidth <= MOBILE_SIZE,
       showChat1: true,
     };
@@ -58,17 +61,17 @@ export default class DashboardLayout extends Component {
 
   toggleConversationList = () => {
     console.log('toggle')
-    this.setState(prevState => ({conversationListCollapsed : !prevState.conversationListCollapsed}))
+    this.setState(prevState => ({ conversationListCollapsed: !prevState.conversationListCollapsed }))
   }
   enterChatRoom = () => {
     console.log('chatroom')
-    this.setState({conversationListCollapsed: true})
-    this.setState({chatRoomCollapsed : false})
+    this.setState({ conversationListCollapsed: true })
+    this.setState({ chatRoomCollapsed: false })
   }
   exitChatRoom = () => {
     console.log('exit')
-    this.setState({conversationListCollapsed: false})
-    this.setState({chatRoomCollapsed : true})  
+    this.setState({ conversationListCollapsed: false })
+    this.setState({ chatRoomCollapsed: true })
   }
 
   render() {
@@ -87,8 +90,8 @@ export default class DashboardLayout extends Component {
               toggleSidebar={this.toggleSideCollapse}
               {...this.props}
             />
-            
-            <Page>
+
+            <Page className={`app ${sidebarCollapsedClass}`}>
               <Header
                 toggleSidebar={this.toggleSideCollapse}
                 isSidebarCollapsed={sidebarCollapsed}
@@ -98,29 +101,30 @@ export default class DashboardLayout extends Component {
                 {...this.props}
               >
                 <HeaderNav />
+                {!this.state.conversationListCollapsed
+                  &&
+                  <div className=" scrollable sidebar sidebar-right " >
+                    <ConversationList callBackOnClickListItem={this.enterChatRoom} callBackCollapseConversationList={() => { this.setState({ conversationListCollapsed: true }) }} />
+                  </div>}
+                {
+                  !this.state.chatRoomCollapsed
+                  &&
+                  <div className="scrollable sidebar sidebar-right">
+                    <MessageList callBackOnClickExit={this.exitChatRoom} />
+                  </div>
+                }
               </Header>
               <PageContent>
                 <Switch>
                   {routes.map((page, key) => (
                     <Route path={page.path} component={page.component} key={key} />
-                    ))}
+                  ))}
                   <Redirect from="/" to="/home" />
                 </Switch>
               </PageContent>
             </Page>
-            {!this.state.conversationListCollapsed 
-            && 
-            <div className="scrollable sidebar sidebar-right">
-              <ConversationList callBackOnClickListItem={this.enterChatRoom}  callBackCollapseConversationList={()=> {this.setState({conversationListCollapsed: true})}}/>
-            </div>}
-            {
-              !this.state.chatRoomCollapsed
-              &&
-              <div className="scrollable sidebar sidebar-right">
-                <MessageList callBackOnClickExit={this.exitChatRoom}/>
-                </div>
-            }
-            
+
+
           </div>
           <Footer>
             <span>Copyright © 2019 Nice Dash. All rights reserved.</span>
@@ -134,7 +138,7 @@ export default class DashboardLayout extends Component {
               </span>
             </span>
           </Footer>
-         
+
         </div>
       </ContextProviders>
     );
@@ -165,8 +169,8 @@ function HeaderNav() {
           </DropdownItem>
         </DropdownMenu>
       </UncontrolledDropdown>
-{/* {this.props.children} */}
-      
+      {/* {this.props.children} */}
+
       {/* <ToggleSidebarButton
           toggleSidebar={true}
           isSidebarCollapsed={true}

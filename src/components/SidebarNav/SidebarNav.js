@@ -6,9 +6,12 @@ import NavDivider from './components/NavDivider';
 import NavSingleItem from './components/NavSingleItem';
 import NavDropdownItem from './components/NavDropdownItem';
 import PageAlertContext from '../PageAlert/PageAlertContext';
+
+import navlogo from '../../assets/images/logo1.png';
 import MemberChildren from './components/MemberChildren';
 import WorkspaceNotiChildren from './components/WorkspaceNotiChildren';
 import ChannelChildren from './components/ChannelChildren';
+
 
 export default class SidebarNav extends Component {
   constructor(props) {
@@ -43,7 +46,7 @@ export default class SidebarNav extends Component {
       return (
         <div className="site-logo-bar">
           <NavLink to="/" className="navbar-brand">
-            {logo && <img src={logo} alt="" />}
+            {logo && <img src={navlogo} alt="logo" />}
             {logoText && <span className="logo-text">{logoText}</span>}
           </NavLink>
         </div>
