@@ -25,23 +25,6 @@ export default {
       ],
     },
     {
-      name: '채널추가',
-      icon: 'FolderPlus',
-      url: '',
-      isButton : true,
-      getComponent: (toggle, isOpen) => <ChannelComponent callBackToggle={toggle} isOpen={isOpen}/>,
-    },
-    {
-      name: '문서추가',
-      icon: 'FilePlus',
-      url: '',
-      isButton : true,
-      ModalHeader: '문서 에디터',
-      ModalBody: '문서 에디터 넣어야함',
-      ok: '생성하기',
-      cancel: '취소하기'
-    },
-    {
       name: '멤버초대',
       icon: 'UserPlus',
       url: '/memberplus',

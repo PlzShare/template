@@ -15,9 +15,12 @@ const DocumentEditor = ({initDocumentData, callBackOnChange}) => {
         
         console.log(callBackOnChange)
         if(callBackOnChange){
-            editor.model.document.on('change:data', (e) =>{
+            editor.editing.document.on('change:data', (e, data, a3) =>{
                 console.dir(e)
+                console.dir(data)
+                console.dir(a3)
             })
+            console.log('등록!!!!')
         }
         
         window['editor'] = editor;

@@ -197,7 +197,7 @@ const pageList = [
   },
   {
     name: 'edit-document',
-    path: '/edit-document',
+    path: '/edit-document/:no',
     component: EditDocument
   },
   {
