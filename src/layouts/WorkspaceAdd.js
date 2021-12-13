@@ -41,7 +41,6 @@ const WorkspaceAdd = (e) => {
                     <Button color="secondary" size="lg">취소하기</Button>{'      '}
                     <Button onClick={createWorkspace} color="primary" size="lg">생성하기</Button>
                 </Link>
-                
             </p>
         </div>
     );
