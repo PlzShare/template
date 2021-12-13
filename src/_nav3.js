@@ -19,7 +19,6 @@ export default {
       name: '채널',
       icon: 'Folder',
       children: [
-
       ],
     },
     {
@@ -31,21 +30,21 @@ export default {
 
       ],
     },
-    // {
-    //   name: '채널추가',
-    //   icon: 'FolderPlus',
-    //   url: 'ddd',
-    //   isButton : true,
-    //   getComponent: (toggle, isOpen) => <ChannelComponent callBackToggle={toggle} isOpen={isOpen}/>,
-    // },
-    // {
-    //   name: '문서추가',
-    //   icon: 'FilePlus',
-    //   url: 'ddd',
-    //   isButton : true,
-    //   getComponent: (toggle, isOpen) => <DocumantComponent callBackToggle={toggle} isOpen={isOpen}/>,
+    {
+      name: '채널추가',
+      icon: 'FolderPlus',
+      url: 'ddd',
+      isButton : true,
+      getComponent: (toggle, isOpen) => <ChannelComponent callBackToggle={toggle} isOpen={isOpen}/>,
+    },
+    {
+      name: '문서추가',
+      icon: 'FilePlus',
+      url: 'ddd',
+      isButton : true,
+      getComponent: (toggle, isOpen) => <DocumantComponent callBackToggle={toggle} isOpen={isOpen}/>,
 
-    //},
+    },
     {
       name: '멤버초대',
       icon: 'UserPlus',

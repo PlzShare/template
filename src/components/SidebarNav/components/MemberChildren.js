@@ -1,30 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import * as Feather from 'react-feather';
 import NavBadge from './NavBadge';
 import MemberList from './MemberList';
 import axios from 'axios';
+import { WorkSpaceContext } from '../../../layouts/DashboardLayout';
 
 export default function NavDropdownItem(props) {
   const [open, setOpen] = useState(false);
   const [list, setList] = useState([]);
-
+  const {workspaceInfo} = useContext(WorkSpaceContext);
+  
   useEffect(() => {
-    fetchList();
-  },[])
-  console.log(list)
+    if(workspaceInfo && workspaceInfo.no) fetchList();
+  },[workspaceInfo])
+
+  // console.log(list)
   const toggle = e => {
     setOpen(!open)
     e.preventDefault();
     e.stopPropagation();
   };
+  console.log(workspaceInfo)
 
   const fetchList = async () => {
-    const response = await axios.get('/workspaces/workspace-users/138/23')
+    const response = await axios.get(`/workspaces/workspace-users/${workspaceInfo.no}/2`)
     response.data.data.forEach((user) => {user.url = `/member/${user.userNo}`; user.name=user.nickname;});
     setList(response.data.data)
     console.log(list , "하하하하하하하하하하");
-    // console.response.data.data
-}
+  }
 
   const { item } = props;
   const isExpanded = open ? 'open' : '';

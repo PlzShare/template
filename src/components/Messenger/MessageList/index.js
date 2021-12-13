@@ -2,8 +2,13 @@ import React, {useEffect, useState} from 'react';
 import Compose from '../Compose';
 import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
+import makeAnimated from 'react-select/animated';
 import Message from '../Message';
 import moment from 'moment';
+import Select from 'react-select';
+import axios from 'axios';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col} from 'reactstrap';
+
 
 import './MessageList.css';
 
@@ -12,10 +17,47 @@ const MY_USER_ID = 'apple';
 export default function MessageList(props) {
   const {callBackOnClickExit} = props
   const [messages, setMessages] = useState([])
-
+  const [modals,setModals] = useState(false);
+  const [userList,setUserList] = useState([]);
+  const [selectdata, setSelectData] = useState([]);
+  const animatedComponents = makeAnimated();
+  
   useEffect(() => {
     getMessages();
+    fetchList();
   },[])
+
+  const toggle = () =>{
+    setModals(!modals)
+  }
+
+  const modalevent = (e) => {
+      console.log('asdasdadas'
+      )
+      e.preventDefault();
+      setModals(true)
+  }
+
+    // console.dir(userList)
+    const fetchList = async () => {
+      const response = await axios.get('/workspaces/workspace-users/138/23')
+      response.data.data.forEach(e => {e['label'] = e.id; e['value'] = e.id})
+
+      setUserList(response.data.data.filter( el => el.userNo != 3))
+      // console.response.data.data
+  }
+
+  const pushData = () =>{
+    console.log(selectdata);
+    callBackToggle();
+  }
+
+  const selectBoxChange = (e) =>{
+    // 여기서 쌓이는 값들을 useState에 쌓아서 버튼을 눌렀을 때 선택된 값을 보내도록한다.
+    // console.dir(e)
+    setSelectData(e);
+}
+
 
    // 정대겸
    const callbackMessage = {
@@ -156,16 +198,56 @@ export default function MessageList(props) {
     return(
       <div className="message-list">
         <Toolbar
+          leftItems={[
+            <span>
+              <ToolbarButton key="info" icon="ion-md-exit" callBackOnClick={ callBackOnClickExit}/>
+            </span>
+          ]}
           title="Conversation Title"
           rightItems={[
-            <ToolbarButton key="info" icon="ion-md-exit" callBackOnClick={ callBackOnClickExit}/>,
-            <ToolbarButton key="video" icon="ion-ios-videocam" />,
-          ]}
+            <ToolbarButton key="person" icon="ion-ios-person-add" callBackOnClick={modalevent}>
+            </ToolbarButton>,
+          <ToolbarButton key="video" icon="ion-ios-videocam" />
+        ]}
+          
+        
         />
+        
+        {/* <Modal isOpen={modals}>
+            <ModalHeader toggle={toggle}></ModalHeader>
+            <ModalBody>
+                수락하시겠습니까 ?
+            </ModalBody>
+            <ModalFooter>
+                <Button color="primary" onClick={toggle}>수락하기</Button>{' '}
+                <Button color="secondary" onClick={toggle}>취소하기</Button>
+            </ModalFooter>
+        </Modal> */}
+
+        <Modal isOpen={modals} toggle={toggle}>
+                <ModalHeader toggle={toggle}>멤버 초대</ModalHeader>
+                <ModalBody>
+                    <div>
+                        <h5>🔹 초대할 멤버 아이디</h5>
+                        <Select 
+                        options={userList} 
+                        components={animatedComponents} 
+                        isMulti 
+                        onChange={selectBoxChange}
+                        />
+    
+                    </div>
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="primary" onClick={pushData}>초대하기</Button>
+                  <Button color="secondary" onClick={toggle}>취소하기</Button>
+                </ModalFooter>
+         </Modal>
 
         <div className="message-list-container">{renderMessages()}</div>
 
-        <Compose rightItems={[
+        <Compose rightItems=
+        {[
           <ToolbarButton key="photo" icon="ion-ios-camera" />,
           <ToolbarButton key="image" icon="ion-ios-image" />,
           <ToolbarButton key="audio" icon="ion-ios-mic" />,

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, createContext } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Button, Badge, NavItem, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Header, SidebarNav, Footer, PageContent, PageAlert, Page } from '../components';
 import Logo from '../assets/images/vibe-logo.svg';
-import nav from '../_nav';    // 채널scrollable sidebar sidebar-right
+import nav from '../_nav3';    // 채널scrollable sidebar sidebar-right
 // import nav from '../_nav2';   // 알림
 // import nav from '../_nav3';     // 워크스페이스
 
@@ -15,6 +15,7 @@ import MessageList from '../components/Messenger/MessageList';
 // import ToggleSidebarButton from '../vibe/components/ToggleSidebarButton';
 const MOBILE_SIZE = 992;
 
+export const WorkSpaceContext = createContext();
 export default class DashboardLayout extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +25,14 @@ export default class DashboardLayout extends Component {
       chatRoomCollapsed: true,
       isMobile: window.innerWidth <= MOBILE_SIZE,
       showChat1: true,
+      workspaceInfo : null,
     };
+  }
+
+  setWorkspaceInfo = (workspace) => {
+    console.log('setWorkSpaceInfo')
+    console.log(workspace)
+    this.setState({workspaceInfo : workspace})
   }
 
   handleResize = () => {
@@ -81,67 +89,54 @@ export default class DashboardLayout extends Component {
     const chatRoomCollapsed = this.state.conversationListCollapsed == false || this.state.chatRoomCollapsed == false ? 'side-menu-right' : '';
     return (
       <ContextProviders>
-        <div className={`app ${sidebarCollapsedClass} ${chatRoomCollapsed}`}>
-          <PageAlert />
-          <div className="app-body">
-            <SidebarNav
-              nav={nav}
-              logo={Logo}
-              logoText="WeBoard"
-              isSidebarCollapsed={sidebarCollapsed}
-              toggleSidebar={this.toggleSideCollapse}
-              {...this.props}
-            />
-            {!this.state.conversationListCollapsed
-              &&
-              <div className=" scrollable sidebar sidebar-right " >
+        <WorkSpaceContext.Provider value={{workspaceInfo : this.state.workspaceInfo, setWorkspaceInfo : this.setWorkspaceInfo}}>
+          <div className={`app ${sidebarCollapsedClass} ${chatRoomCollapsed}`}>
+            <PageAlert />
+            <div className="app-body">
+              <SidebarNav
+                nav={nav}
+                logo={Logo}
+                logoText="WeBoard"
+                isSidebarCollapsed={sidebarCollapsed}
+                toggleSidebar={this.toggleSideCollapse}
+                {...this.props}
+                />
+              {!this.state.conversationListCollapsed
+                &&
+                <div className=" scrollable sidebar sidebar-right " >
                 <ConversationList callBackOnClickListItem={this.enterChatRoom} callBackCollapseConversationList={() => { this.setState({ conversationListCollapsed: true }) }} />
               </div>
-            }
-            {!this.state.chatRoomCollapsed
-              &&
-              <div className="scrollable sidebar sidebar-right">
+              }
+              {!this.state.chatRoomCollapsed
+                &&
+                <div className="scrollable sidebar sidebar-right">
                 <MessageList callBackOnClickExit={this.exitChatRoom} />
               </div>
-            }
+              }
 
-            <Page>
-              <Header
-                isSidebarCollapsed={sidebarCollapsed}
-                toggleConversationList={this.toggleConversationList}
-                conversationListCollapsed={conversationListCollapsed}
-                toggleSidebar={this.toggleSideCollapse}
-                routes={routes}
-                {...this.props}
-              >
-
-                <HeaderNav />
-              </Header>
-              <PageContent>
-                <Switch>
-                  {routes.map((page, key) => (
-                    <Route path={page.path} component={page.component} key={key} />
-                  ))}
-                  <Redirect from="/" to="/home" />
-                </Switch>
-              </PageContent>
-            </Page>
+              <Page>
+                <Header
+                  isSidebarCollapsed={sidebarCollapsed}
+                  toggleConversationList={this.toggleConversationList}
+                  conversationListCollapsed={conversationListCollapsed}
+                  toggleSidebar={this.toggleSideCollapse}
+                  routes={routes}
+                  {...this.props}
+                  >
+                  <HeaderNav />
+                </Header>
+                <PageContent>
+                  <Switch>
+                    {routes.map((page, key) => (
+                      <Route path={page.path} component={page.component} key={key} />
+                      ))}
+                    <Redirect from="/" to="/home" />
+                  </Switch>
+                </PageContent>
+              </Page>
+            </div>
           </div>
-
-          {/* <Footer>
-            <span>Copyright © 2019 Nice Dash. All rights reserved.</span>
-            <span>
-              <a href="#!">Terms</a> | <a href="#!">Privacy Policy</a>
-            </span>
-            <span className="ml-auto hidden-xs">
-              Made with{' '}
-              <span role="img" aria-label="taco">
-                🌮
-              </span>
-            </span>
-          </Footer> */}
-
-        </div>
+        </WorkSpaceContext.Provider>
       </ContextProviders>
     );
   }

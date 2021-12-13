@@ -36,7 +36,7 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
 
     return (
         <Modal isOpen={isOpen} toggle={callBackToggle}>
-                <ModalHeader toggle={callBackToggle}>채팅 생성</ModalHeader>
+                <ModalHeader toggle={callBackToggle}>친구 추가</ModalHeader>
                 <ModalBody>
                     <div>
                         <h5>🔹 초대할 멤버 아이디</h5>
