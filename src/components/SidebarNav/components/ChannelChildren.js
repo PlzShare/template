@@ -5,14 +5,13 @@ import NavSingleItem from './NavSingleItem';
 import axios from 'axios';
 
 export default function ChannelChildren(props) {
+  // const {match} = this.props;
   const [open, setOpen] = useState(false);
   const [list, setList] = useState([]);
-
 
   useEffect(() => {
     fetchList();
   },[])
-
 
   const toggle = e => { //승현아 살려줘~~~~~~~~나좀 살려줘어어어어엉~!@@@@@@
     setOpen(!open)

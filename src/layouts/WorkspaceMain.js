@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import FontAwesomeIcon from 'react-fontawesome';
 import ChannelComponent from '../components/SidebarNav/components/ChannelComponent';
 import DocumantComponent from '../components/SidebarNav/components/DocumentComponent';
@@ -6,12 +6,13 @@ import '../assets/scss/components/workspacemain.scss';
 import { Col, Row } from 'reactstrap';
 import { Folder } from 'react-feather';
 import axios from 'axios';
-
+import { WorkSpaceContext } from './DashboardLayout';
 const BlankPage = ({match}) => {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenFile, setIsOpenFile] = useState(false)
   const [channelList, setChannelList] = useState([])
   const [documentList, setDocumentList] = useState([])
+  const {workspaceInfo, setWorkspaceInfo} = useContext(WorkSpaceContext)
 
   const workspaceNo = match.params.no
   const toggle = () => {
@@ -22,15 +23,25 @@ const BlankPage = ({match}) => {
   }
   const size=3
 
+  const fetchWorkspaceInfo = async () => {
+    const response = await axios.get(`/workspaces/${workspaceNo}`)
+    console.log('=========================================')
+    console.dir(response)
+    setWorkspaceInfo(response.data.data)
+  }
+
   const fetchChannels = async () => {
     const response = await axios.get(`/workspaces/${workspaceNo}/channels`)
     setChannelList(response.data.data)
     console.log(response.data.data)
   }
+
   const fetchDocument = async () => {
     
   }
+
   useEffect(() => {
+    fetchWorkspaceInfo()
     fetchChannels()
     fetchDocument()
   },[])

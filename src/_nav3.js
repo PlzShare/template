@@ -19,7 +19,6 @@ export default {
       name: '채널',
       icon: 'Folder',
       children: [
-
       ],
     },
     {
