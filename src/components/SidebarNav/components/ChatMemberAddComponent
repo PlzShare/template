@@ -28,7 +28,6 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
         callBackToggle();
     }
 
-
     const selectBoxChange = (e) =>{
         // 여기서 쌓이는 값들을 useState에 쌓아서 버튼을 눌렀을 때 선택된 값을 보내도록한다.
         // console.dir(e)
@@ -44,7 +43,6 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
                         <Select options={userList} components={animatedComponents} isMulti 
                         onChange={selectBoxChange}
                         />
-                        
                     </div>
                 </ModalBody>
                 <ModalFooter>
