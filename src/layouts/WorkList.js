@@ -32,6 +32,7 @@ const Dashboard = () => {
       setNames([...(names.filter(name => name.no != deleteNo))])
     }
   }
+  
   const outHandler = () => {
     console.log('out!!!!!!!!!!')
   }
