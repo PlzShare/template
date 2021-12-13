@@ -48,7 +48,7 @@ const BlankPage = ({match}) => {
   
   return (
     <div className='workspacemain'>
-        <div className='adds'>
+        {/* <div className='adds'>
           <span className='iconbox1' onClick={() => setIsOpen(true)}> 
              <FontAwesomeIcon className='iconfolder' name={'folder'}/>
              <FontAwesomeIcon className='plus' name={'plus'}/>
@@ -59,12 +59,11 @@ const BlankPage = ({match}) => {
              <FontAwesomeIcon className='plus' name={'plus'}/>
              <p>문서 추가</p>
           </span>
-  
-        </div>
+        </div> */}
         <ChannelComponent callBackToggle={toggle} isOpen={isOpen} workspaceNo={workspaceNo}/>
         <DocumantComponent callBackToggle={toggleFile} isOpen={isOpenFile}/>
 
-          <Row>
+          {/* <Row>
               {channelList.map((channel) => 
                 <Col md={size} key={channel.no}>
                   <div className='folder'>
@@ -75,7 +74,7 @@ const BlankPage = ({match}) => {
                   </div>
                 </Col>
               )}
-            </Row>
+            </Row> */}
             <Row>
               <Col xl={size}>
                   <div className='document'>

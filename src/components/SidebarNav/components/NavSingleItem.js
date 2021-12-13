@@ -9,13 +9,12 @@ import nav3 from '../../../_nav3';
 const NavSingleItem = ({ item }) => {
   const [modals, setModals] = useState(false);
 
-
   const Icon = item.icon && Feather[item.icon] ? Feather[item.icon] : null;
 
 
   const toggle = () => {
-    setModals(!modals)
-}
+      setModals(!modals)
+  }
 
   if (item.external) {
     const rel = item.target && item.target === '_blank' ? 'noopener noreferrer' : null;
