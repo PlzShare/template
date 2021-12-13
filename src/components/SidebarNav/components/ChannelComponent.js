@@ -2,12 +2,12 @@ import React, {useRef} from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
 
-const ChannelComponent = ({callBackToggle, isOpen}) => {
+const ChannelComponent = ({callBackToggle, isOpen, workspaceNo}) => {
     const nameInput = useRef();
     const descInput = useRef();
  
     const createChannel = async () => {
-        const response = await axios.post('/workspaces/138/channels',{
+        const response = await axios.post(`/workspaces/${workspaceNo}/channels`,{
           name : nameInput.current.value,
           desc : descInput.current.value
         })

@@ -4,8 +4,7 @@ import ConversationListItem from '../ConversationListItem';
 import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
 import axios from 'axios';
-import ChatMemberAddComponent from '../../SidebarNav/components/ChatMemberAddComponent'
-
+import ChatAddComponent from '../../SidebarNav/components/ChatAddComponent'
 import './ConversationList.css';
 
 export default function ConversationList(props) {
@@ -13,7 +12,6 @@ export default function ConversationList(props) {
   const [conversations, setConversations] = useState([]);
   const [keyword, setKeyword] = useState('');
   const [modals, setModals] = useState(false);
-
 
   const toggle = () => {
     setModals(!modals)
@@ -51,7 +49,8 @@ export default function ConversationList(props) {
             <ToolbarButton key="add" icon="ion-ios-add-circle-outline" callBackOnClick={() => {setModals(true)}}/>
           ]}
         />
-        <ChatMemberAddComponent callBackToggle={toggle} isOpen={modals}/>
+        <ChatAddComponent callBackToggle={toggle} isOpen={modals}/>
+
         {/* 검색 컴포넌트 - 정대겸 */}
         <ConversationSearch keyword={keyword} callback={notifyKeywordChanged}/>
         {

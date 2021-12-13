@@ -1,34 +1,45 @@
 .workspacemain{
     font-family: 'Noto Sans KR', sans-serif;
 
-    .folder{
-        width: 200px;
-        height: 200px;
+    // .rows{
+    //     display: flex;
+    //     flex-wrap: wrap;
+    //     flex-direction: row;
+    //     margin-left: 77px;
+    //     margin-top: 21px;
+    //     margin-bottom: 165px;
+    // }
+    // .folder{
+    //     width: 200px;
+    //     height: 200px;
+    //     position: relative;
+    // }
+    // .boxtop{
+    //     width: 65px;
+    //     height: 30px;
+    //     // position: absolute;
+    //     // top:0;
+    //     // left: 0;
+    //     background-color:#ffa000;
+    //     border-radius: 5px 22px 5px 5px;
+    // }
+    // .boxbody{
+    //     position: absolute;
+    //     top:20px;
+    //     left: 0;
+    //     width: 200px;
+    //     height: 130px;
+    //     background-color:#ffca28;
+    //     background: linear-gradient( to bottom,#FFCA28,#FFA000);
+    //     border-radius: 5px 5px 5px 5px;
+    
+    //     p{
+    //         padding:5px 0px 0px 10px;
+    //     }
+    
+    // }
+    .document{
         position: relative;
-    }
-    .boxtop{
-        position: absolute;
-        top:0;
-        left: 0;
-        width: 65px;
-        height: 30px;
-        background-color:#ffa000;
-        border-radius: 5px 22px 5px 5px;
-    }
-    .boxbody{
-        position: absolute;
-        top:20px;
-        left: 0;
-        width: 200px;
-        height: 130px;
-        // background-color:#ffca28;
-        background: linear-gradient( to bottom,#FFCA28,#FFA000);
-        border-radius: 5px 5px 5px 5px;
-    
-        p{
-            padding:5px 0px 0px 10px;
-        }
-    
     }
     .documentbody{
         position: absolute;
@@ -36,10 +47,10 @@
         left: 0;
         width: 200px;
         height: 170px;
-        // background-color:#ffca28;
+        margin-top: 3vh;
+        background-color:#ffca28;
         background: linear-gradient( to bottom,#ffffff,#ffffff);
         border-radius: 5px 55px 5px 5px;
-        // border: 1px solid #888;
     
         p{
             font-family: 'Noto Sans KR', sans-serif;
@@ -47,18 +58,6 @@
         }
     }
     
-    // .triangle{ 
-    //     position: absolute;
-    //     right: 0;
-    //     top: 37px;
-    //     width: 0;
-    //     height: 0;
-    //     z-index: 99;
-    //     border-bottom: 30px solid rgb(56, 52, 52);
-    //     border-left: 30px solid transparent;
-    //     border-right: 30px solid transparent;
-    //     transform: rotate(225deg);
-    // }
     
     .triangle{ 
         position: absolute;

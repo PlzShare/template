@@ -44,10 +44,15 @@ export default function Compose(props) {
           />
 
           {/* 검색어 전송 아이콘 */}
-          <ToolbarButton key="send" icon="ion-ios-send"/>
-          {
+          <ToolbarButton 
+          className="send" 
+          key="send" 
+          icon="ion-ios-send" 
+          callBackOnClick={() => refForm.current.dispatchEvent(new Event('submit',{bubbles:true}))}
+          />
+          {/* {
             props.rightItems
-          }
+          } */}
 
       </form>
     );

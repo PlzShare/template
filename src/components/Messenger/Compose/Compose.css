@@ -5,8 +5,11 @@
   background: white;
   border-top: 1px solid #eeeef1;
   position: fixed;
-  width: calc(100% - 20px);
+  width: 25vw;
   bottom: 0px;
+}
+.compose i{
+  color: #007aff !important;
 }
 
 @supports (backdrop-filter: blur(20px)) {
