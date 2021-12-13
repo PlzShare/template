@@ -105,6 +105,8 @@ export default class DashboardLayout extends Component {
                 <MessageList callBackOnClickExit={this.exitChatRoom} />
               </div>
             }
+
+
             <Page>
               <Header
                 isSidebarCollapsed={sidebarCollapsed}
@@ -114,7 +116,7 @@ export default class DashboardLayout extends Component {
                 routes={routes}
                 {...this.props}
               >
-                <HeaderNav />
+                <HeaderNav/>
               </Header>
               <PageContent>
                 <Switch>
