@@ -3,6 +3,7 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import axios from 'axios';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import '../../../assets/scss/components/chatadd.scss';
 
 
 const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
@@ -41,10 +42,14 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
                 <ModalBody>
                     <div>
                         <h5>🔹 초대할 멤버 아이디</h5>
-                        <Select options={userList} components={animatedComponents} isMulti 
+                        <Select className="selectbox" options={userList} components={animatedComponents} isMulti 
                         onChange={selectBoxChange}
                         />
                         
+                    </div>
+                    <div>
+                        <h5>🔹 채팅방 이름</h5>
+                        <input placeholder='초대한사람들 아이디(기본값)' className="chatinput"></input>
                     </div>
                 </ModalBody>
                 <ModalFooter>
