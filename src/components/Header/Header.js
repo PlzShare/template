@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import ToggleSidebarButton from './components/ToggleSidebarButton';
 import ToggleSidebarButtonRight from './components/ToggleSidebarButtonRight';
 import PageLoader from '../PageLoader/PageLoader';
@@ -6,7 +6,9 @@ import PageLoader from '../PageLoader/PageLoader';
 import { Navbar, Collapse, Nav } from 'reactstrap';
 import { matchPath } from 'react-router-dom';
 import { useLocation, useParams } from 'react-router'
+import { WorkSpaceContext } from '../../layouts/DashboardLayout';
 class Header extends Component {
+  static contextType = WorkSpaceContext
   constructor(props) {
     super(props);
     this.state = {
@@ -18,7 +20,9 @@ class Header extends Component {
     console.log('=====================header=========================')
     // console.dir(this.props)
     console.log(this.props.location.pathname)
+    
   }
+
 
   toggle = () => {
     this.setState(prevState => ({
@@ -37,22 +41,23 @@ class Header extends Component {
     return result
   }
 
-  getPageTitle = () => {
-    let name;
+  getPageTitle = (profile) => {
 
-    this.props.routes.forEach(prop => {
-      if(prop.children){
-        prop.children.forEach( child => {
-          this.isMatched(prop.path + '/' + child.path) && (name = child.name)
-        })
-      }else{
-        if (this.isMatched(prop.path)) {
-          name = prop.name;
-        }
+    let name;
+    let desc;
+    if(this.props.location.pathname.includes('channel')){
+      console.dir(profile)
+      const chInfo = profile.channelList.filter((channel) => channel.no == this.props.params.cno)[0]
+      if(chInfo){
+        name = chInfo.name
+        desc = chInfo.desc
       }
-    });
-    console.log(name)
-    return name;
+    }else{
+      name = profile.workspaceInfo.name
+    }
+    // alert(name)
+  
+    return [{name}, {desc}];
   };
 
   render() {
@@ -65,7 +70,16 @@ class Header extends Component {
               toggleSidebar={this.props.toggleSidebar}
               isSidebarCollapsed={this.props.isSidebarCollapsed}
             />
-            <div className="page-heading">{this.getPageTitle()}</div>
+            <WorkSpaceContext.Consumer>
+              {
+                (profile) => 
+                <Fragment>
+                  {this.getPageTitle(profile).map(o => o.name ? <div className="page-heading">{o.name}</div> 
+                  : <div className='channel-desc' style={{marginLeft:'10px', color:'grey', fontSize:'.9rem'}}>{o.desc}</div>)  }
+                   
+                </Fragment>
+              }
+            </WorkSpaceContext.Consumer>
             
             {/* <NavbarToggler onClick={this.toggle} /> */}
             <Collapse isOpen={this.state.isOpen} navbar>
