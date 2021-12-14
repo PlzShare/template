@@ -18,14 +18,6 @@ export default function WorkspaceNotiChildren(props) {
     e.stopPropagation();
   };
 
-  const fetchList = async () => {
-    const response = await axios.get(`/workspaces/channels?wno=206`)
-    response.data.data.forEach((workspace) => workspace.url = `/workspace/${workspace.no}`);
-    console.dir(response.data.data)
-    setList(response.data.data)
-    console.log(list , "하이하이하이하이하이하이하잏아ㅣ");
-  }
-
   const { item } = props;
   const isExpanded = open ? 'open' : '';
   const Icon = item.icon ? Feather[item.icon] : null;

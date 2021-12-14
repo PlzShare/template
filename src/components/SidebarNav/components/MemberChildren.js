@@ -4,15 +4,13 @@ import NavBadge from './NavBadge';
 import MemberList from './MemberList';
 import axios from 'axios';
 import { WorkSpaceContext } from '../../../layouts/DashboardLayout';
+import { useParams } from 'react-router';
 
 export default function NavDropdownItem(props) {
   const [open, setOpen] = useState(false);
   const [list, setList] = useState([]);
-  const {workspaceInfo} = useContext(WorkSpaceContext);
-  
-  useEffect(() => {
-    if(workspaceInfo && workspaceInfo.no) fetchList();
-  },[workspaceInfo])
+  const {memberList} = useContext(WorkSpaceContext)
+  const params = useParams()
 
   // console.log(list)
   const toggle = e => {
@@ -20,14 +18,8 @@ export default function NavDropdownItem(props) {
     e.preventDefault();
     e.stopPropagation();
   };
-  console.log(workspaceInfo)
 
-  const fetchList = async () => {
-    const response = await axios.get(`/workspaces/workspace-users/${workspaceInfo.no}/2`)
-    response.data.data.forEach((user) => {user.url = `/member/${user.userNo}`; user.name=user.nickname;});
-    setList(response.data.data)
-    console.log(list , "하하하하하하하하하하");
-  }
+ 
 
   const { item } = props;
   const isExpanded = open ? 'open' : '';
@@ -48,7 +40,7 @@ export default function NavDropdownItem(props) {
       </a>
       {(open || props.isSidebarCollapsed) && (
         <ul className="nav-submenu">
-          {list.map((item, index) => (
+          {memberList.map((item, index) => (
             <MemberList item={item} key={index} />
           ))}
         </ul>

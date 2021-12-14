@@ -1,52 +1,75 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import '../assets/scss/components/setting.scss';
 import axios from 'axios';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { useParams } from 'react-router';
+import { WorkSpaceContext } from './DashboardLayout';
 
 
 const Setting = () => {
+  // 나중에 지울 것
+  const [userNo, setUserNo] = useState(null);
+  
+  
   console.log('=================setting]===================')
-  const [selectdata, setSelectData] = useState([]);
+  const [selectdata, setSelectData] = useState(null);
   const [userList, setUserList] = useState([]);
-  const animatedComponents = makeAnimated();
+  const {workspaceInfo} = useContext(WorkSpaceContext)
   const [modals, setModal] = useState(false);
-  const wnameInput = useRef();
 
+  
+
+  useEffect(() => {
+    wnameInput.current.value = workspaceInfo.name
+  },[workspaceInfo])
+  
+  const animatedComponents = makeAnimated();
+  const wnameInput = useRef();
+  const params = useParams()
+  
+  
   const toggle = () => {
     setModal(!modals)
-
   }
 
   useEffect(() => {
     fetchList();
   }, []);
-  
+
+
 
   // console.dir(userList)
   // 1214
   const fetchList = async () => {
-    const response = await axios.get(`/workspaces/workspace-users?uno=25&wno=206`)
+    const response = await axios.get(`/workspaces/workspace-users?wno=${params.wno}`)
     response.data.data.forEach(e => { e['label'] = e.id; e['value'] = e.id })
+    console.dir(response.data.data)
+    setUserList(response.data.data.filter(el => el.role != 'admin'))
 
-    setUserList(response.data.data.filter(el => el.userNo != 21))
+    //나중에 지울 것
+    setUserNo(response.data.data.filter(el => el.role == 'admin')[0].userNo)
     // console.response.data.data
   }
 
   const updateWorkspaceName = async () => {
-    const response = await axios.put(`/workspaces?uno=${userNo}`, {
-      no: 125,
+    const response = await axios.put(`/workspaces`, {
+      no: params.wno,
       name: wnameInput.current.value
     })
     console.log(wnameInput.current.value)
-    changeAdmin();
+    
+    console.dir(selectdata)
+    if(selectdata && selectdata.userNo)
+      changeAdmin();
   }
 
   const changeAdmin = async () => {
-    const response = await axios.put(`/workspaces/workspace-users/change-role?uno=25`, {
+    const response = await axios.put(`/workspaces/workspace-users/change-role`, {
       userNo: selectdata.userNo,
-      workspaceNo: 126
+      workspaceNo : params.wno,
+      adminNo : userNo,
     })
   }
   

@@ -32,7 +32,8 @@ class DashboardLayout extends Component {
       isMobile: window.innerWidth <= MOBILE_SIZE,
       showChat1: true,
       workspaceInfo : null,
-      channelList: []
+      channelList: [],
+      memberList: [],
     };
 
     // alert('dddd')
@@ -40,11 +41,11 @@ class DashboardLayout extends Component {
     console.dir(this.props)
     this.fetchWorkspaceInfo()
     this.fetchChannelList()
+    this.fetchMemberList()
   }
 
   fetchChannelList = async () => {
     const response = await axios.get(`/workspaces/${this.props.params.wno}/channels`)
-
     response.data.data.forEach((channel) => channel.url = `/channel/${channel.no}`);
     this.setState({channelList:response.data.data})
     console.dir(response.data.data)
@@ -59,6 +60,16 @@ class DashboardLayout extends Component {
     console.dir(response.data)
     this.setState({workspaceInfo: response.data.data})
   }
+
+  fetchMemberList = async () => {
+    const response = await axios.get(`/workspaces/workspace-users?wno=${this.props.params.wno}`)
+    response.data.data.forEach((user) => {user.url = `/member/${user.userNo}`; user.name=user.nickname;});
+    this.setState({memberList: response.data.data})
+  }
+  pushMemberList = (member) => {
+    this.setState({memberList : [...this.state.memberList, member]})
+  }
+
   // setWorkspaceInfo = (workspace) => {
   //   this.setState({workspaceInfo : workspace})
   // }
@@ -120,9 +131,11 @@ class DashboardLayout extends Component {
     return (
       <ContextProviders>
         <WorkSpaceContext.Provider value={{
-          workspaceInfo : this.state.workspaceInfo, 
+          workspaceInfo : this.state.workspaceInfo || {}, 
           setWorkspaceInfo : this.setWorkspaceInfo,
           channelList : this.state.channelList,
+          memberList : this.state.memberList,
+          pushMemberList : this.pushMemberList,
           pushChannelList : this.pushChannelList, 
           setSidebarCollapsed : this.setSidebarCollapsed
           }}>
