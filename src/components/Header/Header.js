@@ -5,15 +5,19 @@ import PageLoader from '../PageLoader/PageLoader';
 
 import { Navbar, Collapse, Nav } from 'reactstrap';
 import { matchPath } from 'react-router-dom';
-
-export default class Header extends Component {
+import { useLocation, useParams } from 'react-router'
+class Header extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       isOpen: false,
     };
     console.dir(props)
+    // console.dir(this.props.match)
+    // console.dir(props.match)
+    console.log('=====================header=========================')
+    // console.dir(this.props)
+    console.log(this.props.location.pathname)
   }
 
   toggle = () => {
@@ -26,21 +30,28 @@ export default class Header extends Component {
 
   }
 
+  isMatched = (path) => {
+    // console.log(this.props.location.pathname)
+
+    const result = matchPath(this.props.location.pathname, path) 
+    return result
+  }
 
   getPageTitle = () => {
     let name;
-    this.props.routes.map(prop => {
-      if (
-        matchPath(this.props.location.pathname, {
-          path: prop.path,
-          exact: true,
-          strict: false
+
+    this.props.routes.forEach(prop => {
+      if(prop.children){
+        prop.children.forEach( child => {
+          this.isMatched(prop.path + '/' + child.path) && (name = child.name)
         })
-      ) {
-        name = prop.name;
+      }else{
+        if (this.isMatched(prop.path)) {
+          name = prop.name;
+        }
       }
-      return null;
     });
+    console.log(name)
     return name;
   };
 
@@ -84,3 +95,5 @@ const SkipToContentLink = ({ focusId }) => {
     </a>
   );
 };
+
+export default (props) => <Header {...props} params={useParams()} location={useLocation()}/>

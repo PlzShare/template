@@ -33,13 +33,8 @@ import Channel from '../components/Channel/Channel';
 const pageList = [
   {
     name: '워크스페이스 생성',
-    path : '/WorkspaceAdd',
+    path : '/workspaceadd',
     component: WorkspaceAdd
-  },
-  {
-    name: '환경설정',
-    path: '/set',
-    component: Setting
   },
   {
     name: '마이페이지',
@@ -52,16 +47,94 @@ const pageList = [
     component: RegisterPage
   },
   {
-    name : '워크스페이스1',
-    path : '/workspacemain/:no',
-    component: WorkspaceMain
+    name : 'ㅁㅁ',
+    path : '/workspace/:wno',
+    children: [
+      {
+        name : '워크스페이스',
+        path : '',
+        component: WorkspaceMain,
+      },
+      {
+        name: '환경설정',
+        path: 'set',
+        component: Setting
+      },
+      {
+        name: '채널',
+        path: 'channel/:cno',
+        component: Channel,
+      },
+      {
+        name: 'create-document',
+        path: 'channel/:cno/create-document',
+        component: CreateDoument
+      },
+      {
+        name: 'edit-document',
+        path: 'channel/:cno/edit-document/:docNo',
+        component: EditDocument
+      },
+      {
+        name: 'test-document',
+        path: 'test-document',
+        component: DocumentEditor
+      },
+    ]
   },
   {
     name: 'Login',
     path: '/login',
     component: LoginPage
-
   },
+  {
+    name: '환경설정',
+    path: '/setting',
+    component: BlankPage,
+  },
+  {
+    name: '멤버',
+    path: '/member',
+    component: BlankPage,
+  },
+  {
+    name: '멤버추가',
+    path: '/memberplus',
+    component: BlankPage,
+  },
+  {
+    name: '초대된 워크스페이스',
+    path: '/invited',
+    component: Invited,
+  },
+  {
+    name: '초대한 워크스페이스',
+    path: '/invite',
+    component: Invite,
+  },
+  {
+    name: '초대한 워크스페이스',
+    path: '/invite',
+    component: Invite,
+  },
+  {
+    name: '워크스페이스',
+    path: '/workspacenoti',
+    component: Workspacenoti,
+  },
+  {
+    name: 'Blank',
+    path: '/pages/blank',
+    component: BlankPage,
+  },
+
+
+  {
+    name: '404',
+    path: '/pages/404',
+    component: ErrorPage,
+  },
+  
   {
     name: 'Dashboard',
     path: '/home',
@@ -132,80 +205,12 @@ const pageList = [
     path: '/elements/loaders',
     component: Loaders,
   },
-
   {
     name: 'Blank',
     path: '/pages/blank',
     component: BlankPage,
   },
-  {
-    name: '환경설정',
-    path: '/setting',
-    component: BlankPage,
-  },
-  {
-    name: '채널',
-    path: '/channel/:no',
-    component: Channel,
-  },
-  {
-    name: '멤버',
-    path: '/member',
-    component: BlankPage,
-  },
-  {
-    name: '멤버추가',
-    path: '/memberplus',
-    component: BlankPage,
-  },
-  {
-    name: '초대된 워크스페이스',
-    path: '/invited',
-    component: Invited,
-  },
-  {
-    name: '초대한 워크스페이스',
-    path: '/invite',
-    component: Invite,
-  },
-  {
-    name: '초대한 워크스페이스',
-    path: '/invite',
-    component: Invite,
-  },
-  {
-    name: '워크스페이스',
-    path: '/workspacenoti',
-    component: Workspacenoti,
-  },
-  {
-    name: 'Blank',
-    path: '/pages/blank',
-    component: BlankPage,
-  },
-
-
-  {
-    name: '404',
-    path: '/pages/404',
-    component: ErrorPage,
-  },
-  {
-    name: 'create-document',
-    path: '/create-document',
-    component: CreateDoument
-  },
-  {
-    name: 'edit-document',
-    path: '/edit-document/:no',
-    component: EditDocument
-  },
-  {
-    name: 'test-document',
-    path: '/test-document',
-    component: DocumentEditor
-  },
-
+ 
 ];
 
 export default pageList;

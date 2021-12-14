@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useParams } from 'react-router'
 import NavSpacer from './components/NavSpacer';
 import NavOverlay from './components/NavOverlay';
 import NavDivider from './components/NavDivider';
@@ -13,12 +14,12 @@ import WorkspaceNotiChildren from './components/WorkspaceNotiChildren';
 import ChannelChildren from './components/ChannelChildren';
 
 
-export default class SidebarNav extends Component {
+class SidebarNav extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
- 
+  
   render() {
     const navItems = items => {
       return items.map((item, index) => itemType(item, index));
@@ -45,7 +46,7 @@ export default class SidebarNav extends Component {
     const NavBrand = ({ logo, logoText }) => {
       return (
         <div className="site-logo-bar">
-          <NavLink to="/" className="navbar-brand">
+          <NavLink to={`/worklist`} className="navbar-brand">
             {logo && <img src={navlogo} alt="logo" />}
             {logoText && <span className="logo-text">{logoText}</span>}
           </NavLink>
@@ -78,3 +79,5 @@ export default class SidebarNav extends Component {
     );
   }
 }
+
+export default (props) => <SidebarNav {...props} params={useParams()}/>

@@ -4,7 +4,7 @@ import NavBadge from './NavBadge';
 import NavSingleItem from './NavSingleItem';
 import axios from 'axios';
 
-export default function ChannelChildren(props) {
+export default function WorkspaceNotiChildren(props) {
   const [open, setOpen] = useState(false);
   const [list, setList] = useState([]);
 
@@ -19,7 +19,7 @@ export default function ChannelChildren(props) {
   };
 
   const fetchList = async () => {
-    const response = await axios.get('/workspaces/138/channels')
+    const response = await axios.get(`/workspaces/channels?wno=206`)
     response.data.data.forEach((workspace) => workspace.url = `/workspace/${workspace.no}`);
     console.dir(response.data.data)
     setList(response.data.data)

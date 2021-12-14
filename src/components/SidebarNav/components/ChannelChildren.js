@@ -1,31 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import * as Feather from 'react-feather';
 import NavBadge from './NavBadge';
 import NavSingleItem from './NavSingleItem';
 import axios from 'axios';
+import { useParams } from 'react-router';
+import { WorkSpaceContext } from '../../../layouts/DashboardLayout';
 
 export default function ChannelChildren(props) {
   // const {match} = this.props;
   const [open, setOpen] = useState(false);
-  const [list, setList] = useState([]);
-
-  useEffect(() => {
-    fetchList();
-  },[])
-
+  const {channelList} = useContext(WorkSpaceContext)
+  
   const toggle = e => { //승현아 살려줘~~~~~~~~나좀 살려줘어어어어엉~!@@@@@@
     setOpen(!open)
     e.preventDefault();
     e.stopPropagation();
   };
 
-  const fetchList = async () => {
-    const response = await axios.get('/workspaces/138/channels')
-    response.data.data.forEach((channel) => channel.url = `/channel/${channel.no}`);
-    console.dir(response.data.data)
-    setList(response.data.data)
-    console.log(list , "ddddddddddddddddddddddddd");
-  }
+  // const fetchList = async () => {
+  //   const response = await axios.get(`/workspaces/channels?wno=206`)
+  //   response.data.data.forEach((channel) => channel.url = `/channel/${channel.no}`);
+  //   console.dir(response.data.data)
+  //   setList(response.data.data)
+  //   console.log(list , "ddddddddddddddddddddddddd");
+  // }
 
   const { item } = props;
   const isExpanded = open ? 'open' : '';
@@ -46,7 +44,7 @@ export default function ChannelChildren(props) {
       </a>
       {(open || props.isSidebarCollapsed) && (
         <ul className="nav-submenu">
-          {list.map((item, index) => (
+          {channelList.map((item, index) => (
             <NavSingleItem item={item} key={index} />
           ))}
         </ul>

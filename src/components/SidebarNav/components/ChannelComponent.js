@@ -1,13 +1,17 @@
-import React, {useRef} from 'react';
+import React, {useContext, useRef} from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
-
-const ChannelComponent = ({callBackToggle, isOpen, workspaceNo}) => {
+import { useParams } from 'react-router';
+import { WorkSpaceContext } from '../../../layouts/DashboardLayout';
+const ChannelComponent = ({callBackToggle, isOpen}) => {
     const nameInput = useRef();
     const descInput = useRef();
- 
+    const params = useParams()
+    const workspaceNo = params.wno 
+    const {pushChannelList} = useContext(WorkSpaceContext)
+
     const createChannel = async () => {
-        const response = await axios.post(`/workspaces/${workspaceNo}/channels`,{
+        const response = await axios.post(`/workspaces/channels?wno=206`,{
           name : nameInput.current.value,
           desc : descInput.current.value
         })
@@ -15,7 +19,7 @@ const ChannelComponent = ({callBackToggle, isOpen, workspaceNo}) => {
         console.log(response.data.message)       
         console.dir(response.data.data)
         callBackToggle();
-        
+        pushChannelList(response.data.data)
         // fetch의 주소에서 '2' 이 부분은 워크스페이스 번호를 넘겨줘야함
           // const response = await fetch(`api/workspaces/2/channels`,{
           //   method: 'post',

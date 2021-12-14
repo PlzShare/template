@@ -1,43 +1,43 @@
 .workspacemain{
     font-family: 'Noto Sans KR', sans-serif;
 
-    // .rows{
-    //     display: flex;
-    //     flex-wrap: wrap;
-    //     flex-direction: row;
-    //     margin-left: 77px;
-    //     margin-top: 21px;
-    //     margin-bottom: 165px;
-    // }
-    // .folder{
-    //     width: 200px;
-    //     height: 200px;
-    //     position: relative;
-    // }
-    // .boxtop{
-    //     width: 65px;
-    //     height: 30px;
-    //     // position: absolute;
-    //     // top:0;
-    //     // left: 0;
-    //     background-color:#ffa000;
-    //     border-radius: 5px 22px 5px 5px;
-    // }
-    // .boxbody{
-    //     position: absolute;
-    //     top:20px;
-    //     left: 0;
-    //     width: 200px;
-    //     height: 130px;
-    //     background-color:#ffca28;
-    //     background: linear-gradient( to bottom,#FFCA28,#FFA000);
-    //     border-radius: 5px 5px 5px 5px;
+    .rows{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        margin-left: 77px;
+        margin-top: 21px;
+        margin-bottom: 165px;
+    }
+    .folder{
+        width: 200px;
+        height: 200px;
+        position: relative;
+    }
+    .boxtop{
+        width: 65px;
+        height: 30px;
+        // position: absolute;
+        // top:0;
+        // left: 0;
+        background-color:#ffa000;
+        border-radius: 5px 22px 5px 5px;
+    }
+    .boxbody{
+        position: absolute;
+        top:20px;
+        left: 0;
+        width: 200px;
+        height: 130px;
+        background-color:#ffca28;
+        background: linear-gradient( to bottom,#FFCA28,#FFA000);
+        border-radius: 5px 5px 5px 5px;
     
-    //     p{
-    //         padding:5px 0px 0px 10px;
-    //     }
+        p{
+            padding:5px 0px 0px 10px;
+        }
     
-    // }
+    }
     .document{
         position: relative;
     }

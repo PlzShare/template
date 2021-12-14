@@ -40,7 +40,7 @@ export default function MessageList(props) {
 
     // console.dir(userList)
     const fetchList = async () => {
-      const response = await axios.get('/workspaces/workspace-users/138/23')
+      const response = await axios.get(`/workspaces/workspace-users?wno=206&?uno=4`)
       response.data.data.forEach(e => {e['label'] = e.id; e['value'] = e.id})
 
       setUserList(response.data.data.filter( el => el.userNo != 3))

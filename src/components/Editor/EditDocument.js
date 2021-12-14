@@ -1,9 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 import DocumentEditor from './DocumentEditor';
 const EditDocument = ({history, match}) => {
+    const params = useParams();
+    console.log('=========================edit document==========================')
+    console.dir(history)
     const [document, setDocument] = useState(null)
-    const testUrl = `/workspaces/1/channels/4/documents/${match.params.no}`
+    const testUrl = `/workspaces/1/channels/4/documents/${params.docNo}`
     
     const fetchDocument = async () => {
         const response = await axios.get(testUrl)
