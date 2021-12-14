@@ -17,6 +17,14 @@ export default function ChannelChildren(props) {
     e.stopPropagation();
   };
 
+  // const fetchList = async () => {
+  //   const response = await axios.get(`/workspaces/channels?wno=206`)
+  //   response.data.data.forEach((channel) => channel.url = `/channel/${channel.no}`);
+  //   console.dir(response.data.data)
+  //   setList(response.data.data)
+  //   console.log(list , "ddddddddddddddddddddddddd");
+  // }
+
   const { item } = props;
   const isExpanded = open ? 'open' : '';
   const Icon = item.icon ? Feather[item.icon] : null;

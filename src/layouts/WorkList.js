@@ -17,7 +17,7 @@ const Dashboard = () => {
   const testUserNo = 4 // 테스트 넘버
   const dashBoardManagement = {
     list: async () => {
-      const response = await axios.get(`/workspaces/${testUserNo}`);
+      const response = await axios.get(`/workspaces?userNo=${testUserNo}`);
       setNames([...response.data.data]);
     },
 
@@ -26,7 +26,7 @@ const Dashboard = () => {
       e.preventDefault();
 
       const deleteNo = e.target.id;
-      await axios.delete(`/workspaces/workspace-users/${testUserNo}/${deleteNo}`);
+      await axios.delete(`/workspaces/workspace-users?uno=${testUserNo}&wno=${deleteNo}`);
 
       console.log("삭제한 워크스페이스 번호:" + deleteNo);
       setNames([...(names.filter(name => name.no != deleteNo))])

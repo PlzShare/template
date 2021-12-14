@@ -29,7 +29,6 @@ const WorkspaceMain = () => {
   //   console.log('=========================================')
   //   console.dir(response)
   //   setWorkspaceInfo(response.data.data)
-  // }
 
   const fetchDocument = async () => {    
   }
