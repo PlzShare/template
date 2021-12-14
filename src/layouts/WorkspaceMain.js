@@ -24,14 +24,14 @@ const BlankPage = ({match}) => {
   const size=3
 
   const fetchWorkspaceInfo = async () => {
-    const response = await axios.get(`/workspaces/${workspaceNo}`)
+    const response = await axios.get(`/workspaces?wno=${workspaceNo}`)
     console.log('=========================================')
     console.dir(response)
     setWorkspaceInfo(response.data.data)
   }
 
   const fetchChannels = async () => {
-    const response = await axios.get(`/workspaces/${workspaceNo}/channels`)
+    const response = await axios.get(`/workspaces/channels?wno=${workspaceNo}`)
     setChannelList(response.data.data)
     console.log(response.data.data)
   }

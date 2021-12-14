@@ -15,7 +15,7 @@ const Dashboard = () => {
   const testUserNo = 4 // 테스트 넘버
   const dashBoardManagement = {
     list: async () => {
-      const response = await axios.get(`/workspaces/${testUserNo}`);
+      const response = await axios.get(`/workspaces?uno=${testUserNo}`);
       setNames([...response.data.data]);
     },
 
@@ -24,7 +24,7 @@ const Dashboard = () => {
       e.preventDefault();
 
       const deleteNo = e.target.id;
-      await axios.delete(`/workspaces/workspace-users/${testUserNo}/${deleteNo}`);
+      await axios.delete(`/workspaces/workspace-users?uno=${testUserNo}&wno=${deleteNo}`);
 
       console.log("==============================")
       console.log("현재 테스트 넘버는 " + testUserNo + "입니다. 현재 이 계정은 Admin이므로, 원칙상으로는 워크스페이스 방을 떠날 수 없지만 일단 기능구현을 보여주기 위해 떠날 수 있게 해두었습니다.")

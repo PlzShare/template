@@ -20,7 +20,7 @@ export default function ChannelChildren(props) {
   };
 
   const fetchList = async () => {
-    const response = await axios.get('/workspaces/138/channels')
+    const response = await axios.get(`/workspaces/channels?wno=206`)
     response.data.data.forEach((channel) => channel.url = `/channel/${channel.no}`);
     console.dir(response.data.data)
     setList(response.data.data)

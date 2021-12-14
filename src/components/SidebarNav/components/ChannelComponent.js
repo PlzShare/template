@@ -7,7 +7,7 @@ const ChannelComponent = ({callBackToggle, isOpen, workspaceNo}) => {
     const descInput = useRef();
  
     const createChannel = async () => {
-        const response = await axios.post(`/workspaces/${workspaceNo}/channels`,{
+        const response = await axios.post(`/workspaces/channels?wno=206`,{
           name : nameInput.current.value,
           desc : descInput.current.value
         })

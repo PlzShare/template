@@ -29,6 +29,9 @@ export default class Header extends Component {
 
   getPageTitle = () => {
     let name;
+    console.dir(this.props.routes)
+    console.dir(this.props.location)
+    
     this.props.routes.map(prop => {
       if (
         matchPath(this.props.location.pathname, {

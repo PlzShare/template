@@ -24,8 +24,9 @@ const Setting = () => {
   }, []);
 
   // console.dir(userList)
+  // 1214
   const fetchList = async () => {
-    const response = await axios.get('/workspaces/workspace-users/21/126')
+    const response = await axios.get(`/workspaces/workspace-users?uno=25&wno=206`)
     response.data.data.forEach(e => { e['label'] = e.id; e['value'] = e.id })
 
     setUserList(response.data.data.filter(el => el.userNo != 21))
@@ -33,7 +34,7 @@ const Setting = () => {
   }
 
   const updateWorkspaceName = async () => {
-    const response = await axios.put('/workspaces/4', {
+    const response = await axios.put(`/workspaces?uno=${userNo}`, {
       no: 125,
       name: wnameInput.current.value
     })
@@ -42,14 +43,14 @@ const Setting = () => {
   }
 
   const changeAdmin = async () => {
-    const response = await axios.put('/workspaces/workspace-users/change-role/25', {
+    const response = await axios.put(`/workspaces/workspace-users/change-role?uno=25`, {
       userNo: selectdata.userNo,
       workspaceNo: 126
     })
   }
-
+  
   const DeleteWorkspace = async () => {
-    const response = await axios.delete('/workspaces/163')
+    const response = await axios.delete(`/workspaces?wno=206`)
     toggle();
   }
 
