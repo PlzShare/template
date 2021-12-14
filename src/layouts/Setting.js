@@ -7,7 +7,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
 const Setting = () => {
-
+  console.log('=================setting]===================')
   const [selectdata, setSelectData] = useState([]);
   const [userList, setUserList] = useState([]);
   const animatedComponents = makeAnimated();
@@ -22,6 +22,7 @@ const Setting = () => {
   useEffect(() => {
     fetchList();
   }, []);
+  
 
   // console.dir(userList)
   const fetchList = async () => {

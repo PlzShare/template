@@ -45,7 +45,7 @@ const Dashboard = () => {
           <h3 className='workspace-title'>
             <span to='' id={e.no}>{e.name}</span>
           </h3>
-          <NavLink to={`/workspacemain/${e.no}`} className="in" id={e.no}>IN</NavLink>
+          <NavLink to={`/workspace/${e.no}`} className="in" id={e.no}>IN</NavLink>
           <NavLink to="#" className="out" id={e.no} onClick={dashBoardManagement.leave}>OUT</NavLink>
         </div>
       </Col>

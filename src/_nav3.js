@@ -6,7 +6,7 @@ export default {
   top: [
     {
       name: '워크스페이스1',
-      url: '/WorkspaceMain',
+      url: '',
       icon: 'Layers',
     },
     {
@@ -27,7 +27,7 @@ export default {
       icon: 'Users',
       children: [
         
-
+        
       ],
     },
     {
@@ -37,14 +37,12 @@ export default {
       isButton : true,
       getComponent: (toggle, isOpen) => <ChannelComponent callBackToggle={toggle} isOpen={isOpen}/>,
     },
-    {
-      name: '문서추가',
-      icon: 'FilePlus',
-      url: 'ddd',
-      isButton : true,
-      getComponent: (toggle, isOpen) => <DocumantComponent callBackToggle={toggle} isOpen={isOpen}/>,
-
-    },
+    // {
+    //   name: '문서추가',
+    //   icon: 'FilePlus',
+    //   url: '/create-document',     
+    //   // getComponent: (toggle, isOpen) => <DocumantComponent callBackToggle={toggle} isOpen={isOpen}/>,
+    // },
     {
       name: '멤버초대',
       icon: 'UserPlus',
@@ -54,6 +52,6 @@ export default {
     }
   ],
   bottom: [
-
+    
   ],
 };

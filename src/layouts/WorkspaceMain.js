@@ -7,14 +7,15 @@ import { Col, Row } from 'reactstrap';
 import { Folder } from 'react-feather';
 import axios from 'axios';
 import { WorkSpaceContext } from './DashboardLayout';
-const BlankPage = ({match}) => {
+import { useParams } from 'react-router';
+const WorkspaceMain = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenFile, setIsOpenFile] = useState(false)
-  const [channelList, setChannelList] = useState([])
   const [documentList, setDocumentList] = useState([])
-  const {workspaceInfo, setWorkspaceInfo} = useContext(WorkSpaceContext)
-
-  const workspaceNo = match.params.no
+  const {channelList} = useContext(WorkSpaceContext)
+  const params = useParams()
+  const workspaceNo = params.wno
+  
   const toggle = () => {
     setIsOpen(!isOpen)
   }
@@ -23,47 +24,38 @@ const BlankPage = ({match}) => {
   }
   const size=3
 
-  const fetchWorkspaceInfo = async () => {
-    const response = await axios.get(`/workspaces/${workspaceNo}`)
-    console.log('=========================================')
-    console.dir(response)
-    setWorkspaceInfo(response.data.data)
-  }
+  // const fetchWorkspaceInfo = async () => {
+  //   const response = await axios.get(`/workspaces/${workspaceNo}`)
+  //   console.log('=========================================')
+  //   console.dir(response)
+  //   setWorkspaceInfo(response.data.data)
+  // }
 
-  const fetchChannels = async () => {
-    const response = await axios.get(`/workspaces/${workspaceNo}/channels`)
-    setChannelList(response.data.data)
-    console.log(response.data.data)
-  }
-
-  const fetchDocument = async () => {
-    
+  const fetchDocument = async () => {    
   }
 
   useEffect(() => {
-    fetchWorkspaceInfo()
-    fetchChannels()
     fetchDocument()
   },[])
   
   return (
     <div className='workspacemain'>
-        {/* <div className='adds'>
+          {/* <span className='iconbox2' onClick={() => setIsOpenFile(true)}> 
+             <FontAwesomeIcon  className='iconfile' name={'file'}/>
+             <FontAwesomeIcon className='plus' name={'plus'}/>
+             <p>문서 추가</p>
+          </span> */}
+        <div className='adds'>
           <span className='iconbox1' onClick={() => setIsOpen(true)}> 
              <FontAwesomeIcon className='iconfolder' name={'folder'}/>
              <FontAwesomeIcon className='plus' name={'plus'}/>
              <p>채널 추가</p>
           </span>
-          <span className='iconbox2' onClick={() => setIsOpenFile(true)}> 
-             <FontAwesomeIcon  className='iconfile' name={'file'}/>
-             <FontAwesomeIcon className='plus' name={'plus'}/>
-             <p>문서 추가</p>
-          </span>
-        </div> */}
+        </div>
         <ChannelComponent callBackToggle={toggle} isOpen={isOpen} workspaceNo={workspaceNo}/>
-        <DocumantComponent callBackToggle={toggleFile} isOpen={isOpenFile}/>
+        {/* <DocumantComponent callBackToggle={toggleFile} isOpen={isOpenFile}/> */}
 
-          {/* <Row>
+          <Row>
               {channelList.map((channel) => 
                 <Col md={size} key={channel.no}>
                   <div className='folder'>
@@ -74,8 +66,8 @@ const BlankPage = ({match}) => {
                   </div>
                 </Col>
               )}
-            </Row> */}
-            <Row>
+            </Row>
+            {/* <Row>
               <Col xl={size}>
                   <div className='document'>
                     <div className='documentbody'>
@@ -84,59 +76,12 @@ const BlankPage = ({match}) => {
                     </div>
                   </div>
               </Col>
-              <Col xl={size}>
-                  <div className='document'>
-                    <div className='documentbody'>
-                      <div className='triangle'></div>
-                      <p> 문서</p>
-                    </div>
-                  </div>
-              </Col>
-              <Col xl={size}>
-                  <div className='document'>
-                    <div className='documentbody'>
-                      <div className='triangle'></div>
-                      <p> 문서</p>
-                    </div>
-                  </div>
-              </Col>
-              <Col xl={size}>
-                  <div className='document'>
-                    <div className='documentbody'>
-                      <div className='triangle'></div>
-                      <p> 문서</p>
-                    </div>
-                  </div>
-              </Col>
-              <Col xl={size}>
-                  <div className='document'>
-                    <div className='documentbody'>
-                      <div className='triangle'></div>
-                      <p> 문서</p>
-                    </div>
-                  </div>
-              </Col>
-              <Col xl={size}>
-                  <div className='document'>
-                    <div className='documentbody'>
-                      <div className='triangle'></div>
-                      <p> 문서</p>
-                    </div>
-                  </div>
-              </Col>
-              <Col xl={size}>
-                  <div className='document'>
-                    <div className='documentbody'>
-                      <div className='triangle'></div>
-                      <p> 문서</p>
-                    </div>
-                  </div>
-              </Col>
+              
              
            
-          </Row>
+          </Row> */}
     </div>
   );
 };
 
-export default BlankPage;
+export default WorkspaceMain;

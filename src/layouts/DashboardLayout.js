@@ -1,8 +1,10 @@
-import React, { Component, createContext } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import React, { Children, Component, createContext, Fragment } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Outlet, Routes, Route, useLocation, useParams } from 'react-router'
 import { Button, Badge, NavItem, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Header, SidebarNav, Footer, PageContent, PageAlert, Page } from '../components';
 import Logo from '../assets/images/vibe-logo.svg';
+
 import nav from '../_nav3';    // 채널scrollable sidebar sidebar-right
 // import nav from '../_nav2';   // 알림
 // import nav from '../_nav3';     // 워크스페이스
@@ -12,11 +14,15 @@ import ContextProviders from '../components/utilities/ContextProviders';
 import handleKeyAccessibility, { handleClickAccessibility } from '../helpers/handleTabAccessibility';
 import ConversationList from '../components/Messenger/ConversationList'
 import MessageList from '../components/Messenger/MessageList';
+import Setting from './Setting';
+import axios from 'axios';
 // import ToggleSidebarButton from '../vibe/components/ToggleSidebarButton';
 const MOBILE_SIZE = 992;
 
 export const WorkSpaceContext = createContext();
-export default class DashboardLayout extends Component {
+
+class DashboardLayout extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -26,15 +32,39 @@ export default class DashboardLayout extends Component {
       isMobile: window.innerWidth <= MOBILE_SIZE,
       showChat1: true,
       workspaceInfo : null,
+      channelList: []
     };
+
+    // alert('dddd')
+    console.log('=====================dashboard=========================')
+    console.dir(this.props)
+    this.fetchWorkspaceInfo()
+    this.fetchChannelList()
   }
 
-  setWorkspaceInfo = (workspace) => {
-    console.log('setWorkSpaceInfo')
-    console.log(workspace)
-    this.setState({workspaceInfo : workspace})
+  fetchChannelList = async () => {
+    const response = await axios.get(`/workspaces/${this.props.params.wno}/channels`)
+
+    response.data.data.forEach((channel) => channel.url = `/channel/${channel.no}`);
+    this.setState({channelList:response.data.data})
+    console.dir(response.data.data)
+  }
+  pushChannelList = (channel) => {
+    channel.url = `/channel/${channel.no}`
+    this.setState({channelList : [...this.state.channelList, channel]})
   }
 
+  fetchWorkspaceInfo = async () => {
+    const response = await axios(`/workspaces/${this.props.params.wno}`)
+    console.dir(response.data)
+    this.setState({workspaceInfo: response.data.data})
+  }
+  // setWorkspaceInfo = (workspace) => {
+  //   this.setState({workspaceInfo : workspace})
+  // }
+  setSidebarCollapsed = (sidebarCollapsed) => {
+    this.setState({sidebarCollapsed : sidebarCollapsed})
+  }
   handleResize = () => {
     if (window.innerWidth <= MOBILE_SIZE) {
       this.setState({ sidebarCollapsed: false, isMobile: true });
@@ -89,7 +119,13 @@ export default class DashboardLayout extends Component {
     const chatRoomCollapsed = this.state.conversationListCollapsed == false || this.state.chatRoomCollapsed == false ? 'side-menu-right' : '';
     return (
       <ContextProviders>
-        <WorkSpaceContext.Provider value={{workspaceInfo : this.state.workspaceInfo, setWorkspaceInfo : this.setWorkspaceInfo}}>
+        <WorkSpaceContext.Provider value={{
+          workspaceInfo : this.state.workspaceInfo, 
+          setWorkspaceInfo : this.setWorkspaceInfo,
+          channelList : this.state.channelList,
+          pushChannelList : this.pushChannelList, 
+          setSidebarCollapsed : this.setSidebarCollapsed
+          }}>
           <div className={`app ${sidebarCollapsedClass} ${chatRoomCollapsed}`}>
             <PageAlert />
             <div className="app-body">
@@ -125,13 +161,18 @@ export default class DashboardLayout extends Component {
                   >
                   <HeaderNav />
                 </Header>
+                  
                 <PageContent>
-                  <Switch>
-                    {routes.map((page, key) => (
-                      <Route path={page.path} component={page.component} key={key} />
-                      ))}
-                    <Redirect from="/" to="/home" />
-                  </Switch>
+                  <Outlet/>
+                   {/* <Switch>
+                    <Route path={'set'} component={Setting}/> */}
+                    
+                    {/* {routes.map((page, key) => ( */}
+                      {/* <Route path={page.path} component={page.component} key={key}/> */}
+                      {/* ))} */}
+                    {/* <Redirect from="/" to="/home" /> */}
+                  {/* </Switch> */}
+              {/* </Switch> */}
                 </PageContent>
               </Page>
             </div>
@@ -175,3 +216,4 @@ function HeaderNav() {
     </React.Fragment>
   );
 }
+export default (props) => <DashboardLayout {...props} location={useLocation()} params={useParams()}/>

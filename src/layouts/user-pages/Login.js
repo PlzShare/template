@@ -7,9 +7,15 @@ import Sharelogo from '../../assets/images/logo2.png';
 
 export class Login extends Component {
 
-
+  constructor(props) {
+    super(props);
+    
+    console.dir(props)
+  }
+  
   render() {
     return (
+      
       <div>
         <div className="d-flex align-items-center auth px-0">
           <div className="row w-100 mx-0">

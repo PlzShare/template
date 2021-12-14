@@ -4,7 +4,7 @@ import NavBadge from './NavBadge';
 import NavSingleItem from './NavSingleItem';
 import axios from 'axios';
 
-export default function ChannelChildren(props) {
+export default function WorkspaceNotiChildren(props) {
   const [open, setOpen] = useState(false);
   const [list, setList] = useState([]);
 
