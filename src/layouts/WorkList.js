@@ -11,6 +11,7 @@ import UserContext from '../components/utilities/ContextProviders/UserContext';
 const Dashboard = () => {
   const [names, setNames] = useState([]);
   const {authUser} = useContext(UserContext)
+  
   useEffect(() => {
     console.log(authUser)
     if(authUser){

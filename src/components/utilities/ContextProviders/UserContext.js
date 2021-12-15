@@ -24,9 +24,10 @@ export const UserContextProvider = ({children}) => {
         // token 해석해서, authUser에 로그인한 user정보 저장
         const userInfo = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString()).user
         setAuthUser(userInfo)
-        
     }
     console.log(authUser)
+
+
     useEffect(() => {
         
         const token = localStorage.getItem("token")
@@ -40,6 +41,7 @@ export const UserContextProvider = ({children}) => {
             console.log('=====================================')
             console.dir(userInfo)
             setAuthUser(userInfo)
+            
         }else{
             //로그인 안한 상태면 login 페이지로 보내기
             navigate('/login')
