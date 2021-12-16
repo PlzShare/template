@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import { Link } from 'react-router-dom';
 import {Form} from 'react-bootstrap';
 import Sharelogo from '../../assets/images/logo2.png';
 
 
 
-export class Login extends Component {
+export default function Login() {
 
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
     
-    console.dir(props)
-  }
+  //   console.dir(props)
+  // }
   
-  render() {
+
     return (
       
       <div>
@@ -47,6 +47,4 @@ export class Login extends Component {
       </div>
     )
   }
-}
 
-export default Login
