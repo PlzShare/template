@@ -2,7 +2,8 @@ import React  from 'react';
 import { Link } from 'react-router-dom';
 import {Form} from 'react-bootstrap';
 import Sharelogo from '../../assets/images/logo2.png';
-
+// import * as StompJs from "@stomp/stompjs";
+// import * as SockJS from "sockjs-client"
 
 
 export default function Login() {
@@ -12,6 +13,8 @@ export default function Login() {
     
   //   console.dir(props)
   // }
+
+
   
 
     return (
@@ -36,7 +39,7 @@ export default function Login() {
                     <Form.Control type="password" placeholder="비밀번호" size="lg" className="h-auto" />
                   </Form.Group>
                   <div className="mt-3">
-                    <Link className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" to="/dashboard">로그인</Link>
+                    <Link className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" to="/worklist">로그인</Link>
                     <Link className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" to="/register">회원가입</Link>
                   </div>
                 </Form>

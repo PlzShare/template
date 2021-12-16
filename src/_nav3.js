@@ -8,6 +8,7 @@ export default {
       name: '워크스페이스1',
       url: '',
       icon: 'Layers',
+      type: 'workspaceName',
     },
     {
       name: '환경설정',

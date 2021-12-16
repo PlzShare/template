@@ -11,7 +11,7 @@ const ChannelComponent = ({callBackToggle, isOpen}) => {
     const {pushChannelList} = useContext(WorkSpaceContext)
 
     const createChannel = async () => {
-        const response = await axios.post(`/workspaces/channels?wno=206`,{
+        const response = await axios.post(`/workspaces/${workspaceNo}/channels`,{
           name : nameInput.current.value,
           desc : descInput.current.value
         })

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import FontAwesomeIcon from 'react-fontawesome';
 import ChannelComponent from '../components/SidebarNav/components/ChannelComponent';
 import DocumantComponent from '../components/SidebarNav/components/DocumentComponent';
@@ -7,7 +7,7 @@ import { Col, Row } from 'reactstrap';
 import { Folder } from 'react-feather';
 import axios from 'axios';
 import { WorkSpaceContext } from './DashboardLayout';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 const WorkspaceMain = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenFile, setIsOpenFile] = useState(false)
@@ -16,11 +16,16 @@ const WorkspaceMain = () => {
   const params = useParams()
   const workspaceNo = params.wno
   
+  const navigate = useNavigate()
   const toggle = () => {
     setIsOpen(!isOpen)
   }
   const toggleFile = () => {
     setIsOpen(!isOpenFile)
+  }
+  const onClickFolder = (e) => {
+    const channelNo = e.currentTarget.getAttribute('channel-no')
+    navigate(`/workspace/${params.wno}/channel/${channelNo}`)
   }
   const size=3
 
@@ -57,7 +62,7 @@ const WorkspaceMain = () => {
           <Row>
               {channelList.map((channel) => 
                 <Col md={size} key={channel.no}>
-                  <div className='folder'>
+                  <div className='folder' onClick={onClickFolder} channel-no={channel.no} style={{cursor: 'pointer'}}>
                     <div className='boxtop'></div>
                     <div className='boxbody'>
                       <p>{channel.name}</p>
