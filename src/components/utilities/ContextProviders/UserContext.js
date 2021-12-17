@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { createContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import * as StompJs from "@stomp/stompjs";
 import * as SockJS from "sockjs-client";
 
@@ -8,10 +8,11 @@ const UserContext = createContext();
 
 export const UserContextProvider = ({children}) => {
     const [authUser, setAuthUser] = useState(null);
+    const navigate = useNavigate()
+    const location = useLocation()
+    
     const [noti, setNoti] = useState(null);
     const [stompClient, setStompClient] = useState({})
-
-    const navigate = useNavigate()
 
 
     const fetchAuthUser = async () => {
@@ -90,6 +91,9 @@ export const UserContextProvider = ({children}) => {
             
             console.log('=====================================')
             console.dir(userInfo)
+            setAuthUser(userInfo)
+
+            if(location.pathname == '/') navigate('/worklist')
             
         }else{
             //로그인 안한 상태면 login 페이지로 보내기

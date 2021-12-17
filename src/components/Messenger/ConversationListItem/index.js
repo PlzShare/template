@@ -10,8 +10,6 @@ export default function ConversationListItem(props) {
 
     const { photo, name, text } = props.data;
     const { callBackOnClick } = props;
-    
-    console.log('------------------------' , text)
 
     return (
       <div className="conversation-list-item" onClick={callBackOnClick}>

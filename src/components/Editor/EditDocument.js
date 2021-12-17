@@ -4,18 +4,21 @@ import { useParams } from 'react-router';
 import DocumentEditor from './DocumentEditor';
 const EditDocument = ({history, match}) => {
     const params = useParams();
-    console.log('=========================edit document==========================')
-    console.dir(history)
     const [document, setDocument] = useState(null)
-    const testUrl = `/workspaces/1/channels/4/documents/${params.docNo}`
-    
+    const [editorData, setEditorData] = useState(null)
+
     const fetchDocument = async () => {
-        const response = await axios.get(testUrl)
-        setDocument(response.data.data)    
+        const url = `/workspaces/${params.wno}/channels/${params.cno}/documents/${params.docNo}`
+        const response = await axios.get(url)
+
+        return response.data.data;
+        
     }
     
-    useEffect(() => {
-        fetchDocument()
+    useEffect(async () => {
+        const documentData = await fetchDocument()
+        setEditorData(documentData) 
+        setDocument(documentData)
     }, [])
 
     const deleteDoc = async () => {
@@ -23,7 +26,11 @@ const EditDocument = ({history, match}) => {
         history.go(-1)
     }
     const onChange = async () => {
-
+        // setEditorData((prevData) => {
+        //     if(prevData == window.editor.getData())
+            
+        //     return window.editor.getData()
+        // })
     } 
     return (
         <div>

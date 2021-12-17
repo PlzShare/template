@@ -36,6 +36,7 @@ class DashboardLayout extends Component {
       workspaceInfo : null,
       channelList: [],
       memberList: [],
+      chatRoomInfo : null
     };
 
     // alert('dddd')
@@ -115,10 +116,13 @@ class DashboardLayout extends Component {
     this.setState(prevState => ({ conversationListCollapsed: !prevState.conversationListCollapsed }))
   }
   
-  enterChatRoom = () => {
+  enterChatRoom = (no) => {
     console.log('chatroom')
-    this.setState({ conversationListCollapsed: true })
-    this.setState({ chatRoomCollapsed: false })
+    this.setState({ 
+      conversationListCollapsed: true,
+      chatRoomCollapsed: false,
+      chatRoomInfo : {roomNo:2, name:'방 이름 넣기'}
+    })
   }
   exitChatRoom = () => {
     console.log('exit')
@@ -161,7 +165,7 @@ class DashboardLayout extends Component {
               {!this.state.chatRoomCollapsed
                 &&
                 <div className="scrollable sidebar sidebar-right">
-                <MessageList callBackOnClickExit={this.exitChatRoom} />
+                <MessageList callBackOnClickExit={this.exitChatRoom} chatRoomInfo={this.state.chatRoomInfo}/>
               </div>
               }
 
