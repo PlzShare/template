@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { Col, Row } from 'reactstrap';
 import ChannelComponent from '../../components/SidebarNav/components/ChannelComponent';
 import DocumantComponent from '../../components/SidebarNav/components/DocumentComponent';
@@ -13,12 +13,10 @@ const Channel = () => {
     const [isOpenFile, setIsOpenFile] = useState(false)
     const [documentList, setDocumentList] = useState([])
     const params = useParams()
-
-    const toggle = () => {
-        setIsOpen(!isOpen)
-    }
-    const toggleFile = () => {
-    setIsOpen(!isOpenFile)
+    const navigate = useNavigate()
+    const onClickDocument = (e) => {
+        const docNo = e.currentTarget.getAttribute('doc-no')
+        navigate(`/workspace/${params.wno}/channel/${params.cno}/edit-document/${docNo}`)
     }
 
     const fetchDocumentList = async () => {
@@ -51,17 +49,16 @@ const Channel = () => {
                 </Link>
             </div>
             <Row>
-              <Col xl={size}>
                   {documentList.map( doc => 
-                    <div className='document'>
-                        <div className='documentbody'>
-                        <div className='triangle'></div>
-                        <p style={{fontWeight:'bold'}}>{doc.title}</p>
+                    <Col xl={size}>
+                        <div className='document' doc-no={doc.no} style={{cursor: 'pointer'}} onClick={onClickDocument}>
+                            <div className='documentbody'>
+                            <div className='triangle'></div>
+                            <p style={{fontWeight:'bold'}}>{doc.title}</p>
+                            </div>
                         </div>
-                    </div>
+                    </Col>
                   )}
-                  
-              </Col>
           </Row>
         </div>
     );

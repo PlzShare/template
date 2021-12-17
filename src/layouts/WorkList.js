@@ -3,7 +3,7 @@ import { Row, Col, Button } from 'reactstrap';
 import Logo from '../assets/images/logo3.png';
 import profile from '../assets/images/profile.jpg';
 import axios from 'axios';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import '../assets/css/worklist.css';
 import FontAwesomeIcon from 'react-fontawesome';
 import UserContext from '../components/utilities/ContextProviders/UserContext';
@@ -90,7 +90,9 @@ const Dashboard = () => {
           <Row className='listrow'>
             {workspaceLists}
           </Row>
-          <Button color="primary" block>새로운 워크스페이스 생성</Button>
+          <Link to='/workspaceadd'>
+            <Button to="/workspaceadd" color="primary" block>새로운 워크스페이스 생성</Button>
+          </Link>
         </div>
       </div>
 

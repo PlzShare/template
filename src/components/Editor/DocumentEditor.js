@@ -1,34 +1,44 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document/build/ckeditor';
-// import ExportWord from '@ckeditor/ckeditor5-export-pdf/src/exportword';
 import axios from 'axios'
 
 const DocumentEditor = ({initDocumentData, callBackOnChange}) => {
-    initDocumentData && window.editor && window.editor.setData(initDocumentData.contents)
 
+    if(initDocumentData && window.editor){
+    } 
+    
     const createEditor = async () => {
         const editor = await DecoupledEditor.create( document.querySelector( '.document-editor__editable' ))
-        console.log(editor)
         const toolbarContainer = document.querySelector( '.document-editor__toolbar' );
-        toolbarContainer.appendChild( editor.ui.view.toolbar.element );
-        
-        console.log(callBackOnChange)
-        if(callBackOnChange){
-            editor.editing.document.on('change:data', (e, data, a3) =>{
-                console.dir(e)
-                console.dir(data)
-                console.dir(a3)
-            })
-            console.log('등록!!!!')
-        }
+        toolbarContainer.appendChild( editor.ui.view.toolbar.element );        
         
         window['editor'] = editor;
+        
+        editor.model.document.on('change:data', (e, m) => {
+            console.dir(e)
+            console.dir(m)
+        })
+
+        // if(callBackOnChange){
+        //     editor.model.document.on('change:data', () => {
+        //         callBackOnChange();
+        //     })
+        // }
     }
-    console.log('=======================================================================')
+    
     useEffect(() => {
         if(window.editor) window.editor.destroy()
+        
         createEditor()
     }, [])
+
+    useEffect(() => {
+        if(initDocumentData){
+            window.editor.setData(initDocumentData.contents)
+            document.getElementById('document-title').value = initDocumentData.title
+
+        }
+    },[initDocumentData])
 
 
     return (

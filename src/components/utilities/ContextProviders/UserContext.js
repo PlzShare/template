@@ -1,13 +1,14 @@
 import axios from 'axios';
 import React, { createContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 const UserContext = createContext();
 
 export const UserContextProvider = ({children}) => {
     const [authUser, setAuthUser] = useState(null);
-
     const navigate = useNavigate()
+    const location = useLocation()
+    
     const fetchAuthUser = async () => {
         // loginUser 정보 가져오기
         // axios.get
@@ -40,6 +41,9 @@ export const UserContextProvider = ({children}) => {
             console.log('=====================================')
             console.dir(userInfo)
             setAuthUser(userInfo)
+
+            if(location.pathname == '/') navigate('/worklist')
+            
         }else{
             //로그인 안한 상태면 login 페이지로 보내기
             navigate('/login')

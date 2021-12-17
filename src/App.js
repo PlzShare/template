@@ -11,6 +11,7 @@ import WorkList from './layouts/WorkList';
 import {UserContextProvider} from './components/utilities/ContextProviders/UserContext';
 import routes from './router'
 import Setting from './layouts/Setting';
+import WorkspaceAdd from './layouts/WorkspaceAdd';
 
 export default function App() {
   axios.defaults.baseURL = '/api'
@@ -30,12 +31,11 @@ export default function App() {
         <Routes>
             <Route path='/login' element={<Login />}/>
             <Route path='/register' element={<Register/>}/>
-            {/* <Route path='/workspace' component={Worksp}/> */}
             <Route path='/worklist' element={<WorkList/>}/>
+            <Route path='/workspaceadd' element={<WorkspaceAdd/>} />
             
             <Route path={workspacePath} element={<DashboardLayout/>}>
                 {routes.filter((el) => el.path == workspacePath)[0].children.map((el) => {
-                  console.dir(el)
                   return <Route path={el.path} element={<el.component/>} />
                 })}
             </Route>
