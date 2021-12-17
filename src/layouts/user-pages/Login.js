@@ -51,7 +51,6 @@ const onLogin = async(e) =>{
 
       //response에서 토큰을 꺼내
       //       console.dir(response.headers.authorization);
-     
       storeToken(response.headers.authorization)
     
       //worklist로 이동

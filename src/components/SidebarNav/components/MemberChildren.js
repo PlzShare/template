@@ -19,8 +19,6 @@ export default function NavDropdownItem(props) {
     e.stopPropagation();
   };
 
- 
-
   const { item } = props;
   const isExpanded = open ? 'open' : '';
   const Icon = item.icon ? Feather[item.icon] : null;
