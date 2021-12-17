@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Compose from '../Compose';
 import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
@@ -7,33 +7,105 @@ import Message from '../Message';
 import moment from 'moment';
 import Select from 'react-select';
 import axios from 'axios';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col} from 'reactstrap';
+import * as StompJs from "@stomp/stompjs";
+import SockJS from "sockjs-client";
 
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col} from 'reactstrap';
 
 import './MessageList.css';
 
-const MY_USER_ID = 'apple';
-
 export default function MessageList(props) {
-  const {callBackOnClickExit} = props
+  const {callBackOnClickExit, chatRoomInfo} = props
   const [messages, setMessages] = useState([])
   const [modals,setModals] = useState(false);
   const [userList,setUserList] = useState([]);
   const [selectdata, setSelectData] = useState([]);
   const animatedComponents = makeAnimated();
+
+  const MY_USER_ID = 'apple';
+
+  // 정대겸 : 커넥트
+  const client = useRef({});
+
+  console.log("==========")
+  console.log(chatRoomInfo)
   
   useEffect(() => {
-    getMessages();
+    connect();
+    console.log("대화 시작")
     fetchList();
-  },[])
+    return () => disconnect();
+  }, []);
+
+  const connect = () => {
+    client.current = new StompJs.Client({
+      webSocketFactory: () => new SockJS('http://localhost:8081/stomp/chat'), 
+      // connectHeaders: {
+      //   "auth-token": "spring-chat-auth-token",
+      // },
+      debug: function (str) {
+        console.log(str);
+      },
+
+      reconnectDelay: 5000,
+      heartbeatIncoming: 10000,
+      heartbeatOutgoing: 10000,
+
+      onConnect: () => {
+        subscribe();
+      },
+
+      onStompError: (frame) => {
+        console.error(frame);
+      },
+    });
+    client.current.activate();
+  };
+
+  const disconnect = () => {
+    client.current.deactivate();
+  };
+
+  // 브로드캐스팅 받는 부분
+  const subscribe = () => {
+    client.current.subscribe('/sub/greetings', ({ body }) => {
+      const broadCastingMessage = {}
+      broadCastingMessage.id = JSON.parse(body).id;
+      broadCastingMessage.message = JSON.parse(body).message;
+      broadCastingMessage.author = JSON.parse(body).author;
+      broadCastingMessage.timestamp = new Date().getTime();
+      
+      // 정대겸 바보 이걸로 삽질함 ㅠ
+      ////////////////////////////////////////
+      // setMessages([...messages, broadCastingMessage])
+      setMessages((prev) => {
+        return [...prev, broadCastingMessage]
+      });
+      ////////////////////////////////////////
+    });
+  };
+
+  const publish = (mySendMessage) => {
+    if (!client.current.connected) {
+      return;
+    }
+
+    client.current.publish({
+      destination: "/pub/server",
+      body: JSON.stringify({
+        message: mySendMessage.message,
+        id: mySendMessage.id,
+        author: mySendMessage.author,
+        timestamp: mySendMessage.timestamp,
+      }),
+    });
+  };
 
   const toggle = () =>{
     setModals(!modals)
   }
 
   const modalevent = (e) => {
-      console.log('asdasdadas'
-      )
       e.preventDefault();
       setModals(true)
   }
@@ -42,9 +114,7 @@ export default function MessageList(props) {
     const fetchList = async () => {
       const response = await axios.get(`/workspaces/workspace-users?wno=206&?uno=4`)
       response.data.data.forEach(e => {e['label'] = e.id; e['value'] = e.id})
-
       setUserList(response.data.data.filter( el => el.userNo != 3))
-      // console.response.data.data
   }
 
   const pushData = () =>{
@@ -54,88 +124,19 @@ export default function MessageList(props) {
 
   const selectBoxChange = (e) =>{
     // 여기서 쌓이는 값들을 useState에 쌓아서 버튼을 눌렀을 때 선택된 값을 보내도록한다.
-    // console.dir(e)
     setSelectData(e);
 }
 
-
    // 정대겸
-   const callbackMessage = {
-    add: function(message) {
-        // 오토 인크리먼트
-        message.id = 1;
-        message.author = MY_USER_ID;
-        message.timestamp = new Date().getTime();
-        setMessages([...messages, message]);
+  const callbackMessage = {
+    add: function(mySendMessage) {
+        mySendMessage.id = 1; // 유저 고유번호
+        mySendMessage.author = MY_USER_ID; // 유저 아이디
+        mySendMessage.timestamp = new Date().getTime();
+        publish(mySendMessage) // 보냄
     }
   }
   
-  const getMessages = () => {
-     var tempMessages = [
-        {
-          id: 1,
-          author: 'apple',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 2,
-          author: 'orange',
-          message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 3,
-          author: 'orange',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 4,
-          author: 'apple',
-          message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 5,
-          author: 'apple',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 6,
-          author: 'apple',
-          message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 7,
-          author: 'orange',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 8,
-          author: 'orange',
-          message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 9,
-          author: 'apple',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 10,
-          author: 'orange',
-          message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-          timestamp: new Date().getTime()
-        },
-      ]
-      setMessages([...messages, ...tempMessages])
-  }
-
   const renderMessages = () => {
     let i = 0;
     let messageCount = messages.length;
@@ -200,17 +201,16 @@ export default function MessageList(props) {
         <Toolbar
           leftItems={[
             <span>
-              <ToolbarButton key="info" icon="ion-md-exit" callBackOnClick={ callBackOnClickExit}/>
+              <ToolbarButton key="info" icon="ion-md-exit" callBackOnClick={ callBackOnClickExit }/>
             </span>
           ]}
-          title="Conversation Title"
+          title={chatRoomInfo.name}
           rightItems={[
             <ToolbarButton key="person" icon="ion-ios-person-add" callBackOnClick={modalevent}>
             </ToolbarButton>,
           <ToolbarButton key="video" icon="ion-ios-videocam" />
         ]}
           
-        
         />
         
         {/* <Modal isOpen={modals}>

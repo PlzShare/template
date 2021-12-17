@@ -60,8 +60,6 @@ const Setting = () => {
     setSelectData(e);
   }
 
-
-
   return (
     <div className="add">
       <div className="box">
