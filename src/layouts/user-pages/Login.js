@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {useNavigate} from 'react-router'
 import {Form} from 'react-bootstrap';
@@ -8,24 +8,23 @@ import UserContext from '../../components/utilities/ContextProviders/UserContext
 
 
 
-export default function Login()  {
+export default function Login() {
 
-  // constructor(props) {
-  //   super(props);
-    
-  //   console.dir(props)
-
-  //   this.state ={
-  //     id: "",
-  //     password:""
-  //   }
-  // }
 const navigate = useNavigate()
 
 const [Id,setId] = useState("");
 const [Password,setPassword] = useState("");
-// const refForm = useRef(null);
-const  {storeToken} = useContext(UserContext)
+const  {storeToken, authUser} = useContext(UserContext)
+
+// 승현
+const client = useRef({});
+const [ chatMessages, setChatMessage] = useState([]);
+const [ message, setMessage] = useState("");
+
+useEffect(() => {
+  chatMessages
+  // return () => disconnect();
+}, []);
 
 
 const onIdHandler=(e) =>{
@@ -43,7 +42,7 @@ const onLogin = async(e) =>{
 
     try{
       //form에서 id랑 password읽어서 
-      axios.post
+      // axios.post
       const response = await axios.post('/users/login',{
         id: Id,
         password: Password
@@ -51,7 +50,6 @@ const onLogin = async(e) =>{
 
       //response에서 토큰을 꺼내
       //       console.dir(response.headers.authorization);
-     
       storeToken(response.headers.authorization)
     
       //worklist로 이동

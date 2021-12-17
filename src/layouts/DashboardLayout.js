@@ -4,6 +4,7 @@ import { Outlet, Routes, Route, useLocation, useParams } from 'react-router'
 import { Button, Badge, NavItem, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Header, SidebarNav, Footer, PageContent, PageAlert, Page } from '../components';
 import Logo from '../assets/images/vibe-logo.svg';
+import '../assets/css/dashboardlayout.css';
 
 import nav from '../_nav3';    // 채널scrollable sidebar sidebar-right
 // import nav from '../_nav2';   // 알림
@@ -16,6 +17,7 @@ import ConversationList from '../components/Messenger/ConversationList'
 import MessageList from '../components/Messenger/MessageList';
 import Setting from './Setting';
 import axios from 'axios';
+
 // import ToggleSidebarButton from '../vibe/components/ToggleSidebarButton';
 const MOBILE_SIZE = 992;
 
@@ -203,27 +205,32 @@ class DashboardLayout extends Component {
 function HeaderNav() {
   return (
     <React.Fragment>
-      <NavItem>
-        <form className="form-inline">
-          <input className="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search" />
-          <Button type="submit" className="d-none d-sm-block">
-            <i className="fa fa-search" />
-          </Button>
-        </form>
-      </NavItem>
+        <NavItem>
+          <form className="form-inline">
+            <input className="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search" />
+            <Button type="submit" className="d-none d-sm-block">
+              <i className="fa fa-search" />
+            </Button>
+          </form>
+        </NavItem>
+   
+      
       <UncontrolledDropdown nav inNavbar>
-        <DropdownToggle nav caret>
-          New
-        </DropdownToggle>
-        <DropdownMenu right>
-          <DropdownItem>Project</DropdownItem>
-          <DropdownItem>User</DropdownItem>
+        <div className='userid'>
+          <DropdownToggle nav caret>
+            UserId
+          </DropdownToggle>
+        </div>
+          <DropdownMenu right>
+          <DropdownItem>Mypage</DropdownItem>
+          <button className='logout'>Logout</button>
           <DropdownItem divider />
           <DropdownItem>
             Message <Badge color="primary">10</Badge>
           </DropdownItem>
         </DropdownMenu>
       </UncontrolledDropdown>
+
       {/* {this.props.children} */}
 
       {/* <ToggleSidebarButton
