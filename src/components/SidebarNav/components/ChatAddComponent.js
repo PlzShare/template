@@ -50,7 +50,7 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
                     </div>
                     <div>
                         <h5>🔹 채팅방 이름</h5>
-                        <input placeholder='초대한사람들 아이디(기본값)' className="chatinput"></input>
+                        <input placeholder='초대한사람들 아이디(기본값)' className="chatinput" ></input>
                     </div>
                 </ModalBody>
                 <ModalFooter>

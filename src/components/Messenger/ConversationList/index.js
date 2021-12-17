@@ -31,11 +31,11 @@ export default function ConversationList(props) {
           return {
             photo: result.picture.large,
             name: `${result.name.first} ${result.name.last}`,
-            text: 'Hello world! This is a long message that needs to be truncated.'
+            text: 'Hello world!'
           };
         });
         setConversations([...conversations, ...newConversations])
-    });
+    }, console.log(conversations));
   }
 
     return (
@@ -43,7 +43,7 @@ export default function ConversationList(props) {
         <Toolbar
           title="Messenger"
           leftItems={[
-            <ToolbarButton key="cog" icon="ion-md-arrow-round-forward" callBackOnClick={() => {console.log('dddddddd');callBackCollapseConversationList()}}/>
+            <ToolbarButton key="cog" icon="ion-md-arrow-round-forward" callBackOnClick={() => {callBackCollapseConversationList()}}/>
           ]}
           rightItems={[
             <ToolbarButton key="add" icon="ion-ios-add-circle-outline" callBackOnClick={() => {setModals(true)}}/>
