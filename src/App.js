@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Routes, Route, useLocation } from 'react-router';
 
@@ -14,6 +14,7 @@ import Setting from './layouts/Setting';
 
 export default function App() {
   axios.defaults.baseURL = '/api'
+  axios.defaults.withCredentials = true;
   // axios
   //   .get('/workspaces/1/channels/1/documents')
   //   .then((response) => {
@@ -21,9 +22,11 @@ export default function App() {
   //   })
   // fetch('/api/workspaces/1/channels/1/documents')
   const workspacePath = '/workspace/:wno';
+
+  console.log('=================================================')
   return (
-    <UserContextProvider>
-      <Router>
+    <Router>
+        <UserContextProvider>
         <Routes>
             <Route path='/login' element={<Login />}/>
             <Route path='/register' element={<Register/>}/>
@@ -37,7 +40,7 @@ export default function App() {
                 })}
             </Route>
         </Routes>
+      </UserContextProvider>
       </Router>
-    </UserContextProvider>
   );
 }
