@@ -10,6 +10,7 @@ import Register from './layouts/user-pages/Register';
 import WorkList from './layouts/WorkList';
 import {UserContextProvider} from './components/utilities/ContextProviders/UserContext';
 import routes from './router'
+import Noti from './components/Messenger/Noti'
 import Setting from './layouts/Setting';
 
 export default function App() {
@@ -40,6 +41,7 @@ export default function App() {
                 })}
             </Route>
         </Routes>
+          <Noti />
       </UserContextProvider>
       </Router>
   );
