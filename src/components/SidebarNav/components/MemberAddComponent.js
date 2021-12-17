@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { WorkSpaceContext } from '../../../layouts/DashboardLayout';
 import { useParams } from 'react-router';
+import UserContext from '../../utilities/ContextProviders/UserContext';
 
 
 const MemberAddComponent = ({callBackToggle, isOpen}) => {
@@ -11,6 +12,7 @@ const MemberAddComponent = ({callBackToggle, isOpen}) => {
     const [selectdata, setSelectData] = useState([]);
     // const [userList, setUserList] = useState([]);
     const {pushMemberList} = useContext(WorkSpaceContext)
+    const {authUser} = useContext(UserContext);
     const selectedTags = tags => setSelectData(tags);
     const params = useParams();
 
@@ -19,7 +21,9 @@ const MemberAddComponent = ({callBackToggle, isOpen}) => {
         callBackToggle();
         const response = await axios.post(`/workspaces/workspace-users`,{
             no : params.wno,
-            userNums : selectdata
+            userNo: authUser.no,
+            userNums : selectdata,
+            inviteMember : authUser.nickname
         })
         // pushMemberList()
     }

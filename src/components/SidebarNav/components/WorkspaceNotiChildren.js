@@ -9,7 +9,7 @@ export default function WorkspaceNotiChildren(props) {
   const [list, setList] = useState([]);
 
   useEffect(() => {
-    fetchList();
+    // fetchList();
   },[])
 
   const toggle = e => {

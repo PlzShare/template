@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Row, Col, Button } from 'reactstrap';
 import Logo from '../assets/images/logo3.png';
 import profile from '../assets/images/profile.jpg';
@@ -6,18 +6,22 @@ import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import '../assets/css/worklist.css';
 import FontAwesomeIcon from 'react-fontawesome';
+import UserContext from '../components/utilities/ContextProviders/UserContext';
 
 const Dashboard = () => {
   const [names, setNames] = useState([]);
-
+  const {authUser} = useContext(UserContext)
   useEffect(() => {
-    dashBoardManagement.list();
-  }, []);
+    console.log(authUser)
+    if(authUser){
+      dashBoardManagement.list();
+    }
+  }, [authUser]);
 
   const testUserNo = 4 // 테스트 넘버
   const dashBoardManagement = {
     list: async () => {
-      const response = await axios.get(`/workspaces?userNo=${testUserNo}`);
+      const response = await axios.get(`/workspaces?userNo=${authUser.no}`);
       setNames([...response.data.data]);
     },
 

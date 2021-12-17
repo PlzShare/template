@@ -51,6 +51,16 @@ const pageList = [
     path : '/workspace/:wno',
     children: [
       {
+        name: '초대된 워크스페이스',
+        path: 'invited',
+        component: Invited,
+      },
+      {
+        name: '초대한 워크스페이스',
+        path: 'invite',
+        component: Invite,
+      },
+      {
         name : '워크스페이스',
         path : '',
         component: WorkspaceMain,
@@ -102,21 +112,7 @@ const pageList = [
     path: '/memberplus',
     component: BlankPage,
   },
-  {
-    name: '초대된 워크스페이스',
-    path: '/invited',
-    component: Invited,
-  },
-  {
-    name: '초대한 워크스페이스',
-    path: '/invite',
-    component: Invite,
-  },
-  {
-    name: '초대한 워크스페이스',
-    path: '/invite',
-    component: Invite,
-  },
+
   {
     name: '워크스페이스',
     path: '/workspacenoti',
