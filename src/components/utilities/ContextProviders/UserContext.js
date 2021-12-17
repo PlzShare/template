@@ -8,11 +8,21 @@ export const UserContextProvider = ({children}) => {
     const [authUser, setAuthUser] = useState(null);
 
     const navigate = useNavigate()
+
     const fetchAuthUser = async () => {
         // loginUser 정보 가져오기
         // axios.get
+        try { 
+            const response = await axios.get('/users/login');
+
+
+          } catch (error) {
+            
+            console.error(error);
+          }   
+
     }
-    
+
     const storeToken = (token) => {
         // 토큰 받음
         // axios default 설정 (모든 요청 시, Authorization Header에 Token 실어서 보내기)
@@ -38,9 +48,12 @@ export const UserContextProvider = ({children}) => {
             
             // token 해석해서, authUser에 로그인한 user정보 저장
             const userInfo = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString()).user
+            
+            
+            setAuthUser(userInfo)
+            
             console.log('=====================================')
             console.dir(userInfo)
-            setAuthUser(userInfo)
             
         }else{
             //로그인 안한 상태면 login 페이지로 보내기

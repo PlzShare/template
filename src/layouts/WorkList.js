@@ -19,6 +19,8 @@ const Dashboard = () => {
     }
   }, [authUser]);
 
+  
+
   const testUserNo = 4 // 테스트 넘버
   const dashBoardManagement = {
     list: async () => {
