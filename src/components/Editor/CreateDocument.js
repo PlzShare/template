@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom'
 import { WorkSpaceContext } from '../../layouts/DashboardLayout';
+import QuillEditor from './QuillEditor';
 
 const CreateDocument = () => {
     const params = useParams()
@@ -29,7 +30,8 @@ const CreateDocument = () => {
     return (
         <div>
             <button className='btn-primary' onClick={save}>저장</button>
-            <DocumentEditor />
+            {/* <DocumentEditor /> */}
+            <QuillEditor/>
         </div>
     ); 
 };

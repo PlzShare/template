@@ -34,7 +34,7 @@ const Setting = () => {
   }
 
   const updateWorkspaceName = async () => {
-    const response = await axios.put(`/workspaces?uno=${userNo}`, {
+    const response = await axios.put(`/workspaces`, {
       no: 125,
       name: wnameInput.current.value
     })

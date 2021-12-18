@@ -42,9 +42,7 @@ class DashboardLayout extends Component {
     // alert('dddd')
     console.log('=====================dashboard=========================')
     console.dir(this.props)
-    this.fetchWorkspaceInfo()
-    this.fetchChannelList()
-    this.fetchMemberList()
+    
   }
 
   fetchChannelList = async () => {
@@ -97,6 +95,17 @@ class DashboardLayout extends Component {
     window.addEventListener('resize', this.handleResize);
     document.addEventListener('keydown', handleKeyAccessibility);
     document.addEventListener('click', handleClickAccessibility);
+    
+    let timer = setInterval(() => {
+      console.dir(axios.defaults)
+      if(axios.defaults['Authorization']){
+        this.fetchWorkspaceInfo()
+        this.fetchChannelList()
+        this.fetchMemberList()
+        clearInterval(timer)
+      }
+
+    }, 200)
   }
 
   componentWillUnmount() {
@@ -137,13 +146,13 @@ class DashboardLayout extends Component {
     return (
       <ContextProviders>
         <WorkSpaceContext.Provider value={{
-          workspaceInfo : this.state.workspaceInfo || {}, 
-          setWorkspaceInfo : this.setWorkspaceInfo,
-          channelList : this.state.channelList,
-          memberList : this.state.memberList,
-          pushMemberList : this.pushMemberList,
-          pushChannelList : this.pushChannelList, 
-          setSidebarCollapsed : this.setSidebarCollapsed
+            workspaceInfo : this.state.workspaceInfo || {}, 
+            setWorkspaceInfo : this.setWorkspaceInfo,
+            channelList : this.state.channelList,
+            memberList : this.state.memberList,
+            pushMemberList : this.pushMemberList,
+            pushChannelList : this.pushChannelList, 
+            setSidebarCollapsed : this.setSidebarCollapsed
           }}>
           <div className={`app ${sidebarCollapsedClass} ${chatRoomCollapsed}`}>
             <PageAlert />
