@@ -14,7 +14,7 @@ const CreateDocument = () => {
 
     const save = async () => {
         const url = `/workspaces/${params.wno}/channels/${params.cno}/documents`
-        alert(document.getElementById('document-title').value)
+        // alert(document.getElementById('document-title').value)
         const response = await axios.post(url,{
             title: document.getElementById('document-title').value,
             contents:window.editor.getData(),

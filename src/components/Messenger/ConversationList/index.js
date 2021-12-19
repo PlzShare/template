@@ -6,8 +6,6 @@ import ToolbarButton from '../ToolbarButton';
 import axios from 'axios';
 import ChatAddComponent from '../../SidebarNav/components/ChatAddComponent'
 import './ConversationList.css';
-import UserContext from '../../utilities/ContextProviders/UserContext';
-import { WorkSpaceContext } from '../../../layouts/DashboardLayout';
 import { useParams } from 'react-router';
 import luffy from '../../../assets/images/luffy.jpg'
 
@@ -42,7 +40,7 @@ export default function ConversationList(props) {
         });
 
         setConversations([...conversations, ...newConversations])
-    });
+    }, console.log(conversations));
   }
 
     return (
@@ -50,7 +48,7 @@ export default function ConversationList(props) {
         <Toolbar
           title="Messenger"
           leftItems={[
-            <ToolbarButton key="cog" icon="ion-md-arrow-round-forward" callBackOnClick={() => {console.log('dddddddd');callBackCollapseConversationList()}}/>
+            <ToolbarButton key="cog" icon="ion-md-arrow-round-forward" callBackOnClick={() => {callBackCollapseConversationList()}}/>
           ]}
           rightItems={[
             <ToolbarButton key="add" icon="ion-ios-add-circle-outline" callBackOnClick={() => {setModals(true)}}/>

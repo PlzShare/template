@@ -2,7 +2,6 @@ import React from 'react';
 import './ConversationSearch.css';
 
 export default function ConversationSearch({keyword, callback}) {
-
     return (
       <div className="conversation-search">
         <input
@@ -11,8 +10,6 @@ export default function ConversationSearch({keyword, callback}) {
           placeholder="검색"
           onKeyDown={(e) => {console.dir(e)}}
           />
-      </div>
-      
+      </div> 
     );
-
 }

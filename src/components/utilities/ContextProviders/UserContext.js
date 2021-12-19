@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { createContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import * as StompJs from "@stomp/stompjs";
 import * as SockJS from "sockjs-client";
 
@@ -8,18 +8,29 @@ const UserContext = createContext();
 
 export const UserContextProvider = ({children}) => {
     const [authUser, setAuthUser] = useState(null);
+    const navigate = useNavigate()
+    const location = useLocation()
+    
     const [noti, setNoti] = useState(null);
     const [stompClient, setStompClient] = useState({})
-
-    const navigate = useNavigate()
 
 
     const fetchAuthUser = async () => {
         // loginUser 정보 가져오기
         // axios.get
+        try { 
+            const response = await axios.get('/users/login');
+
+
+          } catch (error) {
+            
+            console.error(error);
+          }   
+
     }
-    console.log(stompClient,'======================================90878987987')
-    // 토큰 저장
+
+
+
     const storeToken = (token) => {
         // 토큰 받음
         // axios default 설정 (모든 요청 시, Authorization Header에 Token 실어서 보내기)
@@ -62,14 +73,6 @@ export const UserContextProvider = ({children}) => {
         stompClient.noti.activate()
     }
 
-    // const subscribe = () => {
-        
-    //     stompClient.noti.subscribe(`/sub/${authUser.no}`, ({body}) => {
-    //         setNoti(JSON.parse(body));
-    //         console.dir(JSON.parse(body))
-    //     });
-    // };
-
     const disconnect = () => {
         stompClient.noti.deactivate();
     };
@@ -82,9 +85,16 @@ export const UserContextProvider = ({children}) => {
             axios.defaults.headers['Authorization'] = token 
             // token 해석해서, authUser에 로그인한 user정보 저장
             const userInfo = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString()).user
+            
+            
+            setAuthUser(userInfo)
+            
             console.log('=====================================')
             console.dir(userInfo)
             setAuthUser(userInfo)
+
+            if(location.pathname == '/') navigate('/worklist')
+            
         }else{
             //로그인 안한 상태면 login 페이지로 보내기
             navigate('/login')

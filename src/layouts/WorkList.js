@@ -3,8 +3,7 @@ import { Row, Col, Button } from 'reactstrap';
 import Logo from '../assets/images/logo3.png';
 import profile from '../assets/images/profile.jpg';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import '../assets/css/worklist.css';
 import FontAwesomeIcon from 'react-fontawesome';
 import UserContext from '../components/utilities/ContextProviders/UserContext';
@@ -12,6 +11,7 @@ import UserContext from '../components/utilities/ContextProviders/UserContext';
 const Dashboard = () => {
   const [names, setNames] = useState([]);
   const {authUser} = useContext(UserContext)
+  
   useEffect(() => {
     console.log(authUser)
     if(authUser){
