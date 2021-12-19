@@ -65,15 +65,6 @@ const Dashboard = () => {
       </Col>
     );
 
-    const navigate = useNavigate()
-    // const clickLogout = () =>{
-  
-    //   localStorage.removeItem("token");
-  
-    //   navigate('/login');
-  
-      
-    // }
 
   return (
     <div className='workspacemain'>
