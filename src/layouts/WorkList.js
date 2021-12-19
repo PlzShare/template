@@ -10,8 +10,6 @@ import '../assets/css/worklist.css';
 import FontAwesomeIcon from 'react-fontawesome';
 import UserContext from '../components/utilities/ContextProviders/UserContext';
 
-import { useParams } from 'react-router';
-
 import {HeaderNav} from './DashboardLayout'
 import ContextProviders from '../components/utilities/ContextProviders';
 
@@ -68,17 +66,14 @@ const Dashboard = () => {
     );
 
     const navigate = useNavigate()
-    const clickLogout = () =>{
-      
-      // console.dir("dndpdpdpdpdpdpdpdpdpdpdpdpdpdpdp");
-      // console.dir(token);
-      localStorage.removeItem("token");
-      // console.dir(token);
+    // const clickLogout = () =>{
   
-      navigate('/login');
+    //   localStorage.removeItem("token");
+  
+    //   navigate('/login');
   
       
-    }
+    // }
 
   return (
     <div className='workspacemain'>
