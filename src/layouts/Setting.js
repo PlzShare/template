@@ -4,7 +4,7 @@ import makeAnimated from 'react-select/animated';
 import '../assets/scss/components/setting.scss';
 import axios from 'axios';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-
+import { useParams } from 'react-router';
 
 const Setting = () => {
 
@@ -13,6 +13,7 @@ const Setting = () => {
   const animatedComponents = makeAnimated();
   const [modals, setModal] = useState(false);
   const wnameInput = useRef();
+  const params = useParams()
 
   const toggle = () => {
     setModal(!modals)
@@ -26,7 +27,7 @@ const Setting = () => {
   // console.dir(userList)
   // 점검 - 확인 부탁
   const fetchList = async () => {
-    const response = await axios.get(`/workspaces/workspace-users?uno=4&wno=206`)
+    const response = await axios.get(`/workspaces/workspace-users?uno=4&wno=${params.wno}`)
     response.data.data.forEach(e => { e['label'] = e.id; e['value'] = e.id })
 
     setUserList(response.data.data.filter(el => el.userNo != 21))
@@ -50,7 +51,7 @@ const Setting = () => {
   }
   
   const DeleteWorkspace = async () => {
-    const response = await axios.delete(`/workspaces?wno=206`)
+    const response = await axios.delete(`/workspaces?wno=${params.wno}`)
     toggle();
   }
 

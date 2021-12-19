@@ -4,18 +4,19 @@ import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import '../assets/scss/components/main.scss';
 import { Link } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 const Dashboard = () => {
   const [names, setNames] = useState([]);
+  const params = useParams();
 
   useEffect(() => {
     dashBoardManagement.list();
   }, []);
 
-  const testUserNo = 4 // 테스트 넘버
   const dashBoardManagement = {
     list: async () => {
-      const response = await axios.get(`/workspaces?uno=${testUserNo}`);
+      const response = await axios.get(`/workspaces?uno=${params.uno}`);
       setNames([...response.data.data]);
     },
 
@@ -49,7 +50,7 @@ const Dashboard = () => {
 
   return (
     <div className='workspacemain'>
-      <h2>{testUserNo}번 님의 워크스페이스 목록</h2>
+      <h2>{params.uno}번 님의 워크스페이스 목록</h2>
       <Row>
         {workspaceLists}
       </Row>

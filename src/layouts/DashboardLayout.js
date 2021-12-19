@@ -39,7 +39,6 @@ class DashboardLayout extends Component {
       chatRoomInfo : null
     };
 
-    // alert('dddd')
     console.log('=====================dashboard=========================')
     console.dir(this.props)
     this.fetchWorkspaceInfo()
@@ -69,6 +68,7 @@ class DashboardLayout extends Component {
     response.data.data.forEach((user) => {user.url = `/member/${user.userNo}`; user.name=user.nickname;});
     this.setState({memberList: response.data.data})
   }
+
   pushMemberList = (member) => {
     this.setState({memberList : [...this.state.memberList, member]})
   }
@@ -76,9 +76,11 @@ class DashboardLayout extends Component {
   // setWorkspaceInfo = (workspace) => {
   //   this.setState({workspaceInfo : workspace})
   // }
+
   setSidebarCollapsed = (sidebarCollapsed) => {
     this.setState({sidebarCollapsed : sidebarCollapsed})
   }
+
   handleResize = () => {
     if (window.innerWidth <= MOBILE_SIZE) {
       this.setState({ sidebarCollapsed: false, isMobile: true });
@@ -116,14 +118,15 @@ class DashboardLayout extends Component {
     this.setState(prevState => ({ conversationListCollapsed: !prevState.conversationListCollapsed }))
   }
   
-  enterChatRoom = (no) => {
-    console.log('chatroom')
+  enterChatRoom = (e) => {
+    console.log(e.target.key)
     this.setState({ 
       conversationListCollapsed: true,
       chatRoomCollapsed: false,
-      chatRoomInfo : {roomNo:2, name:'방 이름 넣기'}
+      chatRoomInfo : {roomNo:e.target.id, name:"이름하드코딩 ㅠ"}
     })
   }
+
   exitChatRoom = () => {
     console.log('exit')
     this.setState({ conversationListCollapsed: false })
@@ -214,7 +217,6 @@ function HeaderNav() {
           </form>
         </NavItem>
    
-      
       <UncontrolledDropdown nav inNavbar>
         <div className='userid'>
           <DropdownToggle nav caret>
