@@ -22,7 +22,7 @@ const EditDocument = ({history, match}) => {
     }, [])
 
     const deleteDoc = async () => {
-        await axios.delete(testUrl)
+        // await axios.delete(testUrl)
         history.go(-1)
     }
     const onChange = async () => {

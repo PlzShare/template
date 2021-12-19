@@ -9,9 +9,6 @@ import { NavLink, Link } from 'react-router-dom';
 import '../assets/css/worklist.css';
 import FontAwesomeIcon from 'react-fontawesome';
 import UserContext from '../components/utilities/ContextProviders/UserContext';
-
-import { useParams } from 'react-router';
-
 import {HeaderNav} from './DashboardLayout'
 import ContextProviders from '../components/utilities/ContextProviders';
 

@@ -12,7 +12,7 @@ export default function ConversationListItem(props) {
     const { callBackOnClick } = props;
 
     return (
-      <div id={no} className="conversation-list-item" onClick={callBackOnClick}>
+      <div id={no} name={name} className="conversation-list-item" onClick={callBackOnClick}>
         <img className="conversation-photo" src={photo} alt="conversation" />
         <div className="conversation-info">
           <h1 className="conversation-title">{ name }</h1>

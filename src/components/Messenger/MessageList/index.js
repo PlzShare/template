@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState, useContext} from 'react';
 import Compose from '../Compose';
 import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
@@ -10,6 +10,7 @@ import axios from 'axios';
 import * as StompJs from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { useParams } from 'react-router';
+import UserContext from '../../utilities/ContextProviders/UserContext';
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col} from 'reactstrap';
 
@@ -23,15 +24,15 @@ export default function MessageList(props) {
   const [selectdata, setSelectData] = useState([]);
   const animatedComponents = makeAnimated();
   const params = useParams()
-
-  const MY_USER_ID = 'apple';
+  const {authUser} = useContext(UserContext);
 
   // 정대겸 : 커넥트
   const client = useRef({});
 
   console.log("받아온 방번호 : " + chatRoomInfo.roomNo)
   console.log("받아온 방이름 : " + chatRoomInfo.name)
-  
+  console.log(authUser)
+
   useEffect(() => {
     connect();
     console.log("대화 시작")
@@ -72,9 +73,8 @@ export default function MessageList(props) {
   const subscribe = () => {
     client.current.subscribe(`/sub/greetings`, ({ body }) => {
       const broadCastingMessage = {}
-      broadCastingMessage.id = JSON.parse(body).id;
-      broadCastingMessage.message = JSON.parse(body).message;
-      broadCastingMessage.author = JSON.parse(body).author;
+      broadCastingMessage.userNo = JSON.parse(body).userNo;
+      broadCastingMessage.message = JSON.parse(body).contents;
       broadCastingMessage.timestamp = new Date().getTime();
       
       // 정대겸 바보 이걸로 삽질함 ㅠ
@@ -82,23 +82,24 @@ export default function MessageList(props) {
       // setMessages([...messages, broadCastingMessage])
       setMessages((prev) => {
         return [...prev, broadCastingMessage]
-      });
+      }, console.log(broadCastingMessage));
       ////////////////////////////////////////
     });
   };
 
   const publish = (mySendMessage) => {
+
     if (!client.current.connected) {
       return;
     }
 
+    // pub 부분
     client.current.publish({
       destination: "/pub/server",
       body: JSON.stringify({
-        message: mySendMessage.message,
-        id: mySendMessage.id,
-        author: mySendMessage.author,
-        timestamp: mySendMessage.timestamp,
+        userNo: mySendMessage.userNo,
+        contents: mySendMessage.message,
+        chatroomNo: mySendMessage.chatroomNo,
       }),
     });
   };
@@ -132,10 +133,10 @@ export default function MessageList(props) {
    // 정대겸
   const callbackMessage = {
     add: function(mySendMessage) {
-        mySendMessage.id = 1; // 유저 고유번호
-        mySendMessage.author = MY_USER_ID; // 유저 아이디
-        mySendMessage.timestamp = new Date().getTime();
+        mySendMessage.userNo = authUser.no; // 유저 고유번호
+        mySendMessage.chatroomNo = chatRoomInfo.roomNo // 방 고유번호
         publish(mySendMessage) // 보냄
+        console.log(mySendMessage);
     }
   }
   
@@ -148,7 +149,7 @@ export default function MessageList(props) {
       let previous = messages[i - 1];
       let current = messages[i];
       let next = messages[i + 1];
-      let isMine = current.author === MY_USER_ID;
+      let isMine = current.userNo === authUser.no;
       let currentMoment = moment(current.timestamp);
       let prevBySameAuthor = false;
       let nextBySameAuthor = false;
@@ -159,7 +160,7 @@ export default function MessageList(props) {
       if (previous) {
         let previousMoment = moment(previous.timestamp);
         let previousDuration = moment.duration(currentMoment.diff(previousMoment));
-        prevBySameAuthor = previous.author === current.author;
+        prevBySameAuthor = previous.userNo === current.userNo;
         
         if (prevBySameAuthor && previousDuration.as('hours') < 1) {
           startsSequence = false;

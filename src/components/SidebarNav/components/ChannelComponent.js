@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import { WorkSpaceContext } from '../../../layouts/DashboardLayout';
 import UserContext from '../../utilities/ContextProviders/UserContext';
+
 const ChannelComponent = ({callBackToggle, isOpen}) => {
     const nameInput = useRef();
     const descInput = useRef();
@@ -20,6 +21,7 @@ const ChannelComponent = ({callBackToggle, isOpen}) => {
           nickname : authUser.nickname,
           makeUser: authUser.no
         })
+
         console.log(response.data.result)
         console.log(response.data.message)       
         console.dir(response.data.data)
@@ -38,8 +40,6 @@ const ChannelComponent = ({callBackToggle, isOpen}) => {
           //   })
           // });         
     }
-    
-
     
     return (
             <Modal isOpen={isOpen} toggle={callBackToggle}>

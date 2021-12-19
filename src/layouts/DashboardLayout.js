@@ -42,9 +42,7 @@ class DashboardLayout extends Component {
 
     console.log('=====================dashboard=========================')
     console.dir(this.props)
-    this.fetchWorkspaceInfo()
-    this.fetchChannelList()
-    this.fetchMemberList()
+    
   }
 
   fetchChannelList = async () => {
@@ -54,8 +52,6 @@ class DashboardLayout extends Component {
     console.dir(response.data.data)
   }
   
-
-
   pushChannelList = (channel) => {
     channel.url = `/channel/${channel.no}`
     this.setState({channelList : [...this.state.channelList, channel]})
@@ -103,6 +99,15 @@ class DashboardLayout extends Component {
     window.addEventListener('resize', this.handleResize);
     document.addEventListener('keydown', handleKeyAccessibility);
     document.addEventListener('click', handleClickAccessibility);
+    
+    let timer = setInterval(() => {
+      if(axios.defaults.headers && axios.defaults.headers['Authorization']){
+        this.fetchWorkspaceInfo()
+        this.fetchChannelList()
+        this.fetchMemberList()
+        clearInterval(timer)
+      }
+    }, 200)
   }
 
   componentWillUnmount() {
@@ -123,11 +128,10 @@ class DashboardLayout extends Component {
   }
   
   enterChatRoom = (e) => {
-    console.log(e.target.key)
     this.setState({ 
       conversationListCollapsed: true,
       chatRoomCollapsed: false,
-      chatRoomInfo : {roomNo:e.target.id, name:"이름하드코딩 ㅠ"}
+      chatRoomInfo : {roomNo:e.currentTarget.id, name: e.currentTarget.getAttribute('name')}
     })
   }
 
@@ -145,13 +149,13 @@ class DashboardLayout extends Component {
     return (
       <ContextProviders>
         <WorkSpaceContext.Provider value={{
-          workspaceInfo : this.state.workspaceInfo || {}, 
-          setWorkspaceInfo : this.setWorkspaceInfo,
-          channelList : this.state.channelList,
-          memberList : this.state.memberList,
-          pushMemberList : this.pushMemberList,
-          pushChannelList : this.pushChannelList, 
-          setSidebarCollapsed : this.setSidebarCollapsed
+            workspaceInfo : this.state.workspaceInfo || {}, 
+            setWorkspaceInfo : this.setWorkspaceInfo,
+            channelList : this.state.channelList,
+            memberList : this.state.memberList,
+            pushMemberList : this.pushMemberList,
+            pushChannelList : this.pushChannelList, 
+            setSidebarCollapsed : this.setSidebarCollapsed
           }}>
           <div className={`app ${sidebarCollapsedClass} ${chatRoomCollapsed}`}>
             <PageAlert />
@@ -245,7 +249,7 @@ export function HeaderNav() {
             </img>
           </div> */}
           <DropdownToggle nav caret>
-          {authUser.nickname} 
+            {authUser? authUser.nickname : ''} 
           </DropdownToggle>
         </div>
           <DropdownMenu right>

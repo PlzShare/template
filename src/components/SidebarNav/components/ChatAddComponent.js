@@ -37,9 +37,6 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
         // console.dir(e)
         setNums(e);
         setSelectData(e);
-        console.log(e);
-        console.log(selectdata , "sdfjasldfalksdflasdflksjd")
-
     }
 
     // const selectedTags = tags => {
@@ -49,12 +46,14 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
     const createWorkspace = async () => {
         const result = (selectdata.map((user) => user.userNo));
         console.log(result);
-        await axios.post(`/workspaces/${params.wno}/chatroom`, {
+        const response = await axios.post(`/workspaces/${params.wno}/chatroom`, {
             name: nameInput.current.value,
             workspaceNo : params.wno,
-            userNums : [...result,authUser.no]
+            userNums : [...result, authUser.no]
         })
-
+        
+        console.log("방 정보(방 만들 때 바로 그 방으로 들어갈 수 있게 정보를 남깁니다.) : ");
+        console.log(response.data.data);
         callBackToggle();
     }
 
@@ -64,7 +63,6 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
                 <ModalBody>
                     <div>
                         <h5>🔹 초대할 멤버 아이디</h5>
-                        {/* <TagsInput selectedTags={selectedTags} /> */}
                         <Select className="selectbox" options={userList} components={animatedComponents} isMulti 
                         onChange={selectBoxChange} />
                     </div>
