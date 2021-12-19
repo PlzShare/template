@@ -10,6 +10,7 @@ const Invited = () => {
   const [nickname, setNicNames] = useState([]);
   const [noti, setNoti] = useState([]);
   const { authUser } = useContext(UserContext);
+  console.log(noti,"sdfsdfsdfsdfsdfsdfsdfsdfs")
 
   useEffect(() => {
     if (authUser) {
@@ -21,6 +22,15 @@ const Invited = () => {
     const response = await axios.get(`/noti?uno=${authUser.no}`);
     setNoti([...response.data.data])
   }
+  
+  const accept = async (e) => {
+    console.log(noti);
+    const response = await axios.put(`/workspaces/workspace_users`, {
+      userNo : authUser.no,
+      workspaceNo : e.target.id,
+      notiNo : e.target.name
+    })
+  }
 
   const NotiList =
     noti.map((e) =>
@@ -30,7 +40,7 @@ const Invited = () => {
             사진 <img src="" />
           </div>
           <h2>{e.contents}</h2>
-          <a href='#' className="yes" >수락</a>
+          <a href='#' onClick={accept} className="yes" id={e.workspaceNo} name={e.no}>수락</a>
           <a href='#' className="no">거절</a>
         </div>
       </Col>
