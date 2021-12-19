@@ -16,7 +16,9 @@ import PaginationPage from './elements/Pagination';
 import ErrorPage from '../layouts/404';
 import LoginPage from '../layouts/user-pages/Login';
 import RegisterPage from '../layouts/user-pages/Register';
-
+import NewDocuments from '../components/SidebarNav/components/NewDocuments.js'
+import NewChannels from '../components/SidebarNav/components/NewChannels.js'
+import NewChatrooms from '../components/SidebarNav/components/NewChatrooms.js'
 
 import WorkspaceMain from '../layouts/WorkspaceMain';
 import WorkspaceAdd from '../layouts/WorkspaceAdd';
@@ -59,6 +61,21 @@ const pageList = [
         name: '초대한 워크스페이스',
         path: 'invite',
         component: Invite,
+      },
+      {
+        name: '새로운 문서',
+        path: 'newDocuments',
+        component: NewDocuments
+      },
+      {
+        name: '새로운 채널',
+        path: 'newChannels',
+        component: NewChannels
+      },
+      {
+        name: '새로운 채팅',
+        path: 'newChatrooms',
+        component: NewChatrooms
       },
       {
         name : '워크스페이스',
@@ -111,12 +128,6 @@ const pageList = [
     name: '멤버추가',
     path: '/memberplus',
     component: BlankPage,
-  },
-
-  {
-    name: '워크스페이스',
-    path: '/workspacenoti',
-    component: Workspacenoti,
   },
   {
     name: 'Blank',

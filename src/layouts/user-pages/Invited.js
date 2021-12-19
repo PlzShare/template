@@ -32,6 +32,10 @@ const Invited = () => {
     })
   }
 
+  const reject = async (e) => {
+    const response = await axios.delete(`/workspaces/workspace_users/noti?nno=${e.target.name}`)
+  }
+
   const NotiList =
     noti.map((e) =>
       <Col md={12}>
@@ -41,7 +45,7 @@ const Invited = () => {
           </div>
           <h2>{e.contents}</h2>
           <a href='#' onClick={accept} className="yes" id={e.workspaceNo} name={e.no}>수락</a>
-          <a href='#' className="no">거절</a>
+          <a href='#' onClick={reject} className="no" id={e.workspaceNo} name={e.no}>거절</a>
         </div>
       </Col>
     )
