@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Row, Col, Button } from 'reactstrap';
+import { Row, Col, Button ,Badge ,NavItem , UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
+import { Outlet, Routes, Route, useLocation, useParams , useNavigate} from 'react-router'
+import { Header, SidebarNav, PageContent, PageAlert, Page } from '../components';
 import Logo from '../assets/images/logo3.png';
 import profile from '../assets/images/profile.jpg';
 import axios from 'axios';
@@ -7,17 +9,23 @@ import { NavLink, Link } from 'react-router-dom';
 import '../assets/css/worklist.css';
 import FontAwesomeIcon from 'react-fontawesome';
 import UserContext from '../components/utilities/ContextProviders/UserContext';
+import {HeaderNav} from './DashboardLayout'
+import ContextProviders from '../components/utilities/ContextProviders';
+
 
 const Dashboard = () => {
+  
   const [names, setNames] = useState([]);
   const {authUser} = useContext(UserContext)
-  
+  const params = useParams()
+
   useEffect(() => {
     console.log(authUser)
     if(authUser){
       dashBoardManagement.list();
     }
   }, [authUser]);
+
 
   const dashBoardManagement = {
     list: async () => {
@@ -55,48 +63,48 @@ const Dashboard = () => {
       </Col>
     );
 
+    const navigate = useNavigate()
+    const clickLogout = () =>{
+      
+      // console.dir("dndpdpdpdpdpdpdpdpdpdpdpdpdpdpdp");
+      // console.dir(token);
+      localStorage.removeItem("token");
+      // console.dir(token);
+  
+      navigate('/login');
+  
+      
+    }
+
   return (
     <div className='workspacemain'>
-      <header className='listheader'>
-        <h1><img src={Logo}></img></h1>
-        <nav>
-          <ul>
-            <li className='nav-item'>
-              <form className='form-inline'>
-                <input className='form-control mr-sm-1'></input>
-                <button type='submit' className='d-none d-sm-block btn btn-secondary'>
-                  <i className="fa fa-search" />
-                </button>
-              </form>
-            </li>
-
-            <li className='user_box'>
-              <div className='profile_box'>
-                <img src={profile}></img>
-              </div>
-              <p>에쿠쿵</p>
-            </li>
-
-            <li className='li_bell'>
-              <FontAwesomeIcon className='bell' name={'bell'} />
-            </li>
-          </ul>
-
-        </nav>
-      </header>
-      <div className='inner'>
-        <div className='main'>
-          <h2>{authUser.nickname} 님의 워크스페이스 목록</h2>
-          <Row className='listrow'>
-            {workspaceLists}
-          </Row>
-          <Link  to='/workspaceadd'>
-            <Button className='workadd'to="/workspaceadd" color="primary" block>새로운 워크스페이스 생성</Button>
-          </Link>
+      <div className='top-nav'>
+        <nav className='navbar navbar-expand-md navbar-light bg-faded'>
+        <div className='logobox'>
+            <NavLink  to={`/worklist`}>
+              <img src={Logo}></img>
+            </NavLink>
         </div>
+          <div className='collapse navbar-collapse'>
+            <ul className="ml-auto navbar-nav">
+              <HeaderNav />
+            </ul>
+          </div>
+        </nav>
       </div>
+      <div className='main'>
+        <h2>{authUser.nickname} 님의 워크스페이스 목록</h2>
+        <Row className='listrow'>
+          {workspaceLists}
+        </Row>
 
-    </div>
+        <Link  to='/workspaceadd'>
+          <Button className='workadd'to="/workspaceadd" color="primary" block>새로운 워크스페이스 생성</Button>
+        </Link>
+      </div>
+      
+
+  </div>
   );
 }
 export default Dashboard;

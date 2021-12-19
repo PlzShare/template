@@ -1,19 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Button } from 'reactstrap';
 import axios from 'axios';
+import Logo from '../../assets/images/logo3.png';
+import {HeaderNav} from '../DashboardLayout'
+import UserContext from '../../components/utilities/ContextProviders/UserContext';
+import { NavLink, Link } from 'react-router-dom';
+import '../../assets/scss/components/mypage.scss';
 
 const Mypage = () => {
-    const [user, setUser] = useState({});
+    const {authUser} = useContext(UserContext);
+    const [User, setUser] = useState({});
     const [imageList, setImageList] = useState([]);
     const refForm = useRef(null);
     const refPassword = useRef(null);
     const refNickname = useRef(null);
 
-
     // user 가져오기
     const fetchUserInfo = async () => {
         try {
-            const response = await axios.get('/users/26')
+            const response = await axios.get(`/users?uno=${authUser.no}`)
 
             setUser(response.data.data)
 
@@ -26,12 +31,10 @@ const Mypage = () => {
         fetchUserInfo()
     }, [])
 
-
     // 이미지 업로드
     const notifyImage = {
         add: async function (file) {
             try {
-
                 // Create FormData
                 const formData = new FormData();
 
@@ -40,7 +43,7 @@ const Mypage = () => {
                 formData.append('nickname', refNickname.current.value)
 
                 // Post
-                const response = await axios.put(`/users/26`, formData, {
+                const response = await axios.put(`/users?uno=${authUser.no}`, formData, {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
 
@@ -76,9 +79,8 @@ const Mypage = () => {
 
         let reader = new FileReader();
 
-
         reader.onload = () => {
-            setUser(Object.assign({}, user, { profile: reader.result })) //  reader한 결과 가져오기
+            setUser(Object.assign({}, User, { profile: reader.result })) //  reader한 결과 가져오기
         }
         // 이벤트가 먹은 타겟의 첫번째 파일(files[0]을 가져와 FileReader의 readAsDataURL을통해 파일의 url을 읽어드린다.)
         reader.readAsDataURL(e.target.files[0]);
@@ -87,10 +89,23 @@ const Mypage = () => {
 
     return (
         <div className="outer">
-            <h2 className="mypage">마이페이지</h2>
+            <div className='top-nav'>
+                <nav className='navbar navbar-expand-md navbar-light bg-faded'>
+                    <div className='logobox'>
+                    <NavLink  to={`/worklist`}>
+                        <img src={Logo}></img>
+                    </NavLink>
+                    </div>
+                    <div className='collapse navbar-collapse'>
+                        <ul className="ml-auto navbar-nav">
+                            <HeaderNav />
+                        </ul>
+                    </div>
+                </nav>
+            </div>
 
             <div className='folder row'>
-
+                <h2>🔷 마이페이지</h2>
                 <div className="box_left">
                     <div>
                         <form
@@ -100,7 +115,7 @@ const Mypage = () => {
                             ref={refForm}
                         >
                             <span style={{
-                                backgroundImage: `url(${user.profile})`
+                                backgroundImage: `url(${authUser.profile})`
                             }} />
                             <input
                                 type={'file'}
@@ -115,7 +130,7 @@ const Mypage = () => {
                     <div className="right-top">
                         <div className="id">
                             <p>아이디</p>
-                            <input type="text" placeholder="ID" disabled value={user.id} readOnly></input>
+                            <input type="text" placeholder="ID" disabled value={authUser.id} readOnly></input>
                         </div>
                         <div className="password">
                             <p>비밀번호</p>
@@ -125,11 +140,11 @@ const Mypage = () => {
                     <div className="right_bottom">
                         <div className="name">
                             <p>이름</p>
-                            <input type="text" placeholder="NAME" disabled value={user.name}></input>
+                            <input type="text" placeholder="NAME" disabled value={authUser.name}></input>
                         </div>
                         <div className="nickname">
                             <p>닉네임</p>
-                            <input ref={refNickname} className="nickname" type="text" placeholder={user.nickname}></input>
+                            <input ref={refNickname} className="nickname" type="text" placeholder={authUser.nickname}></input>
                         </div>
                     </div>
 
@@ -142,8 +157,17 @@ const Mypage = () => {
                     color="primary"
                     onClick={() => {
                         refForm.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
-                    }}>수정하기</Button>
-                <Button className="secondbutton" color="secondary" >취소하기</Button>
+                    }}>
+                        <NavLink className='navlink' to={`/worklist`}>
+                            수정하기
+                        </NavLink>
+                </Button>
+                <Button className="secondbutton" color="secondary" >
+                    <NavLink className='navlink' to={`/worklist`}>
+                        취소하기
+                    </NavLink>
+                
+                </Button>
             </div>
         </div>
     );

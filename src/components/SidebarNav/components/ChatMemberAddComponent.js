@@ -3,12 +3,14 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import axios from 'axios';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { useParams } from 'react-router';
 
 
 const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
     const [selectdata, setSelectData] = useState([]);
     const [userList, setUserList] = useState([]);
     const animatedComponents = makeAnimated();
+    const params = useParams();
 
     useEffect(() => {
         fetchList();
@@ -16,7 +18,7 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
     
     // console.dir(userList)
     const fetchList = async () => {
-        const response = await axios.get(`/workspaces/workspace-users?wno=206&uno=4`)
+        const response = await axios.get(`/workspaces/workspace-users?wno=${params.wno}&uno=${params.uno}`)
         response.data.data.forEach(e => {e['label'] = e.id; e['value'] = e.id})
 
         setUserList(response.data.data.filter( el => el.userNo != 3))

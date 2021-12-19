@@ -6,11 +6,13 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import { WorkSpaceContext } from '../../../layouts/DashboardLayout';
 
+
 export default function ChannelChildren(props) {
   // const {match} = this.props;
   const [open, setOpen] = useState(false);
   const {channelList} = useContext(WorkSpaceContext)
-  
+  const params = useParams()
+
   const toggle = e => { //승현아 살려줘~~~~~~~~나좀 살려줘어어어어엉~!@@@@@@
     setOpen(!open)
     e.preventDefault();
