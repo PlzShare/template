@@ -21,7 +21,6 @@ export const UserContextProvider = ({children}) => {
         try { 
             const response = await axios.get('/users/login');
 
-
           } catch (error) {
             
             console.error(error);
@@ -91,6 +90,8 @@ export const UserContextProvider = ({children}) => {
             
             console.log('=====================================')
             console.dir(userInfo)
+            console.log('=====================================')
+            console.dir(token)
             setAuthUser(userInfo)
 
             if(location.pathname == '/') navigate('/worklist')

@@ -1,8 +1,9 @@
-import React, { Children, Component, createContext, Fragment } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Outlet, Routes, Route, useLocation, useParams } from 'react-router'
+import React, { Children, Component, createContext, Fragment ,useContext} from 'react';
+import { NavLink, BrowserRouter as Router } from 'react-router-dom';
+import { Outlet, Routes, Route, useLocation, useParams , useNavigate} from 'react-router'
 import { Button, Badge, NavItem, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { Header, SidebarNav, Footer, PageContent, PageAlert, Page } from '../components';
+import { Header, SidebarNav, PageContent, PageAlert, Page } from '../components';
+import UserContext from '../components/utilities/ContextProviders/UserContext';
 import Logo from '../assets/images/vibe-logo.svg';
 import '../assets/css/dashboardlayout.css';
 
@@ -130,6 +131,7 @@ class DashboardLayout extends Component {
     this.setState({ chatRoomCollapsed: true })
   }
 
+
   render() {
     const { sidebarCollapsed, conversationListCollapsed } = this.state;
     const sidebarCollapsedClass = sidebarCollapsed ? 'side-menu-collapsed' : '';
@@ -202,7 +204,22 @@ class DashboardLayout extends Component {
   }
 }
 
-function HeaderNav() {
+export function HeaderNav() {
+  
+  const {authUser} = useContext(UserContext)
+  const navigate = useNavigate()
+  const clickLogout = () =>{
+    
+    // console.dir("dndpdpdpdpdpdpdpdpdpdpdpdpdpdpdp");
+    // console.dir(token);
+    localStorage.removeItem("token");
+    // console.dir(token);
+
+    navigate('/login');
+
+    
+  }
+
   return (
     <React.Fragment>
         <NavItem>
@@ -213,17 +230,25 @@ function HeaderNav() {
             </Button>
           </form>
         </NavItem>
-   
-      
+
       <UncontrolledDropdown nav inNavbar>
         <div className='userid'>
+          {/* <div>
+            <img>
+            {authUser.profile}
+            </img>
+          </div> */}
           <DropdownToggle nav caret>
-            UserId
+          {authUser.nickname} 
           </DropdownToggle>
         </div>
           <DropdownMenu right>
-          <DropdownItem>Mypage</DropdownItem>
-          <button className='logout'>Logout</button>
+          <NavLink to={`/mypage`} >
+            <DropdownItem>Mypage</DropdownItem>
+          </NavLink>
+          <button 
+          className='logout'
+          onClick={clickLogout}>Logout</button>
           <DropdownItem divider />
           <DropdownItem>
             Message <Badge color="primary">10</Badge>
