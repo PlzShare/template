@@ -1,12 +1,13 @@
-import React, { Children, Component, createContext, Fragment } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Outlet, Routes, Route, useLocation, useParams } from 'react-router'
+import React, { Children, Component, createContext, Fragment ,useContext} from 'react';
+import { NavLink, BrowserRouter as Router } from 'react-router-dom';
+import { Outlet, Routes, Route, useLocation, useParams , useNavigate} from 'react-router'
 import { Button, Badge, NavItem, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { Header, SidebarNav, Footer, PageContent, PageAlert, Page } from '../components';
+import { Header, SidebarNav, PageContent, PageAlert, Page } from '../components';
+import UserContext from '../components/utilities/ContextProviders/UserContext';
 import Logo from '../assets/images/vibe-logo.svg';
 import '../assets/css/dashboardlayout.css';
 
-import nav from '../_nav3';    // 채널scrollable sidebar sidebar-right
+import nav from '../_nav2';    // 채널scrollable sidebar sidebar-right
 // import nav from '../_nav2';   // 알림
 // import nav from '../_nav3';     // 워크스페이스
 
@@ -39,7 +40,6 @@ class DashboardLayout extends Component {
       chatRoomInfo : null
     };
 
-    // alert('dddd')
     console.log('=====================dashboard=========================')
     console.dir(this.props)
     
@@ -51,6 +51,9 @@ class DashboardLayout extends Component {
     this.setState({channelList:response.data.data})
     console.dir(response.data.data)
   }
+  
+
+
   pushChannelList = (channel) => {
     channel.url = `/channel/${channel.no}`
     this.setState({channelList : [...this.state.channelList, channel]})
@@ -67,6 +70,7 @@ class DashboardLayout extends Component {
     response.data.data.forEach((user) => {user.url = `/member/${user.userNo}`; user.name=user.nickname;});
     this.setState({memberList: response.data.data})
   }
+
   pushMemberList = (member) => {
     this.setState({memberList : [...this.state.memberList, member]})
   }
@@ -74,9 +78,11 @@ class DashboardLayout extends Component {
   // setWorkspaceInfo = (workspace) => {
   //   this.setState({workspaceInfo : workspace})
   // }
+
   setSidebarCollapsed = (sidebarCollapsed) => {
     this.setState({sidebarCollapsed : sidebarCollapsed})
   }
+
   handleResize = () => {
     if (window.innerWidth <= MOBILE_SIZE) {
       this.setState({ sidebarCollapsed: false, isMobile: true });
@@ -125,19 +131,21 @@ class DashboardLayout extends Component {
     this.setState(prevState => ({ conversationListCollapsed: !prevState.conversationListCollapsed }))
   }
   
-  enterChatRoom = (no) => {
-    console.log('chatroom')
+  enterChatRoom = (e) => {
+    console.log(e.target.key)
     this.setState({ 
       conversationListCollapsed: true,
       chatRoomCollapsed: false,
-      chatRoomInfo : {roomNo:2, name:'방 이름 넣기'}
+      chatRoomInfo : {roomNo:e.target.id, name:"이름하드코딩 ㅠ"}
     })
   }
+
   exitChatRoom = () => {
     console.log('exit')
     this.setState({ conversationListCollapsed: false })
     this.setState({ chatRoomCollapsed: true })
   }
+
 
   render() {
     const { sidebarCollapsed, conversationListCollapsed } = this.state;
@@ -211,7 +219,22 @@ class DashboardLayout extends Component {
   }
 }
 
-function HeaderNav() {
+export function HeaderNav() {
+  
+  const {authUser} = useContext(UserContext)
+  const navigate = useNavigate()
+  const clickLogout = () =>{
+    
+    // console.dir("dndpdpdpdpdpdpdpdpdpdpdpdpdpdpdp");
+    // console.dir(token);
+    localStorage.removeItem("token");
+    // console.dir(token);
+
+    navigate('/login');
+
+    
+  }
+
   return (
     <React.Fragment>
         <NavItem>
@@ -222,17 +245,25 @@ function HeaderNav() {
             </Button>
           </form>
         </NavItem>
-   
-      
+
       <UncontrolledDropdown nav inNavbar>
         <div className='userid'>
+          {/* <div>
+            <img>
+            {authUser.profile}
+            </img>
+          </div> */}
           <DropdownToggle nav caret>
-            UserId
+          {authUser.nickname} 
           </DropdownToggle>
         </div>
           <DropdownMenu right>
-          <DropdownItem>Mypage</DropdownItem>
-          <button className='logout'>Logout</button>
+          <NavLink to={`/mypage`} >
+            <DropdownItem>Mypage</DropdownItem>
+          </NavLink>
+          <button 
+          className='logout'
+          onClick={clickLogout}>Logout</button>
           <DropdownItem divider />
           <DropdownItem>
             Message <Badge color="primary">10</Badge>

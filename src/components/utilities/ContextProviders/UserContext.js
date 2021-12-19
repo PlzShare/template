@@ -21,7 +21,6 @@ export const UserContextProvider = ({children}) => {
         try { 
             const response = await axios.get('/users/login');
 
-
           } catch (error) {
             
             console.error(error);
@@ -83,14 +82,11 @@ export const UserContextProvider = ({children}) => {
 
     useEffect(() => {
         const token = localStorage.getItem("token")
-        
         if(token){
             // 저장된 토큰이 있으면 == 로그인 한 상태이면
             // axios default 설정 (모든 요청 시, Authorization Header에 Token 실어서 보내기)
             storeToken(token)
-
             if(location.pathname == '/') navigate('/worklist')
-            
         }else{
             //로그인 안한 상태면 login 페이지로 보내기
             navigate('/login')

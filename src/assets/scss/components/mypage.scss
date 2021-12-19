@@ -1,107 +1,153 @@
 .outer{
     position:relative;
-}
-
-.mypage{
-    font-size: 2.2rem ;
     font-family: 'Noto Sans KR', sans-serif;
-} 
-.folder{
-    width:100%;
-    height: 100vh;
-    position: relative;
-    margin-top: 6%;
-}
-.folder .box_left{
-    position: absolute;
-    left: 5%;
-    width: 350px ;
-    height: 350px;
-}
-.box_left .profile{
-    position: absolute;
-    left: 20%;
     
-    span{
-        width: 250px;
-        height: 250px;
-        display: block;
-        background-size: cover;
-        overflow: hidden;
-        margin-bottom: 5%;
+    a{
+        text-decoration: none !important;
+    }
+    .folder{
+        width:100%;
+        height: 100vh;
+        position: relative;
+        top:18vh;
+
+        .box_left{
+            position: absolute;
+            left: 17vw;
+            top:10vh;
+            width: 350px ;
+            height: 350px;
+        }
+        .btns{
+            position: absolute;
+            bottom: 0%;
+            left: 23%;
+        }
+        h2{
+            margin-left: 18vw;
+            font-size: 2.2rem;
+        }
+
+        .box_right{
+            position: absolute;
+            top:10vh;
+            right: 5%;
+            width: 720px;
+            height: 291px;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .box_left .profile{
+            position: absolute;
+            left: 20%;
+            
+            span{
+                width: 250px;
+                height: 250px;
+                display: block;
+                background-size: cover;
+                overflow: hidden;
+                margin-bottom: 5%;
+            }
+    
+        }
+        .folder>.box_right p{
+        font-size: 1.6rem;
+        margin-bottom: 5px;
+    }
+    }
+    
+    
+     
+
+    .firstbutton{
+        width: 105px;
+        margin-right: 7px;
+       
+       a{
+           color: #fff !important;
+       }
     }
 
- 
-}
-.folder .btns{
-    position: absolute;
-    bottom: 0%;
-    left: 23%;
-}
+    .secondbutton{
+        width: 105px;
+        margin-left: 7px;
 
-.firstbutton{
-    width: 105px;
-    margin-right: 7px;
-}
-
-.secondbutton{
-    width: 105px;
-    margin-left: 7px;
-}
-
-.inputuser{
-    margin-left: 380px;
-    width: 750px;
-    height: 300px;
-    background-color: rosybrown;
-    position: relative;
-}
-.folder>.box_right{
-    position: absolute;
-    top:11px;
-    right: 5%;
-    width: 720px;
-    height: 291px;
-    font-family: 'Noto Sans KR', sans-serif;
-}
-.folder>.box_right p{
-    font-size: 1.6rem;
-    margin-bottom: 5px;
-}
-.box_right>div{
-    float: left;
-}
-.box_right input{
-    width: 265px;
-    height: 38px;
-    background: #fff;
-    border: 1px solid #d5dce6;
-    box-shadow: inset 0 2px 0 0 #f2f5f8;
-    padding-left: 15px;
-    box-sizing: border-box;
-    color: #333;
-    font-size: 0.9rem;
-}
-
-input::-webkit-input-placeholder {
-    color: #bbb;
-    font-size: 0.9rem;
+        a{
+            color: #333 !important;
+        }
     }
-.box_right>div:nth-child(2){
-   margin-left: 50px;
-}
-.box_right .id{
-    margin-bottom: 50px;
-}
-.box_right .name{
-    margin-bottom: 50px;
-}
 
-.btn_bottom{
-    position: absolute;
-    bottom: 40%;
-    left: 50%;
-    transform: translateX(-50%);
+    .inputuser{
+        margin-left: 380px;
+        width: 750px;
+        height: 300px;
+        background-color: rosybrown;
+        position: relative;
+    }
+   
+    
+    .box_right>div{
+        float: left;
+    }
+    .box_right input{
+        width: 265px;
+        height: 38px;
+        background: #fff;
+        border: 1px solid #d5dce6;
+        box-shadow: inset 0 2px 0 0 #f2f5f8;
+        padding-left: 15px;
+        box-sizing: border-box;
+        color: #333;
+        font-size: 0.9rem;
+    }
+
+    input::-webkit-input-placeholder {
+        color: #bbb;
+        font-size: 0.9rem;
+        }
+    .box_right>div:nth-child(2){
+    margin-left: 50px;
+    }
+    .box_right .id{
+        margin-bottom: 50px;
+    }
+    .box_right .name{
+        margin-bottom: 50px;
+    }
+
+    .btn_bottom{
+        position: absolute;
+        bottom: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .top-nav{
+        background-color: #fff;
+        height: 50px;
+        // box-shadow: 0 1px 0px rgb(0 0 0 / 3%), 0 1px 8px rgb(0 21 41 / 12%);
+        .nav{
+            display: flex;
+        }
+
+        ul{
+            margin-right: 55px;
+        }
+        .logobox{
+            width: 160px;
+            display: inline-block;
+            margin-left: 10px;
+            margin-bottom: 7px;
+            
+            img{
+                width: 100%;
+            
+            }
+
+        }
+    
+    }
+
+     
+
 }
-
-

@@ -8,11 +8,11 @@ export default function ConversationListItem(props) {
     shave('.conversation-snippet', 30);
   })
 
-    const { photo, name, text } = props.data;
+    const { no, photo, name, text } = props.data;
     const { callBackOnClick } = props;
 
     return (
-      <div className="conversation-list-item" onClick={callBackOnClick}>
+      <div id={no} className="conversation-list-item" onClick={callBackOnClick}>
         <img className="conversation-photo" src={photo} alt="conversation" />
         <div className="conversation-info">
           <h1 className="conversation-title">{ name }</h1>
