@@ -86,7 +86,6 @@ const Mypage = () => {
         reader.readAsDataURL(e.target.files[0]);
     }
 
-
     return (
         <div className="outer">
             <div className='top-nav'>
@@ -158,15 +157,14 @@ const Mypage = () => {
                     onClick={() => {
                         refForm.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
                     }}>
-                        <NavLink className='navlink' to={`/worklist`}>
-                            수정하기
-                        </NavLink>
+                    <NavLink className='navlink' to={`/worklist`}>
+                       수정하기
+                    </NavLink>
                 </Button>
                 <Button className="secondbutton" color="secondary" >
                     <NavLink className='navlink' to={`/worklist`}>
                         취소하기
                     </NavLink>
-                
                 </Button>
             </div>
         </div>

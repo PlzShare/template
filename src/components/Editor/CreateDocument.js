@@ -4,11 +4,7 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom'
 import { WorkSpaceContext } from '../../layouts/DashboardLayout';
-<<<<<<< HEAD
 import QuillEditor from './QuillEditor';
-=======
-import UserContext from '../utilities/ContextProviders/UserContext';
->>>>>>> 9a35872c8145f694ea3e9971c0e90ef1ab3ba3d5
 
 const CreateDocument = () => {
     const params = useParams()
