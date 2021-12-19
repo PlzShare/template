@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import ConversationSearch from '../ConversationSearch';
 import ConversationListItem from '../ConversationListItem';
 import Toolbar from '../Toolbar';
@@ -6,12 +6,18 @@ import ToolbarButton from '../ToolbarButton';
 import axios from 'axios';
 import ChatAddComponent from '../../SidebarNav/components/ChatAddComponent'
 import './ConversationList.css';
+import UserContext from '../../utilities/ContextProviders/UserContext';
+import { WorkSpaceContext } from '../../../layouts/DashboardLayout';
+
+import { useParams } from 'react-router';
+import luffy from '../../../assets/images/luffy.jpg'
 
 export default function ConversationList(props) {
   const {callBackOnClickListItem, callBackCollapseConversationList} = props 
   const [conversations, setConversations] = useState([]);
   const [keyword, setKeyword] = useState('');
   const [modals, setModals] = useState(false);
+  const params = useParams()
 
   const toggle = () => {
     setModals(!modals)
@@ -25,17 +31,20 @@ export default function ConversationList(props) {
     setKeyword(keyword);
   };
 
+
  const getConversations = () => {
-    axios.get('https://randomuser.me/api/?results=20').then(response => {
-        let newConversations = response.data.results.map(result => {
+    axios.get(`/workspaces/${params.wno}/chatroom`).then(response => {
+        let newConversations = response.data.data.map(result => {
           return {
-            photo: result.picture.large,
-            name: `${result.name.first} ${result.name.last}`,
-            text: 'Hello world!'
+            no: `${result.no}`,
+            photo: luffy,
+            name: `${result.name}`,
+            text: '최신메세지'
           };
         });
+
         setConversations([...conversations, ...newConversations])
-    }, console.log(conversations));
+    });
   }
 
     return (
@@ -52,6 +61,7 @@ export default function ConversationList(props) {
         <ChatAddComponent callBackToggle={toggle} isOpen={modals}/>
 
         {/* 검색 컴포넌트 - 정대겸 */}
+        {/* 검색 시 그 조건에 해당되는 부분만 뜨게 해야함 */}
         <ConversationSearch keyword={keyword} callback={notifyKeywordChanged}/>
         {
           conversations

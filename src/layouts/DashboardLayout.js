@@ -7,7 +7,7 @@ import UserContext from '../components/utilities/ContextProviders/UserContext';
 import Logo from '../assets/images/vibe-logo.svg';
 import '../assets/css/dashboardlayout.css';
 
-import nav from '../_nav3';    // 채널scrollable sidebar sidebar-right
+import nav from '../_nav2';    // 채널scrollable sidebar sidebar-right
 // import nav from '../_nav2';   // 알림
 // import nav from '../_nav3';     // 워크스페이스
 
@@ -40,7 +40,6 @@ class DashboardLayout extends Component {
       chatRoomInfo : null
     };
 
-    // alert('dddd')
     console.log('=====================dashboard=========================')
     console.dir(this.props)
     this.fetchWorkspaceInfo()
@@ -54,6 +53,9 @@ class DashboardLayout extends Component {
     this.setState({channelList:response.data.data})
     console.dir(response.data.data)
   }
+  
+
+
   pushChannelList = (channel) => {
     channel.url = `/channel/${channel.no}`
     this.setState({channelList : [...this.state.channelList, channel]})
@@ -70,6 +72,7 @@ class DashboardLayout extends Component {
     response.data.data.forEach((user) => {user.url = `/member/${user.userNo}`; user.name=user.nickname;});
     this.setState({memberList: response.data.data})
   }
+
   pushMemberList = (member) => {
     this.setState({memberList : [...this.state.memberList, member]})
   }
@@ -77,9 +80,11 @@ class DashboardLayout extends Component {
   // setWorkspaceInfo = (workspace) => {
   //   this.setState({workspaceInfo : workspace})
   // }
+
   setSidebarCollapsed = (sidebarCollapsed) => {
     this.setState({sidebarCollapsed : sidebarCollapsed})
   }
+
   handleResize = () => {
     if (window.innerWidth <= MOBILE_SIZE) {
       this.setState({ sidebarCollapsed: false, isMobile: true });
@@ -117,14 +122,15 @@ class DashboardLayout extends Component {
     this.setState(prevState => ({ conversationListCollapsed: !prevState.conversationListCollapsed }))
   }
   
-  enterChatRoom = (no) => {
-    console.log('chatroom')
+  enterChatRoom = (e) => {
+    console.log(e.target.key)
     this.setState({ 
       conversationListCollapsed: true,
       chatRoomCollapsed: false,
-      chatRoomInfo : {roomNo:2, name:'방 이름 넣기'}
+      chatRoomInfo : {roomNo:e.target.id, name:"이름하드코딩 ㅠ"}
     })
   }
+
   exitChatRoom = () => {
     console.log('exit')
     this.setState({ conversationListCollapsed: false })

@@ -3,17 +3,22 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
 import { useParams } from 'react-router';
 import { WorkSpaceContext } from '../../../layouts/DashboardLayout';
+import UserContext from '../../utilities/ContextProviders/UserContext';
 const ChannelComponent = ({callBackToggle, isOpen}) => {
     const nameInput = useRef();
     const descInput = useRef();
     const params = useParams()
     const workspaceNo = params.wno 
+    const {authUser} = useContext(UserContext);
     const {pushChannelList} = useContext(WorkSpaceContext)
 
     const createChannel = async () => {
         const response = await axios.post(`/workspaces/${workspaceNo}/channels`,{
           name : nameInput.current.value,
-          desc : descInput.current.value
+          desc : descInput.current.value,
+          workspaceNo : workspaceNo,
+          nickname : authUser.nickname,
+          makeUser: authUser.no
         })
         console.log(response.data.result)
         console.log(response.data.message)       
