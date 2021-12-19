@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { Col, Row } from 'reactstrap';
 import ChannelComponent from '../../components/SidebarNav/components/ChannelComponent';
@@ -7,11 +7,13 @@ import DocumantComponent from '../../components/SidebarNav/components/DocumentCo
 import '../../assets/scss/components/workspacemain.scss';
 import FontAwesomeIcon from 'react-fontawesome';
 import { Link } from 'react-router-dom';
+import UserContext from '../utilities/ContextProviders/UserContext';
 
 const Channel = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [isOpenFile, setIsOpenFile] = useState(false)
     const [documentList, setDocumentList] = useState([])
+    const {authUser} = useContext(UserContext)
     const params = useParams()
     const navigate = useNavigate()
     const onClickDocument = (e) => {
@@ -26,8 +28,10 @@ const Channel = () => {
     }
 
     useEffect(() => {
-        fetchDocumentList()
-    }, [params.cno])
+        if(authUser.no){
+            fetchDocumentList()
+        }
+    }, [params.cno, authUser])
     const size = 3
 
 
@@ -50,7 +54,7 @@ const Channel = () => {
             </div>
             <Row>
                   {documentList.map( doc => 
-                    <Col xl={size}>
+                    <Col xl={size} key={doc.no}>
                         <div className='document' doc-no={doc.no} style={{cursor: 'pointer'}} onClick={onClickDocument}>
                             <div className='documentbody'>
                             <div className='triangle'></div>

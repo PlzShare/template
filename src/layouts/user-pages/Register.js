@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router'
 import axios from 'axios';
 import Sharelogo from '../../assets/images/logo2.png';
 
@@ -33,7 +34,8 @@ export class Register extends Component {
           password: e.target.password.value
 
         });
-
+        alert('회원 가입 성공')
+        this.props.navigate('/login')
       } catch (err) {
         console.error(err);
       }
@@ -93,4 +95,4 @@ export class Register extends Component {
   }
 }
 
-export default Register
+export default (props) => <Register {...props} navigate={useNavigate()}/>
