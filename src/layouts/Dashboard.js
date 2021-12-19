@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Row, Col, Button } from 'reactstrap';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import '../assets/scss/components/main.scss';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
+import UserContext from '../components/utilities/ContextProviders/UserContext';
 
 const Dashboard = () => {
   const [names, setNames] = useState([]);
   const params = useParams();
-
+  const {authUser} = useContext(UserContext)
   useEffect(() => {
     dashBoardManagement.list();
   }, []);
@@ -25,11 +26,11 @@ const Dashboard = () => {
       e.preventDefault();
 
       const deleteNo = e.target.id;
-      await axios.delete(`/workspaces/workspace-users?uno=${testUserNo}&wno=${deleteNo}`);
+      await axios.delete(`/workspaces/workspace-users?uno=${authUser.no}&wno=${deleteNo}`);
 
       console.log("==============================")
-      console.log("현재 테스트 넘버는 " + testUserNo + "입니다. 현재 이 계정은 Admin이므로, 원칙상으로는 워크스페이스 방을 떠날 수 없지만 일단 기능구현을 보여주기 위해 떠날 수 있게 해두었습니다.")
-      console.log(testUserNo + "번이 워크스페이스를 떠났어요~! 떠난 워크스페이스 번호는" + deleteNo + "번이랍니다? ㅎ");
+      console.log("현재 테스트 넘버는 " + authUser.no + "입니다. 현재 이 계정은 Admin이므로, 원칙상으로는 워크스페이스 방을 떠날 수 없지만 일단 기능구현을 보여주기 위해 떠날 수 있게 해두었습니다.")
+      console.log(authUser.no + "번이 워크스페이스를 떠났어요~! 떠난 워크스페이스 번호는" + deleteNo + "번이랍니다? ㅎ");
       setNames([...(names.filter(name => name.no != deleteNo))])
     }
   }
