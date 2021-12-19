@@ -25,18 +25,12 @@ const DocumentEditor = ({initDocumentData, callBackOnChange}) => {
         //     })
         // }
     }
-    
-    useEffect(() => {
-        if(window.editor) window.editor.destroy()
-        
-        createEditor()
-    }, [])
+
 
     useEffect(() => {
         if(initDocumentData){
             window.editor.setData(initDocumentData.contents)
             document.getElementById('document-title').value = initDocumentData.title
-
         }
     },[initDocumentData])
 
