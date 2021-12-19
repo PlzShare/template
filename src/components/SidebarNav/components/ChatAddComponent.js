@@ -7,6 +7,8 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import '../../../assets/scss/components/chatadd.scss';
 import TagsInput from '../../TagsInput'
 import UserContext from '../../utilities/ContextProviders/UserContext';
+import { useNavigate } from 'react-router'
+
 
 const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
     const {authUser} = useContext(UserContext);
@@ -16,6 +18,7 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
     const [userList, setUserList] = useState([]);
     const [nums, setNums] = useState([]);
     const animatedComponents = makeAnimated();
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetchList();
@@ -36,6 +39,7 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
         setSelectData(e);
         console.log(e);
         console.log(selectdata , "sdfjasldfalksdflasdflksjd")
+
     }
 
     // const selectedTags = tags => {
@@ -54,7 +58,6 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
         callBackToggle();
     }
 
-
     return (
         <Modal isOpen={isOpen} toggle={callBackToggle}>
                 <ModalHeader toggle={callBackToggle}>채팅 생성</ModalHeader>
@@ -68,7 +71,8 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
 
                     <div>
                         <h5>🔹 채팅방 이름</h5>
-                        <input ref={nameInput} name="name" className="nameinput" placeholder='채팅방 이름을 입력해주세요(기본값 주방장 이름)' className="chatinput" ></input>
+                        <input ref={nameInput} name="name" className="nameinput" placeholder='채팅방 이름을 입력해주세요' className="chatinput" ></input>
+
                     </div>
 
                 </ModalBody>

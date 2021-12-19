@@ -9,6 +9,7 @@ import Select from 'react-select';
 import axios from 'axios';
 import * as StompJs from "@stomp/stompjs";
 import SockJS from "sockjs-client";
+import { useParams } from 'react-router';
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col} from 'reactstrap';
 
@@ -21,14 +22,15 @@ export default function MessageList(props) {
   const [userList,setUserList] = useState([]);
   const [selectdata, setSelectData] = useState([]);
   const animatedComponents = makeAnimated();
+  const params = useParams()
 
   const MY_USER_ID = 'apple';
 
   // 정대겸 : 커넥트
   const client = useRef({});
 
-  console.log("==========")
-  console.log(chatRoomInfo)
+  console.log("받아온 방번호 : " + chatRoomInfo.roomNo)
+  console.log("받아온 방이름 : " + chatRoomInfo.name)
   
   useEffect(() => {
     connect();
@@ -68,7 +70,7 @@ export default function MessageList(props) {
 
   // 브로드캐스팅 받는 부분
   const subscribe = () => {
-    client.current.subscribe('/sub/greetings', ({ body }) => {
+    client.current.subscribe(`/sub/greetings`, ({ body }) => {
       const broadCastingMessage = {}
       broadCastingMessage.id = JSON.parse(body).id;
       broadCastingMessage.message = JSON.parse(body).message;
@@ -112,7 +114,7 @@ export default function MessageList(props) {
 
     // console.dir(userList)
     const fetchList = async () => {
-      const response = await axios.get(`/workspaces/workspace-users?wno=206&?uno=4`)
+      const response = await axios.get(`/workspaces/workspace-users?wno=${params.wno}&?uno=${params.uno}`)
       response.data.data.forEach(e => {e['label'] = e.id; e['value'] = e.id})
       setUserList(response.data.data.filter( el => el.userNo != 3))
   }

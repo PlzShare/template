@@ -9,14 +9,19 @@ import { NavLink, Link } from 'react-router-dom';
 import '../assets/css/worklist.css';
 import FontAwesomeIcon from 'react-fontawesome';
 import UserContext from '../components/utilities/ContextProviders/UserContext';
+
+import { useParams } from 'react-router';
+
 import {HeaderNav} from './DashboardLayout'
 import ContextProviders from '../components/utilities/ContextProviders';
+
 
 const Dashboard = () => {
   
   const [names, setNames] = useState([]);
   const {authUser} = useContext(UserContext)
-  
+  const params = useParams()
+
   useEffect(() => {
     console.log(authUser)
     if(authUser){
@@ -36,9 +41,7 @@ const Dashboard = () => {
       e.preventDefault();
 
       const deleteNo = e.target.id;
-
       await axios.delete(`/workspaces/workspace-users?uno=${authUser.no}&wno=${deleteNo}`);
-
 
       console.log("삭제한 워크스페이스 번호:" + deleteNo);
       setNames([...(names.filter(name => name.no != deleteNo))])
@@ -92,18 +95,16 @@ const Dashboard = () => {
           </div>
         </nav>
       </div>
+      <div className='main'>
+        <h2>{authUser.nickname} 님의 워크스페이스 목록</h2>
+        <Row className='listrow'>
+          {workspaceLists}
+        </Row>
 
-      
-        <div className='main'>
-          <h2>{authUser.nickname} 님의 워크스페이스 목록</h2>
-          <Row className='listrow'>
-            {workspaceLists}
-          </Row>
-
-          <Link  to='/workspaceadd'>
-            <Button className='workadd'to="/workspaceadd" color="primary" block>새로운 워크스페이스 생성</Button>
-          </Link>
-        </div>
+        <Link  to='/workspaceadd'>
+          <Button className='workadd'to="/workspaceadd" color="primary" block>새로운 워크스페이스 생성</Button>
+        </Link>
+      </div>
       
 
   </div>

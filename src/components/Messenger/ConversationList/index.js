@@ -6,6 +6,9 @@ import ToolbarButton from '../ToolbarButton';
 import axios from 'axios';
 import ChatAddComponent from '../../SidebarNav/components/ChatAddComponent'
 import './ConversationList.css';
+import UserContext from '../../utilities/ContextProviders/UserContext';
+import { WorkSpaceContext } from '../../../layouts/DashboardLayout';
+
 import { useParams } from 'react-router';
 import luffy from '../../../assets/images/luffy.jpg'
 
@@ -33,6 +36,7 @@ export default function ConversationList(props) {
     axios.get(`/workspaces/${params.wno}/chatroom`).then(response => {
         let newConversations = response.data.data.map(result => {
           return {
+            no: `${result.no}`,
             photo: luffy,
             name: `${result.name}`,
             text: '최신메세지'
@@ -40,7 +44,7 @@ export default function ConversationList(props) {
         });
 
         setConversations([...conversations, ...newConversations])
-    }, console.log(conversations));
+    });
   }
 
     return (
@@ -57,6 +61,7 @@ export default function ConversationList(props) {
         <ChatAddComponent callBackToggle={toggle} isOpen={modals}/>
 
         {/* 검색 컴포넌트 - 정대겸 */}
+        {/* 검색 시 그 조건에 해당되는 부분만 뜨게 해야함 */}
         <ConversationSearch keyword={keyword} callback={notifyKeywordChanged}/>
         {
           conversations

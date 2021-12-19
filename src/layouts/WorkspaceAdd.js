@@ -13,7 +13,6 @@ import "../assets/scss/components/tag.scss"
 // 게스트북의 WriteForm
 const WorkspaceAdd = (e) => {
     const {authUser} = useContext(UserContext)
-    const testAdminUserNum = 4;
     const nameInput = useRef();
     const [nums, setNums] = useState([]);
     const navigate = useNavigate()
@@ -24,13 +23,13 @@ const WorkspaceAdd = (e) => {
     };
 
     const createWorkspace = async () => {
-        console.log("추가된 유저 번호들~" + [...nums])
+        console.log("추가된 유저 번호들" + [...nums])
         await axios.post('/workspaces', {
             name: nameInput.current.value,
             userNums: [...nums]
         })
 
-        console.log(testAdminUserNum + "번 계정으로 워크스페이스 추가 성공");
+        console.log("워크스페이스 추가 성공");
         navigate('/worklist')
     }
 
