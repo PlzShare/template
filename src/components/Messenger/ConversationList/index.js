@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import ConversationSearch from '../ConversationSearch';
 import ConversationListItem from '../ConversationListItem';
 import Toolbar from '../Toolbar';
@@ -6,12 +6,15 @@ import ToolbarButton from '../ToolbarButton';
 import axios from 'axios';
 import ChatAddComponent from '../../SidebarNav/components/ChatAddComponent'
 import './ConversationList.css';
+import { useParams } from 'react-router';
+import luffy from '../../../assets/images/luffy.jpg'
 
 export default function ConversationList(props) {
   const {callBackOnClickListItem, callBackCollapseConversationList} = props 
   const [conversations, setConversations] = useState([]);
   const [keyword, setKeyword] = useState('');
   const [modals, setModals] = useState(false);
+  const params = useParams()
 
   const toggle = () => {
     setModals(!modals)
@@ -25,15 +28,17 @@ export default function ConversationList(props) {
     setKeyword(keyword);
   };
 
+
  const getConversations = () => {
-    axios.get('https://randomuser.me/api/?results=20').then(response => {
-        let newConversations = response.data.results.map(result => {
+    axios.get(`/workspaces/${params.wno}/chatroom`).then(response => {
+        let newConversations = response.data.data.map(result => {
           return {
-            photo: result.picture.large,
-            name: `${result.name.first} ${result.name.last}`,
-            text: 'Hello world!'
+            photo: luffy,
+            name: `${result.name}`,
+            text: '최신메세지'
           };
         });
+
         setConversations([...conversations, ...newConversations])
     }, console.log(conversations));
   }
