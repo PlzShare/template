@@ -70,7 +70,7 @@ export default function MessageList(props) {
 
   // 브로드캐스팅 받는 부분
   const subscribe = () => {
-    client.current.subscribe(`/sub/greetings`, ({ body }) => {
+    client.current.subscribe('/sub/greetings', ({ body }) => {
       const broadCastingMessage = {}
       broadCastingMessage.id = JSON.parse(body).id;
       broadCastingMessage.message = JSON.parse(body).message;
