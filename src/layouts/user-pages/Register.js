@@ -75,8 +75,10 @@ export class Register extends Component {
                   </div>
                   <div className="mt-3">
                     <button className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
-                      to="/dashboard"
-                    >회원가입하기</button>
+                          to="/login"
+                    >
+                    회원가입하기
+                    </button>
                   </div>
                   <div className="text-center mt-4 font-weight-light">
                   이미 계정이 있으신가요? <Link to="/login" className="text-primary">로그인하러가기</Link>

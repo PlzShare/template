@@ -5,7 +5,6 @@ import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom'
 import { WorkSpaceContext } from '../../layouts/DashboardLayout';
 import QuillEditor from './QuillEditor';
-import UserContext from '../utilities/ContextProviders/UserContext';
 
 const CreateDocument = () => {
     const params = useParams()

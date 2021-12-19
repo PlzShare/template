@@ -65,7 +65,6 @@ export const UserContextProvider = ({children}) => {
                     console.dir(JSON.parse(body))
                     setNoti(body);
                 });
-                
             },
             onStompError: (frame) => {
                 console.error(frame);
@@ -80,7 +79,7 @@ export const UserContextProvider = ({children}) => {
 
     useEffect(() => {
         const token = localStorage.getItem("token")
-        if(token){
+        if(token && token != 'undefined'){
             // 저장된 토큰이 있으면 == 로그인 한 상태이면
             // axios default 설정 (모든 요청 시, Authorization Header에 Token 실어서 보내기)
             storeToken(token)
