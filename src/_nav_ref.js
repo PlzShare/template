@@ -87,6 +87,10 @@ export default {
         {
           name: 'Register',
           url: '/register'
+        },
+        {
+          name: 'Mypage',
+          url: '/mypage'
         }
       ],
     },

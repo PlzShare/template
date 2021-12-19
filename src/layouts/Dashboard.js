@@ -54,8 +54,10 @@ const Dashboard = () => {
         {workspaceLists}
       </Row>
       <Link to="/WorkspaceAdd">
-              <Button color="primary" block>새로운 워크스페이스 생성</Button>{' '}
-            </Link>    
+          <div className='workadd'>
+            <Button color="primary" block>새로운 워크스페이스 생성</Button>
+          </div>
+      </Link>    
       </div>
   );
 
