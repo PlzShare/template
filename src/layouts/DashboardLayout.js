@@ -7,7 +7,7 @@ import UserContext from '../components/utilities/ContextProviders/UserContext';
 import Logo from '../assets/images/vibe-logo.svg';
 import '../assets/css/dashboardlayout.css';
 
-import nav from '../_nav2';    // 채널scrollable sidebar sidebar-right
+import nav from '../_nav3';    // 채널scrollable sidebar sidebar-right
 // import nav from '../_nav2';   // 알림
 // import nav from '../_nav3';     // 워크스페이스
 
@@ -103,14 +103,12 @@ class DashboardLayout extends Component {
     document.addEventListener('click', handleClickAccessibility);
     
     let timer = setInterval(() => {
-      console.dir(axios.defaults)
-      if(axios.defaults['Authorization']){
+      if(axios.defaults.headers && axios.defaults.headers['Authorization']){
         this.fetchWorkspaceInfo()
         this.fetchChannelList()
         this.fetchMemberList()
         clearInterval(timer)
       }
-
     }, 200)
   }
 
@@ -255,7 +253,7 @@ export function HeaderNav() {
             </img>
           </div> */}
           <DropdownToggle nav caret>
-          {authUser.nickname} 
+            {authUser? authUser.nickname : ''} 
           </DropdownToggle>
         </div>
           <DropdownMenu right>

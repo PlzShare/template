@@ -8,9 +8,8 @@ import { NavLink, Link } from 'react-router-dom';
 import '../../assets/scss/components/mypage.scss';
 
 const Mypage = () => {
-    const {authUser} = useContext(UserContext);
+    const {authUser, storeToken} = useContext(UserContext);
     const [User, setUser] = useState({});
-    const [imageList, setImageList] = useState([]);
     const refForm = useRef(null);
     const refPassword = useRef(null);
     const refNickname = useRef(null);
@@ -28,8 +27,9 @@ const Mypage = () => {
     }
 
     useEffect(() => {
-        fetchUserInfo()
-    }, [])
+        if(authUser.no)
+            fetchUserInfo()
+    }, [authUser])
 
     // 이미지 업로드
     const notifyImage = {
@@ -47,19 +47,9 @@ const Mypage = () => {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
 
-                // fetch success?
-                if (!response.ok) {
-                    throw `${response.status} ${response.statusText}`;
-                }
-
-                // API success?
-                const json = await response.json();
-                if (json.result !== 'success') {
-                    throw json.message;
-                }
 
                 // re-rendering(update)
-                setImageList([json.data, ...imageList]);
+                storeToken(response.headers.authorization)
             } catch (err) {
                 console.error(err);
             }
@@ -78,7 +68,6 @@ const Mypage = () => {
     const hadleImageFile = (e) => {
 
         let reader = new FileReader();
-
         reader.onload = () => {
             setUser(Object.assign({}, User, { profile: reader.result })) //  reader한 결과 가져오기
         }
@@ -114,7 +103,7 @@ const Mypage = () => {
                             ref={refForm}
                         >
                             <span style={{
-                                backgroundImage: `url(${authUser.profile})`
+                                backgroundImage: `url(${User.profile})`
                             }} />
                             <input
                                 type={'file'}

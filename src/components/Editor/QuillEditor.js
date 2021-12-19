@@ -1,6 +1,7 @@
 import ReactQuill from 'react-quill'
 import React, { useState } from 'react';
 import 'react-quill/dist/quill.snow.css'
+
 const QuillEditor = () => {
     const [data, setData] = useState({text:''})
     
