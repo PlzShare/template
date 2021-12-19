@@ -95,8 +95,11 @@ export const UserContextProvider = ({children}) => {
             //로그인 안한 상태면 login 페이지로 보내기
             navigate('/login')
         }
+
         return () => {
-            disconnect()
+            if(stompClient.noti){
+                disconnect()
+            }
         }
     },[])
 
