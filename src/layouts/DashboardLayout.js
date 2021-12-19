@@ -103,14 +103,12 @@ class DashboardLayout extends Component {
     document.addEventListener('click', handleClickAccessibility);
     
     let timer = setInterval(() => {
-      console.dir(axios.defaults)
-      if(axios.defaults['Authorization']){
+      if(axios.defaults.headers && axios.defaults.headers['Authorization']){
         this.fetchWorkspaceInfo()
         this.fetchChannelList()
         this.fetchMemberList()
         clearInterval(timer)
       }
-
     }, 200)
   }
 
@@ -254,7 +252,7 @@ export function HeaderNav() {
             </img>
           </div> */}
           <DropdownToggle nav caret>
-          {authUser.nickname} 
+            {authUser? authUser.nickname : ''} 
           </DropdownToggle>
         </div>
           <DropdownMenu right>
