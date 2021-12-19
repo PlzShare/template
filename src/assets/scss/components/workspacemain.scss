@@ -1,4 +1,6 @@
 .workspacemain{
+
+  
     font-family: 'Noto Sans KR', sans-serif;
 
     .rows{
@@ -35,6 +37,17 @@
     
         p{
             padding:5px 0px 0px 10px;
+            display: inline-block;
+            width: 160px;
+        }
+
+        .hover{
+            font-size: larger;
+            font-weight: bold;
+            border: none;
+            background: none;
+            position: absolute;
+            right:5px;
         }
     
     }

@@ -18,7 +18,6 @@ const MemberAddComponent = ({callBackToggle, isOpen}) => {
 
     const pushData = async () =>{
         console.log(selectdata);
-        callBackToggle();
         const response = await axios.post(`/workspaces/workspace-users`,{
             no : params.wno,
             userNo: authUser.no,
@@ -26,6 +25,7 @@ const MemberAddComponent = ({callBackToggle, isOpen}) => {
             inviteMember : authUser.nickname
         })
         // pushMemberList()
+        callBackToggle();
     }
 
 

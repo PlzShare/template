@@ -18,15 +18,17 @@ const WorkspaceAdd = (e) => {
     const navigate = useNavigate()
 
     const selectedTags = tags => {
-        setNums([authUser.no, ...tags]);
-        console.log([authUser.no, ...tags]);
+        setNums(tags);
+        console.log(tags);
     };
 
     const createWorkspace = async () => {
         console.log("추가된 유저 번호들" + [...nums])
         await axios.post('/workspaces', {
             name: nameInput.current.value,
-            userNums: [...nums]
+            userNums: nums,
+            userNo: authUser.no,
+            inviteMember: authUser.nickname
         })
 
         console.log("워크스페이스 추가 성공");
