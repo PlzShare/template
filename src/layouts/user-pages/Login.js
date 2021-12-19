@@ -72,8 +72,7 @@ const onLogin = async(e) =>{
                 <div className="brand-logo">
                    <img src={Sharelogo} alt="logo" /> 
                 </div>
-               
-                {/* <h6 className="font-weight-light">Sign in to continue.</h6> */}
+            
                 <Form onSubmit={onLogin} className="pt-3">
                   {/* <Form.Group className="d-flex search-field">
                     <input  name="id" id="id" type="id" placeholder="아이디" size="lg" className="h-auto" />

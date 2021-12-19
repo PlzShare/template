@@ -92,9 +92,9 @@ const Mypage = () => {
             <div className='top-nav'>
                 <nav className='navbar navbar-expand-md navbar-light bg-faded'>
                     <div className='logobox'>
-                    <NavLink  to={`/worklist`}>
-                        <img src={Logo}></img>
-                    </NavLink>
+                        <NavLink  to={`/worklist`}>
+                            <img src={Logo}></img>
+                        </NavLink>
                     </div>
                     <div className='collapse navbar-collapse'>
                         <ul className="ml-auto navbar-nav">

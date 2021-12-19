@@ -19,6 +19,7 @@ const Dashboard = () => {
   
   useEffect(() => {
     console.log(authUser)
+    
     if(authUser){
       dashBoardManagement.list();
     }
