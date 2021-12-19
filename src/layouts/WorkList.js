@@ -23,7 +23,6 @@ const Dashboard = () => {
       dashBoardManagement.list();
     }
   }, [authUser]);
-  
 
 
   const dashBoardManagement = {
@@ -37,7 +36,9 @@ const Dashboard = () => {
       e.preventDefault();
 
       const deleteNo = e.target.id;
-      await axios.delete(`/workspaces/workspace-users?uno=${authUser}&wno=${deleteNo}`);
+
+      await axios.delete(`/workspaces/workspace-users?uno=${authUser.no}&wno=${deleteNo}`);
+
 
       console.log("삭제한 워크스페이스 번호:" + deleteNo);
       setNames([...(names.filter(name => name.no != deleteNo))])
@@ -98,7 +99,7 @@ const Dashboard = () => {
           <Row className='listrow'>
             {workspaceLists}
           </Row>
-          
+
           <Link  to='/workspaceadd'>
             <Button className='workadd'to="/workspaceadd" color="primary" block>새로운 워크스페이스 생성</Button>
           </Link>
