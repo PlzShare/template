@@ -3,8 +3,11 @@
 }
 .workspacemain {
     font-family: 'Noto Sans KR', sans-serif;
+   
 }
-
+.workspacemain a{
+    text-decoration: none !important;
+}
 .listheader {
     width: 100%;
     height: 50px;
@@ -122,13 +125,38 @@
     background: #f8f8fa;
 }
 
-.workspacemain .main .btn {
+.workspacemain .main {
     width: 900px;
     height: 60px;
-    margin-left: 4%;
-    margin-top: 3%;
     font-size: 1.3rem;
 }
+.workspacemain .top-nav{
+    background-color: #fff;
+    height: 50px;
+    box-shadow: 0 1px 0px rgb(0 0 0 / 3%), 0 1px 8px rgb(0 21 41 / 12%);
+}
+.workspacemain .top-nav .nav{
+    display: flex;
+}
+.workspacemain .main .workadd{
+    padding: 0.7rem 1rem;
+    font-size: 1.25rem;
+}
+.workspacemain ul{
+    margin-right: 55px;
+}
+.workspacemain .logobox{
+    width: 160px;
+    display: inline-block;
+    margin-left: 10px;
+    margin-bottom: 7px;
+}
+.workspacemain .logobox img{
+    width: 100%;
+}
+
+
+
 
 
 

@@ -1,27 +1,71 @@
-.add{
+.workadd{
     position:relative;
     width: 100%;
-}
-
-.firstName {
-    font-size: 2.2rem ;
     font-family: 'Noto Sans KR', sans-serif;
+        a{
+            text-decoration: none;
+        }
+    .add{
+        margin-top: 15vh;
+        margin-left: 13vw;
+
+        .firstName {
+            font-size: 2.2rem ;
+            margin-bottom: 3%;
+        }
+       
+        
+        .secondName{
+            font-size: 1.7rem;
+            margin-top: 1em;
+        }
+        .nameinput{
+            width: 65%;
+            height: 45px;
+            margin-top:3vh;
+            margin-bottom: 5vh;
+            border: 1px solid #000000;
+            border-radius: 6px;
+            font-size: 14px;
+
+        }
+        
+        .button{
+            position: absolute;
+            margin-top: 5rem;
+            left: 30vw;
+            :nth-child(1){
+                margin-right: 10px;
+            }
+        }
+        
+    }
+    
+    .top-nav{
+        background-color: #fff;
+        height: 50px;
+        // box-shadow: 0 1px 0px rgb(0 0 0 / 3%), 0 1px 8px rgb(0 21 41 / 12%);
+        .nav{
+            display: flex;
+        }
+    
+        ul{
+            margin-right: 55px;
+        }
+        .logobox{
+            width: 160px;
+            display: inline-block;
+            margin-left: 10px;
+            margin-bottom: 7px;
+            
+            img{
+                width: 100%;
+            
+            }
+    
+        }
+    
+    }
+
 }
 
-.secondName{
-    font-size: 1.7rem;
-    font-family: 'Noto Sans KR', sans-serif;
-    margin-top: 1em;
-}
-.nameinput{
-    width: 65%;
-    height: 45px;
-    margin-top: 1em;
-}
-
-.Button{
-    margin-top: 8rem;
-    position: absolute;
-    left: 50%;
-    transform:translateX(-50%);
-}

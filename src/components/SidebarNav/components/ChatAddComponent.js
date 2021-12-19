@@ -9,6 +9,7 @@ import TagsInput from '../../TagsInput'
 import UserContext from '../../utilities/ContextProviders/UserContext';
 import { useNavigate } from 'react-router'
 
+
 const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
     const {authUser} = useContext(UserContext);
     const nameInput = useRef();
@@ -38,6 +39,7 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
         setSelectData(e);
         console.log(e);
         console.log(selectdata , "sdfjasldfalksdflasdflksjd")
+
     }
 
     // const selectedTags = tags => {
@@ -47,15 +49,14 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
     const createWorkspace = async () => {
         const result = (selectdata.map((user) => user.userNo));
         console.log(result);
-        const response = await axios.post(`/workspaces/${params.wno}/chatroom`, {
+        await axios.post(`/workspaces/${params.wno}/chatroom`, {
             name: nameInput.current.value,
             workspaceNo : params.wno,
             userNums : [...result,authUser.no]
         })
-        console.log(response.data.data.no)
-        navigate('/worklist')
-    }
 
+        callBackToggle();
+    }
 
     return (
         <Modal isOpen={isOpen} toggle={callBackToggle}>
@@ -71,6 +72,7 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
                     <div>
                         <h5>🔹 채팅방 이름</h5>
                         <input ref={nameInput} name="name" className="nameinput" placeholder='채팅방 이름을 입력해주세요' className="chatinput" ></input>
+
                     </div>
 
                 </ModalBody>
