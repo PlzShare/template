@@ -18,12 +18,7 @@ import WorkspaceAdd from './layouts/WorkspaceAdd';
 export default function App() {
   axios.defaults.baseURL = '/api'
   axios.defaults.withCredentials = true;
-  // axios
-  //   .get('/workspaces/1/channels/1/documents')
-  //   .then((response) => {
-  //     console.dir(response)
-  //   })
-  // fetch('/api/workspaces/1/channels/1/documents')
+ 
   const workspacePath = '/workspace/:wno';
 
   console.log('=================================================')
@@ -44,7 +39,7 @@ export default function App() {
             </Route>
         </Routes>
           <Noti />
-      </UserContextProvider>
-      </Router>
+        </UserContextProvider>
+    </Router>
   );
 }

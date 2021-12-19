@@ -28,8 +28,6 @@ export const UserContextProvider = ({children}) => {
 
     }
 
-
-
     const storeToken = (token) => {
         // 토큰 받음
         // axios default 설정 (모든 요청 시, Authorization Header에 Token 실어서 보내기)
@@ -39,8 +37,15 @@ export const UserContextProvider = ({children}) => {
         localStorage.setItem('token', token)
         
         // token 해석해서, authUser에 로그인한 user정보 저장
-        const userInfo = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString()).user
-        setAuthUser(userInfo)      
+        const parsedToken = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString())
+        const userInfo = {
+            no : parsedToken.no, 
+            id : parsedToken.id, 
+            name : parsedToken.name, 
+            nickname : parsedToken.nickname, 
+            profile :  parsedToken.profile
+        } 
+        setAuthUser(userInfo)
     }
 
     /**
@@ -48,7 +53,6 @@ export const UserContextProvider = ({children}) => {
      */
     console.log(noti, "Dfdfasdfasdf")
     const connect = () => {
-        
         stompClient.noti = new StompJs.Client({
             webSocketFactory: () => new SockJS("http://localhost:8888/websocket"),
             debug: function (str) {
@@ -78,32 +82,20 @@ export const UserContextProvider = ({children}) => {
 
     useEffect(() => {
         const token = localStorage.getItem("token")
-        console.dir(token)
-        if(token && token != 'undefined'){
-           
+        if(token){
             // 저장된 토큰이 있으면 == 로그인 한 상태이면
             // axios default 설정 (모든 요청 시, Authorization Header에 Token 실어서 보내기)
-            axios.defaults.headers['Authorization'] = token 
-            // token 해석해서, authUser에 로그인한 user정보 저장
-            const userInfo = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString()).user
-            
-            
-            setAuthUser(userInfo)
-            
-            console.log('=====================================')
-            console.dir(userInfo)
-            console.log('=====================================')
-            console.dir(token)
-            setAuthUser(userInfo)
-
+            storeToken(token)
             if(location.pathname == '/') navigate('/worklist')
-            
         }else{
             //로그인 안한 상태면 login 페이지로 보내기
             navigate('/login')
         }
+
         return () => {
-            disconnect()
+            if(stompClient.noti){
+                disconnect()
+            }
         }
     },[])
 
