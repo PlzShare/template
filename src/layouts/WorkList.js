@@ -3,6 +3,7 @@ import { Row, Col, Button } from 'reactstrap';
 import Logo from '../assets/images/logo3.png';
 import profile from '../assets/images/profile.jpg';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import '../assets/css/worklist.css';
 import FontAwesomeIcon from 'react-fontawesome';
@@ -18,7 +19,6 @@ const Dashboard = () => {
     }
   }, [authUser]);
 
-  const testUserNo = 4 // 테스트 넘버
   const dashBoardManagement = {
     list: async () => {
       const response = await axios.get(`/workspaces?userNo=${authUser.no}`);
@@ -30,7 +30,7 @@ const Dashboard = () => {
       e.preventDefault();
 
       const deleteNo = e.target.id;
-      await axios.delete(`/workspaces/workspace-users?uno=${testUserNo}&wno=${deleteNo}`);
+      await axios.delete(`/workspaces/workspace-users?uno=${authUser.no}&wno=${deleteNo}`);
 
       console.log("삭제한 워크스페이스 번호:" + deleteNo);
       setNames([...(names.filter(name => name.no != deleteNo))])
@@ -86,11 +86,13 @@ const Dashboard = () => {
       </header>
       <div className='inner'>
         <div className='main'>
-          <h2>{testUserNo}번 님의 워크스페이스 목록</h2>
+          <h2>{authUser.nickname} 님의 워크스페이스 목록</h2>
           <Row className='listrow'>
             {workspaceLists}
           </Row>
-          <Button color="primary" block>새로운 워크스페이스 생성</Button>
+          <Link  to='/workspaceadd'>
+            <Button className='workadd'to="/workspaceadd" color="primary" block>새로운 워크스페이스 생성</Button>
+          </Link>
         </div>
       </div>
 

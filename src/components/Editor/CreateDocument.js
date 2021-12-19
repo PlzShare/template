@@ -4,11 +4,13 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom'
 import { WorkSpaceContext } from '../../layouts/DashboardLayout';
+import UserContext from '../utilities/ContextProviders/UserContext';
 
 const CreateDocument = () => {
     const params = useParams()
     const {setSidebarCollapsed} =  useContext(WorkSpaceContext)
     const navigate = useNavigate()
+    const {authUser} = useContext(UserContext);
 
     const save = async () => {
         const url = `/workspaces/${params.wno}/channels/${params.cno}/documents`
@@ -16,7 +18,10 @@ const CreateDocument = () => {
         const response = await axios.post(url,{
             title: document.getElementById('document-title').value,
             contents:window.editor.getData(),
-            channelNo: params.cno
+            channelNo: params.cno,
+            workspaceNo: params.wno,
+            nickname : authUser.nickname,
+            makeUser: authUser.no
         })
 
         navigate(`/workspace/${params.wno}/channel/${params.cno}`)

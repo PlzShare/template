@@ -5,7 +5,7 @@ import { Button, Badge, NavItem, UncontrolledDropdown, DropdownToggle, DropdownM
 import { Header, SidebarNav, Footer, PageContent, PageAlert, Page } from '../components';
 import Logo from '../assets/images/vibe-logo.svg';
 
-import nav from '../_nav3';    // 채널scrollable sidebar sidebar-right
+import nav from '../_nav2';    // 채널scrollable sidebar sidebar-right
 // import nav from '../_nav2';   // 알림
 // import nav from '../_nav3';     // 워크스페이스
 
@@ -50,6 +50,9 @@ class DashboardLayout extends Component {
     this.setState({channelList:response.data.data})
     console.dir(response.data.data)
   }
+  
+
+
   pushChannelList = (channel) => {
     channel.url = `/channel/${channel.no}`
     this.setState({channelList : [...this.state.channelList, channel]})

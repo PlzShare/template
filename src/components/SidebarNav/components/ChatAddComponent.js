@@ -1,41 +1,59 @@
-import React, {useEffect, useState}  from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import axios from 'axios';
+import { useParams } from 'react-router';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import '../../../assets/scss/components/chatadd.scss';
-
+import TagsInput from '../../TagsInput'
+import UserContext from '../../utilities/ContextProviders/UserContext';
 
 const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
+    const {authUser} = useContext(UserContext);
+    const nameInput = useRef();
+    const params = useParams()
     const [selectdata, setSelectData] = useState([]);
     const [userList, setUserList] = useState([]);
+    const [nums, setNums] = useState([]);
     const animatedComponents = makeAnimated();
 
     useEffect(() => {
         fetchList();
-    },[]);
+    }, []);
     
     // console.dir(userList)
-    // 1214 수정 도와줘~
     const fetchList = async () => {
-        const response = await axios.get(`/workspaces/workspace-users?wno=206&uno=4`)
-        response.data.data.forEach(e => {e['label'] = e.id; e['value'] = e.id})
-
-        setUserList(response.data.data.filter( el => el.userNo != 3))
-        // console.response.data.data
+        const response = await axios.get(`/workspaces/workspace-users?wno=${params.wno}&uno=${params.uno}`)
+        response.data.data.forEach(e => {e['label'] = e.userid; e['value'] = e.userid})
+        setUserList(response.data.data.filter( el => el.userNo != authUser.no))
+        
     }
-
-    const pushData = () =>{
-        console.log(selectdata);
-        callBackToggle();
-    }
-
 
     const selectBoxChange = (e) =>{
         // 여기서 쌓이는 값들을 useState에 쌓아서 버튼을 눌렀을 때 선택된 값을 보내도록한다.
         // console.dir(e)
+        setNums(e);
         setSelectData(e);
+        console.log(e);
+        console.log(selectdata , "sdfjasldfalksdflasdflksjd")
     }
+
+    // const selectedTags = tags => {
+    //     setNums([authUser.no, ...tags]);
+    // };
+
+    const createWorkspace = async () => {
+        const result = (selectdata.map((user) => user.userNo));
+        console.log(result);
+        await axios.post(`/workspaces/${params.wno}/chatroom`, {
+            name: nameInput.current.value,
+            workspaceNo : params.wno,
+            userNums : [...result,authUser.no]
+        })
+
+        callBackToggle();
+    }
+
 
     return (
         <Modal isOpen={isOpen} toggle={callBackToggle}>
@@ -43,18 +61,19 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
                 <ModalBody>
                     <div>
                         <h5>🔹 초대할 멤버 아이디</h5>
+                        {/* <TagsInput selectedTags={selectedTags} /> */}
                         <Select className="selectbox" options={userList} components={animatedComponents} isMulti 
-                        onChange={selectBoxChange}
-                        />
-                        
+                        onChange={selectBoxChange} />
                     </div>
+
                     <div>
                         <h5>🔹 채팅방 이름</h5>
-                        <input placeholder='초대한사람들 아이디(기본값)' className="chatinput"></input>
+                        <input ref={nameInput} name="name" className="nameinput" placeholder='채팅방 이름을 입력해주세요(기본값 주방장 이름)' className="chatinput" ></input>
                     </div>
+
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="primary" onClick={pushData}>초대하기</Button>{' '}
+                  <Button color="primary" onClick={createWorkspace}>초대하기</Button>{' '}
                   <Button color="secondary" onClick={callBackToggle}>취소하기</Button>
                 </ModalFooter>
         </Modal>

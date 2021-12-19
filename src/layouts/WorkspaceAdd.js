@@ -1,22 +1,24 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import '../assets/scss/components/workspaceadd.scss';
 import { Button } from 'reactstrap';
 import TagsInput from '../components/TagsInput'
 import "../assets/scss/components/tag.scss"
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router'
 import axios from 'axios';
+import UserContext from '../components/utilities/ContextProviders/UserContext';
 
 // 게스트북의 WriteForm
 const WorkspaceAdd = (e) => {
-
-    // test유저
+    const {authUser} = useContext(UserContext)
     const testAdminUserNum = 4;
     const nameInput = useRef();
     const [nums, setNums] = useState([]);
+    const navigate = useNavigate()
 
     const selectedTags = tags => {
-        setNums([testAdminUserNum, ...tags]);
-        console.log([testAdminUserNum, ...tags]);
+        setNums([authUser.no, ...tags]);
+        console.log([authUser.no, ...tags]);
     };
 
     const createWorkspace = async () => {
@@ -27,6 +29,7 @@ const WorkspaceAdd = (e) => {
         })
 
         console.log(testAdminUserNum + "번 계정으로 워크스페이스 추가 성공");
+        navigate('/worklist')
     }
 
     return (
@@ -37,10 +40,10 @@ const WorkspaceAdd = (e) => {
             <h1 className="secondName">💻 멤버 초대</h1>
                 <TagsInput selectedTags={selectedTags} />
             <p className="Button">
-                <Link to="/dashboard">
+                <Link to="/worklist">
                     <Button color="secondary" size="lg">취소하기</Button>{'      '}
-                    <Button onClick={createWorkspace} color="primary" size="lg">생성하기</Button>
                 </Link>
+                <Button onClick={createWorkspace} color="primary" size="lg">생성하기</Button>
             </p>
         </div>
     );
