@@ -7,7 +7,7 @@ import UserContext from '../components/utilities/ContextProviders/UserContext';
 import Logo from '../assets/images/vibe-logo.svg';
 import '../assets/css/dashboardlayout.css';
 
-import nav from '../_nav2';    // 채널scrollable sidebar sidebar-right
+import nav from '../_nav3';    // 채널scrollable sidebar sidebar-right
 // import nav from '../_nav2';   // 알림
 // import nav from '../_nav3';     // 워크스페이스
 
