@@ -7,7 +7,7 @@ import * as SockJS from "sockjs-client";
 const UserContext = createContext();
 
 export const UserContextProvider = ({children}) => {
-    const [authUser, setAuthUser] = useState(null);
+    const [authUser, setAuthUser] = useState({});
     const navigate = useNavigate()
     const location = useLocation()
     
@@ -25,14 +25,12 @@ export const UserContextProvider = ({children}) => {
             
             console.error(error);
           }   
-
     }
 
     const storeToken = (token) => {
         // 토큰 받음
         // axios default 설정 (모든 요청 시, Authorization Header에 Token 실어서 보내기)
         axios.defaults.headers['Authorization'] = token
-        
         // token을 localstorage에 저장(추후 변경)
         localStorage.setItem('token', token)
         
@@ -100,7 +98,7 @@ export const UserContextProvider = ({children}) => {
     },[])
 
     useEffect(() => {
-        if(authUser){
+        if(authUser.no){
             // Websocket connect
             connect()
         }else if(stompClient.noti){
