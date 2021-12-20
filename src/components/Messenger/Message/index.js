@@ -5,6 +5,7 @@ import './Message.css';
 export default function Message(props) {
     const {
       data,
+      name,
       isMine,
       startsSequence,
       endsSequence,
@@ -25,8 +26,9 @@ export default function Message(props) {
               { friendlyTimestamp }
             </div>
         }
-
+          
         <div className="bubble-container">
+          <div>{ name }</div>
           <div className="bubble" title={friendlyTimestamp}>
             { data.message }
           </div>

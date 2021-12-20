@@ -36,19 +36,13 @@ const Invited = () => {
       </Col>
     )
 
-
-
   return (
     <div className='workspaceinvite'>
       <h2>초대된 워크스페이스</h2>
-
       <Row className="row">
         {NotiList}
       </Row>
-
-
     </div>
-
   )
 }
 
