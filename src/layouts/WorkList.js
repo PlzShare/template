@@ -21,16 +21,18 @@ const Dashboard = () => {
   const params = useParams()
 
   useEffect(() => {
-    console.log(authUser)
     
-    if(authUser){
+    if(authUser.no){
+      
       dashBoardManagement.list();
     }
   }, [authUser]);
-
-
+  
+  
   const dashBoardManagement = {
     list: async () => {
+      console.log('========worklist===========')
+      console.log(authUser)
       const response = await axios.get(`/workspaces?userNo=${authUser.no}`);
       setNames([...response.data.data]);
     },

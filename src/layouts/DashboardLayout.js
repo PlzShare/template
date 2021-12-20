@@ -8,7 +8,7 @@ import Logo from '../assets/images/vibe-logo.svg';
 import '../assets/css/dashboardlayout.css';
 
 // import nav from '../_nav3';    // 채널scrollable sidebar sidebar-right
-import nav from '../_nav2';   // 알림
+import nav from '../_nav3';   // 알림
 // import nav from '../_nav3';     // 워크스페이스
 
 import routes from '../router';
@@ -222,11 +222,9 @@ export function HeaderNav() {
 
     localStorage.removeItem("token");
 
-    navigate('/login');
-
-    
+    navigate('/login');    
   }
-  
+  console.dir(authUser)
 
   return (
     <React.Fragment>

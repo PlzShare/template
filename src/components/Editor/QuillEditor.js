@@ -34,16 +34,18 @@ const QuillEditor = ({initDocumentData, callBackOnChange}) => {
     }
     
     useEffect(() => {
-        // window.delta = Delta;
-        // console.dir(refQuill.current.getEditor())
-        console.dir(refQuill.current.getEditor())
-        window.qe = refQuill.current.getEditor()
-    }, [])
+        if(initDocumentData){
+            console.dir(refQuill.current.getEditor())
+            window.qe = refQuill.current.getEditor()
+            document.getElementById('document-title').value = initDocumentData.title
+        }
+    }, [initDocumentData])
+    console.dir(initDocumentData)
     return (
         <div>
             <input id='document-title' type='text' placeholder='문서 제목' style={{width:'100%', fontWeight: 'bold', fontSize: '16px', height: '8vh' }}></input>
             <ReactQuill
-                defaultValue={initDocumentData ? initDocumentData.contents : ''}
+                value={initDocumentData ? initDocumentData.contents : ''}
                 style={{
                     height: '80vh'
                 }}

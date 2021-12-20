@@ -8,6 +8,7 @@ const UserContext = createContext();
 
 export const UserContextProvider = ({children}) => {
     const [authUser, setAuthUser] = useState({});
+    const [token, setToken] = useState();
     const navigate = useNavigate()
     const location = useLocation()
     
@@ -43,6 +44,7 @@ export const UserContextProvider = ({children}) => {
             nickname : parsedToken.nickname, 
             profile :  parsedToken.profile
         } 
+        setToken(token)
         setAuthUser(userInfo)
     }
 
@@ -106,7 +108,7 @@ export const UserContextProvider = ({children}) => {
     }, [authUser])
 
     return (
-        <UserContext.Provider value={{authUser, storeToken, noti}}>
+        <UserContext.Provider value={{authUser, storeToken, noti, token}}>
             {children}
         </UserContext.Provider>
     );
