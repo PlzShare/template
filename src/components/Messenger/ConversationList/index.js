@@ -8,15 +8,15 @@ import ChatAddComponent from '../../SidebarNav/components/ChatAddComponent'
 import './ConversationList.css';
 import UserContext from '../../utilities/ContextProviders/UserContext';
 import { WorkSpaceContext } from '../../../layouts/DashboardLayout';
-
 import { useParams } from 'react-router';
-import luffy from '../../../assets/images/luffy.jpg'
+import luffy from '../../../assets/images/luffy.jpg';
 
 export default function ConversationList(props) {
   const {callBackOnClickListItem, callBackCollapseConversationList} = props 
   const [conversations, setConversations] = useState([]);
   const [keyword, setKeyword] = useState('');
   const [modals, setModals] = useState(false);
+  const {authUser} = useContext(UserContext);
   const params = useParams()
 
   const toggle = () => {

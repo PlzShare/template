@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import shave from 'shave';
-
 import './ConversationListItem.css';
 
 export default function ConversationListItem(props) {
