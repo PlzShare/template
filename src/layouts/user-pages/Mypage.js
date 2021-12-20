@@ -8,13 +8,15 @@ import { NavLink, Link } from 'react-router-dom';
 import '../../assets/scss/components/mypage.scss';
 
 const Mypage = () => {
-    const {authUser} = useContext(UserContext);
+    const {authUser, storeToken} = useContext(UserContext);
     const [User, setUser] = useState({});
-    const [imageList, setImageList] = useState([]);
     const refForm = useRef(null);
     const refPassword = useRef(null);
     const refNickname = useRef(null);
-
+    
+    const removeProfile = async () => {
+        const response = await axios.get()
+    }
     // user 가져오기
     const fetchUserInfo = async () => {
         try {
@@ -26,10 +28,11 @@ const Mypage = () => {
             console.error(err);
         }
     }
-
+    
     useEffect(() => {
-        fetchUserInfo()
-    }, [])
+        if(authUser.no)
+            fetchUserInfo()
+    }, [authUser])
 
     // 이미지 업로드
     const notifyImage = {
@@ -47,24 +50,15 @@ const Mypage = () => {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
 
-                // fetch success?
-                if (!response.ok) {
-                    throw `${response.status} ${response.statusText}`;
-                }
-
-                // API success?
-                const json = await response.json();
-                if (json.result !== 'success') {
-                    throw json.message;
-                }
 
                 // re-rendering(update)
-                setImageList([json.data, ...imageList]);
+                storeToken(response.headers.authorization)
             } catch (err) {
                 console.error(err);
             }
         }
     }
+
 
     const handleSubmit = function (e) {
         e.preventDefault();
@@ -78,7 +72,6 @@ const Mypage = () => {
     const hadleImageFile = (e) => {
 
         let reader = new FileReader();
-
         reader.onload = () => {
             setUser(Object.assign({}, User, { profile: reader.result })) //  reader한 결과 가져오기
         }
@@ -86,15 +79,14 @@ const Mypage = () => {
         reader.readAsDataURL(e.target.files[0]);
     }
 
-
     return (
         <div className="outer">
             <div className='top-nav'>
                 <nav className='navbar navbar-expand-md navbar-light bg-faded'>
                     <div className='logobox'>
-                    <NavLink  to={`/worklist`}>
-                        <img src={Logo}></img>
-                    </NavLink>
+                        <NavLink  to={`/worklist`}>
+                            <img src={Logo}></img>
+                        </NavLink>
                     </div>
                     <div className='collapse navbar-collapse'>
                         <ul className="ml-auto navbar-nav">
@@ -115,8 +107,9 @@ const Mypage = () => {
                             ref={refForm}
                         >
                             <span style={{
-                                backgroundImage: `url(${authUser.profile})`
-                            }} />
+                                backgroundImage: `url(${User.profile})`
+                            }}>
+                            </span>
                             <input
                                 type={'file'}
                                 name={'uploadImage'}
@@ -158,15 +151,14 @@ const Mypage = () => {
                     onClick={() => {
                         refForm.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
                     }}>
-                        <NavLink className='navlink' to={`/worklist`}>
-                            수정하기
-                        </NavLink>
+                    <NavLink className='navlink' to={`/worklist`}>
+                       수정하기
+                    </NavLink>
                 </Button>
                 <Button className="secondbutton" color="secondary" >
                     <NavLink className='navlink' to={`/worklist`}>
                         취소하기
                     </NavLink>
-                
                 </Button>
             </div>
         </div>

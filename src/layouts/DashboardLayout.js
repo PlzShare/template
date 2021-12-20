@@ -7,8 +7,8 @@ import UserContext from '../components/utilities/ContextProviders/UserContext';
 import Logo from '../assets/images/vibe-logo.svg';
 import '../assets/css/dashboardlayout.css';
 
-import nav from '../_nav2';    // 채널scrollable sidebar sidebar-right
-// import nav from '../_nav2';   // 알림
+// import nav from '../_nav3';    // 채널scrollable sidebar sidebar-right
+import nav from '../_nav3';   // 알림
 // import nav from '../_nav3';     // 워크스페이스
 
 import routes from '../router';
@@ -219,16 +219,14 @@ export function HeaderNav() {
   const {authUser} = useContext(UserContext)
   const navigate = useNavigate()
   const clickLogout = () =>{
-    
-    // console.dir("dndpdpdpdpdpdpdpdpdpdpdpdpdpdpdp");
-    // console.dir(token);
+
     localStorage.removeItem("token");
-    // console.dir(token);
 
     navigate('/login');
 
     
   }
+  
 
   return (
     <React.Fragment>
@@ -242,26 +240,30 @@ export function HeaderNav() {
         </NavItem>
 
       <UncontrolledDropdown nav inNavbar>
-        <div className='userid'>
-          {/* <div>
-            <img>
-            {authUser.profile}
-            </img>
-          </div> */}
-          <DropdownToggle nav caret>
-            {authUser? authUser.nickname : ''} 
-          </DropdownToggle>
-        </div>
+          <div className='profilebox'>
+              <div className='profile'>
+                <span style={{
+                  backgroundImage: `url(${authUser.profile})`
+                  }} />
+              </div>
+              <div className='userid'>
+                <DropdownToggle nav caret>
+                  {authUser? authUser.nickname : ''} 
+                </DropdownToggle>
+              </div>
+          </div>
           <DropdownMenu right>
           <NavLink to={`/mypage`} >
-            <DropdownItem>Mypage</DropdownItem>
+            <DropdownItem>마이페이지</DropdownItem>
           </NavLink>
+          <NavLink to={`/invited`} >
+            <DropdownItem>알림</DropdownItem>
+          </NavLink>
+          <DropdownItem divider />
           <button 
           className='logout'
-          onClick={clickLogout}>Logout</button>
-          <DropdownItem divider />
+          onClick={clickLogout}>로그아웃</button>
           <DropdownItem>
-            Message <Badge color="primary">10</Badge>
           </DropdownItem>
         </DropdownMenu>
       </UncontrolledDropdown>

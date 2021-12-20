@@ -34,7 +34,8 @@ const NavSingleItem = ({ item }) => {
     );
   } else {
     // Force relative URLs to start with a slash
-    const url = item.url.charAt(0) === '/' ? `/workspace/${params.wno}${item.url}` : `/workspace/${params.wno}/${item.url}`;
+    console.log(url)
+    const url = item.url.charAt(0) === '/' ? `${item.url}` : `/${item.url}`;
 
     return (
       <li className="nav-item" >

@@ -9,6 +9,7 @@ import { NavLink, Link } from 'react-router-dom';
 import '../assets/css/worklist.css';
 import FontAwesomeIcon from 'react-fontawesome';
 import UserContext from '../components/utilities/ContextProviders/UserContext';
+
 import {HeaderNav} from './DashboardLayout'
 import ContextProviders from '../components/utilities/ContextProviders';
 
@@ -21,6 +22,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     console.log(authUser)
+    
     if(authUser){
       dashBoardManagement.list();
     }
@@ -63,18 +65,6 @@ const Dashboard = () => {
       </Col>
     );
 
-    const navigate = useNavigate()
-    const clickLogout = () =>{
-      
-      // console.dir("dndpdpdpdpdpdpdpdpdpdpdpdpdpdpdp");
-      // console.dir(token);
-      localStorage.removeItem("token");
-      // console.dir(token);
-  
-      navigate('/login');
-  
-      
-    }
 
   return (
     <div className='workspacemain'>

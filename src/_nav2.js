@@ -3,36 +3,30 @@ export default {
     {
       name: '초대알림',
       icon: 'Bell',
+      type : 'invite',
       children: [
         {
           name: '초대된 워크스페이스',
-          url: '/invited',
+          url: '/invited', 
         },
-        {
-          name: '초대한 워크스페이스',
-          url: '/invite',
-        }
       ]
     },
     {
-      type :'workspacenoti',
       name: '워크스페이스알림',
       icon: 'Bell',
+      type: 'workspacenoti',
       children: [
         {
-          name: '워크스페이스1',
-          url: '/workspacenoti',
-          badge: {
-            text: 'NEW',
-          },
+          name: '새로운 문서',
+          url: '/newDocuments',
         },
         {
-          name: '워크스페이스2',
-          url: '/workspacenoti',
+          name: '새로운 채널',
+          url: '/newChannels',
         },
         {
-          name: '워크스페이스3',
-          url: '/workspacenoti',
+          name: '새로운 채팅',
+          url: '/newChatrooms',
         },
       ]
     },

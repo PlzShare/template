@@ -1,5 +1,6 @@
 /* TOP NAVIGATION STYLES
    ----------------------------- */
+@import 'vars';
 
 .app-header {
   height: 50px;
@@ -28,6 +29,19 @@
         }
       }
     }
+
+    .logobox{
+      width: 160px;
+      display: inline-block;
+      margin-left: 10px;
+      margin-bottom: 7px;
+      
+      img{
+          width: 100%;
+      
+      }
+
+  }
   }
 
   .page-heading {

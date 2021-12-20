@@ -13,6 +13,7 @@ const WorkspaceMain = () => {
   const [isOpenFile, setIsOpenFile] = useState(false)
   const [documentList, setDocumentList] = useState([])
   const {channelList} = useContext(WorkSpaceContext)
+  const [isShow, setIsShow] = useState(false);
   const params = useParams()
   const workspaceNo = params.wno
   
@@ -27,6 +28,12 @@ const WorkspaceMain = () => {
     const channelNo = e.currentTarget.getAttribute('channel-no')
     navigate(`/workspace/${params.wno}/channel/${channelNo}`)
   }
+
+  const deleteChannel = async (e) => {
+    e.stopPropagation();
+    const response = await axios.delete(`workspaces/${params.wno}/channels/${e.target.id}`)
+    }
+
   const size=3
 
   // const fetchWorkspaceInfo = async () => {
@@ -64,8 +71,15 @@ const WorkspaceMain = () => {
                 <Col md={size} key={channel.no}>
                   <div className='folder' onClick={onClickFolder} channel-no={channel.no} style={{cursor: 'pointer'}}>
                     <div className='boxtop'></div>
-                    <div className='boxbody'>
-                      <p>{channel.name}</p>
+                    <div
+                    className='boxbody'
+                    onMouseEnter={() => setIsShow(true)}
+                    onMouseLeave={() => setIsShow(false)}>
+                      <p>{channel.name}
+                      </p>
+                      {isShow && (
+                        <button id={channel.no} className="hover" onClick={deleteChannel}>x</button>
+                      )}
                     </div>
                   </div>
                 </Col>

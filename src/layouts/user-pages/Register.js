@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router'
 import axios from 'axios';
 import Sharelogo from '../../assets/images/logo2.png';
 
@@ -34,7 +35,8 @@ export class Register extends Component {
           password: e.target.password.value
 
         });
-
+        alert('회원 가입 성공')
+        this.props.navigate('/login')
       } catch (err) {
         console.error(err);
       }
@@ -76,8 +78,10 @@ export class Register extends Component {
                   </div>
                   <div className="mt-3">
                     <button className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
-                      to="/dashboard"
-                    >회원가입하기</button>
+                          to="/login"
+                    >
+                    회원가입하기
+                    </button>
                   </div>
                   <div className="text-center mt-4 font-weight-light">
                   이미 계정이 있으신가요? <Link to="/login" className="text-primary">로그인하러가기</Link>
@@ -92,4 +96,4 @@ export class Register extends Component {
   }
 }
 
-export default Register
+export default (props) => <Register {...props} navigate={useNavigate()}/>
