@@ -11,7 +11,7 @@ import * as StompJs from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { useParams } from 'react-router';
 import UserContext from '../../utilities/ContextProviders/UserContext';
-
+import ChatMemberAddComponent from '../../SidebarNav/components/ChatMemberAddComponent'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col} from 'reactstrap';
 
 import './MessageList.css';
@@ -248,7 +248,10 @@ export default function MessageList(props) {
                 <Button color="secondary" onClick={toggle}>취소하기</Button>
             </ModalFooter>
         </Modal> */}
+       
+        <ChatMemberAddComponent isOpen={modals} callBackToggle={toggle}/>
 
+{/* 
         <Modal isOpen={modals} toggle={toggle}>
                 <ModalHeader toggle={toggle}>멤버 초대</ModalHeader>
                 <ModalBody>
@@ -267,7 +270,7 @@ export default function MessageList(props) {
                   <Button color="primary" onClick={pushData}>초대하기</Button>
                   <Button color="secondary" onClick={toggle}>취소하기</Button>
                 </ModalFooter>
-         </Modal>
+         </Modal> */}
 
         <div className="message-list-container">{renderMessages()}</div>
 
