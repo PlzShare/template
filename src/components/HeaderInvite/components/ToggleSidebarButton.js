@@ -1,0 +1,19 @@
+import React from 'react';
+import { Button } from 'reactstrap';
+import FontAwesomeIcon from 'react-fontawesome';
+
+export default function SidebarToggleButton({ isSidebarCollapsed, toggleSidebar, icon }) {
+  let className = `m-r sidebar-toggle `
+  if(!icon) (className  += 'rotatable ' + (isSidebarCollapsed ? 'is-collapsed' : 'is-not-collapsed'))
+  
+  const screenReaderLabel = isSidebarCollapsed ? 'Expand Sidebar Navigation' : 'Collapse Sidebar Navigation';
+
+
+
+  return (
+    <Button onClick={toggleSidebar} className={className} aria-label={screenReaderLabel}>
+      {/* <FontAwesomeIcon icon={faBell}/> */}
+      <FontAwesomeIcon name={icon? icon:'chevron-left' } />
+    </Button>
+  );
+}

@@ -14,6 +14,7 @@ import NavSingleItem2 from '../../components/SidebarNav/components/NavSingleItem
 import NavDropdownItem from '../../components/SidebarNav/components/NavDropdownItem';
 import '../../assets/scss/components/invite.scss'
 
+
 const Invited = () => {
   const [noti, setNoti] = useState([]);
   const { authUser } = useContext(UserContext);
@@ -31,8 +32,9 @@ const Invited = () => {
     setNoti([...response.data.data])
   }
 
+
   const accept = async (e) => {
-    console.log(noti);
+
     const response = await axios.put(`/workspaces/workspace_users`, {
       userNo: authUser.no,
       workspaceNo: e.target.id,
@@ -48,8 +50,11 @@ const Invited = () => {
     noti.map((e) =>
       <Col md={12}>
         <div className="invitebox">
-          <div id={e.sender} className="profile_img">
-            사진 <img src="" />
+
+          <div className="profile_img">
+            <span  style={{
+                    backgroundImage: `url(${e.profile})`
+                    }} />
           </div>
           <h2>{e.contents}</h2>
           <a href='#' onClick={accept} className="yes" id={e.workspaceNo} name={e.no}>수락</a>
