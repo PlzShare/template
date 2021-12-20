@@ -11,7 +11,8 @@ import { WorkSpaceContext } from '../../../layouts/DashboardLayout';
 const NavSingleItem = ({ item }) => {
   const [modals, setModals] = useState(false);
   const params = useParams()
-  const {workspaceInfo} = useContext(WorkSpaceContext)
+  const wsCtx = useContext(WorkSpaceContext)
+  const workspaceInfo = wsCtx ? wsCtx.workspaceInfo : null;
   const Icon = item.icon && Feather[item.icon] ? Feather[item.icon] : null;
 
 
@@ -49,7 +50,7 @@ const NavSingleItem = ({ item }) => {
           :
           <NavLink to={url} activeClassName="active">
             {item.icon && Icon && <Icon className="side-nav-icon" />}
-            <span className="nav-item-label">{item.type == 'workspaceName' ? workspaceInfo.name : item.name}</span>
+            <span className="nav-item-label">{item.type == 'workspaceName' && workspaceInfo? workspaceInfo.name : item.name}</span>
             {item.badge && <NavBadge color={item.badge.variant} text={item.badge.text} />}
           </NavLink>
         }

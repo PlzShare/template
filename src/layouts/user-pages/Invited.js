@@ -6,6 +6,7 @@ import { Row, Col, Button } from 'reactstrap';
 import UserContext from '../../components/utilities/ContextProviders/UserContext';
 
 
+
 const Invited = () => {
   const [nickname, setNicNames] = useState([]);
   const [noti, setNoti] = useState([]);
@@ -22,13 +23,15 @@ const Invited = () => {
     const response = await axios.get(`/noti?uno=${authUser.no}`);
     setNoti([...response.data.data])
   }
-  
+
+
   const accept = async (e) => {
-    console.log(noti);
+
     const response = await axios.put(`/workspaces/workspace_users`, {
       userNo : authUser.no,
       workspaceNo : e.target.id,
       notiNo : e.target.name
+
     })
   }
 
@@ -41,7 +44,9 @@ const Invited = () => {
       <Col md={12}>
         <div className="invitebox">
           <div className="profile_img">
-            사진 <img src="" />
+            <span  style={{
+                    backgroundImage: `url(${e.profile})`
+                    }} />
           </div>
           <h2>{e.contents}</h2>
           <a href='#' onClick={accept} className="yes" id={e.workspaceNo} name={e.no}>수락</a>

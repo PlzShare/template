@@ -36,12 +36,14 @@ const NewChannels = () => {
             onMouseEnter={() => setIsShow(true)}
             onMouseLeave={() => setIsShow(false)}>
           <div className="profile_img">
-            사진 <img src="" />
+              <span  style={{
+                      backgroundImage: `url(${e.profile})`
+                      }} />
           </div>
-          <h2>{e.contents}</h2>
-          {isShow && (
-                <button id={e.no} className="channelhover" onClick={deleteChannelNoti}>x</button>
-            )}
+            <h2>{e.contents}</h2>
+            {isShow && (
+                  <button id={e.no} className="channelhover" onClick={deleteChannelNoti}>x</button>
+              )}
         </div>
       </Col>
     )

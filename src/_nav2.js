@@ -6,7 +6,7 @@ export default {
       children: [
         {
           name: '초대된 워크스페이스',
-          url: '/invited',
+          url: '/invite',
         },
         // {
         //   name: '초대한 워크스페이스',

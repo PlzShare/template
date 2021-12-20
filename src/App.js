@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Routes, Route, useLocation } from 'react-router';
-
 import DashboardLayout from './layouts/DashboardLayout';
 import './assets/scss/styles.scss';
 import axios from 'axios';
 import Login from './layouts/user-pages/Login';
 import Mypage from './layouts/user-pages/Mypage';
+import Invite from './layouts/user-pages/Invite';
 import Register from './layouts/user-pages/Register';
 import WorkList from './layouts/WorkList';
 import {UserContextProvider} from './components/utilities/ContextProviders/UserContext';
@@ -31,6 +31,7 @@ export default function App() {
             <Route path='/worklist' element={<WorkList/>}/>
             <Route path='/workspaceadd' element={<WorkspaceAdd/>} />
             <Route path='/mypage' element={<Mypage />} />
+            <Route path='/invite' element={<Invite />} />
             
             <Route path={workspacePath} element={<DashboardLayout/>}>
                 {routes.filter((el) => el.path == workspacePath)[0].children.map((el) => {

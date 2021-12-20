@@ -49,19 +49,20 @@ const pageList = [
     component: RegisterPage
   },
   {
+    name: '초대된 워크스페이스',
+    path: '/invited',
+    component: Invited,
+  },
+  {
+    name: '초대한 워크스페이스',
+    path: '/invite',
+    component: Invite,
+  },
+  {
     name : 'ㅁㅁ',
     path : '/workspace/:wno',
     children: [
-      {
-        name: '초대된 워크스페이스',
-        path: 'invited',
-        component: Invited,
-      },
-      {
-        name: '초대한 워크스페이스',
-        path: 'invite',
-        component: Invite,
-      },
+     
       {
         name: '새로운 문서',
         path: 'newDocuments',
