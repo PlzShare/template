@@ -26,8 +26,7 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
     const fetchList = async () => {
         const response = await axios.get(`/workspaces/workspace-users?wno=${params.wno}&uno=${params.uno}`)
         response.data.data.forEach(e => {e['label'] = e.userid; e['value'] = e.userid})
-        setUserList(response.data.data.filter( el => el.userNo != authUser.no))
-        
+        setUserList(response.data.data.filter(el => el.userNo != authUser.no))
     }
 
     const selectBoxChange = (e) =>{

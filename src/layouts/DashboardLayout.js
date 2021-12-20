@@ -235,7 +235,7 @@ export function HeaderNav() {
     navigate('/login');
 
   }
-  
+  console.dir(authUser)
 
   return (
     <React.Fragment>
