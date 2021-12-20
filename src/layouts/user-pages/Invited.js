@@ -64,6 +64,7 @@ const Invited = () => {
     )
   
 
+
   const navItems = items => {
     
     return items.map((item, index) => itemType(item, index));
@@ -126,7 +127,6 @@ const Invited = () => {
       </div>
 
     </div>
-
   )
 }
 
