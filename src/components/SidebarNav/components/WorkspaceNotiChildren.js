@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import * as Feather from 'react-feather';
 import NavBadge from './NavBadge';
-import NavSingleItem from './NavSingleItem';
+import NavSingleItem2 from './NavSingleItem2';
 import axios from 'axios';
 
 export default function WorkspaceNotiChildren(props) {
   const [open, setOpen] = useState(false);
-  const [list, setList] = useState([]);
 
   useEffect(() => {
+    console.log('88888888888888888888888')
+    console.dir(props.item)
     // fetchList();
   },[])
 
@@ -25,6 +26,7 @@ export default function WorkspaceNotiChildren(props) {
     ? Feather.ChevronDown
     : Feather.ChevronRight;
 
+  const list = item.children;
   return (
     <li className={`nav-item has-submenu ${isExpanded}`}>
       <a href="#!" role="button" onClick={toggle}>
@@ -35,13 +37,12 @@ export default function WorkspaceNotiChildren(props) {
         )}
         <ExpandIcon className="menu-expand-icon" />
       </a>
-      {(open || props.isSidebarCollapsed) && (
+     
         <ul className="nav-submenu">
-          {list.map((item, index) => (
-            <NavSingleItem item={item} key={index} />
-          ))}
+          {list.map((item, index) => 
+            <NavSingleItem2 item={item} key={index} />
+          )}
         </ul>
-      )}
     </li>
   );
 }

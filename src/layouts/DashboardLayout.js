@@ -8,7 +8,7 @@ import Logo from '../assets/images/vibe-logo.svg';
 import '../assets/css/dashboardlayout.css';
 
 // import nav from '../_nav3';    // 채널scrollable sidebar sidebar-right
-import nav from '../_nav2';   // 알림
+import nav from '../_nav3';   // 알림
 // import nav from '../_nav3';     // 워크스페이스
 
 import routes from '../router';
@@ -263,20 +263,17 @@ export function HeaderNav() {
           </div>
           <DropdownMenu right>
           <NavLink to={`/mypage`} >
-            <DropdownItem>Mypage</DropdownItem>
+            <DropdownItem>마이페이지</DropdownItem>
           </NavLink>
+          <NavLink to={`/invited`} >
+            <DropdownItem>알림</DropdownItem>
+          </NavLink>
+          <DropdownItem divider />
           <button 
           className='logout'
-          onClick={clickLogout}>Logout</button>
-          <DropdownItem divider />
-          {/* <div onClick={clickInvite}> */}
-          <NavLink to={'/invite'}>
-            <DropdownItem>
-              알림
-            </DropdownItem>
-          </NavLink>
-          {/* </div> */}
-          
+          onClick={clickLogout}>로그아웃</button>
+          <DropdownItem>
+          </DropdownItem>
         </DropdownMenu>
       </UncontrolledDropdown>
 
