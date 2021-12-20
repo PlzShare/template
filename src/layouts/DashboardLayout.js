@@ -1,5 +1,5 @@
 import React, { Children, Component, createContext, Fragment ,useContext} from 'react';
-import { NavLink, BrowserRouter as Router } from 'react-router-dom';
+import { NavLink, BrowserRouter as Router, Link } from 'react-router-dom';
 import { Outlet, Routes, Route, useLocation, useParams , useNavigate} from 'react-router'
 import { Button, Badge, NavItem, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Header, SidebarNav, PageContent, PageAlert, Page } from '../components';
@@ -218,11 +218,22 @@ export function HeaderNav() {
   
   const {authUser} = useContext(UserContext)
   const navigate = useNavigate()
+  const params = useParams()
+
+  
+  // const clickInvite = () =>{
+  //   console.log(params.wno);
+
+  //   navigate('/invited');
+  // }
+
+  
   const clickLogout = () =>{
 
     localStorage.removeItem("token");
 
-    navigate('/login');    
+    navigate('/login');
+
   }
   console.dir(authUser)
 
@@ -252,14 +263,16 @@ export function HeaderNav() {
           </div>
           <DropdownMenu right>
           <NavLink to={`/mypage`} >
-            <DropdownItem>Mypage</DropdownItem>
+            <DropdownItem>마이페이지</DropdownItem>
           </NavLink>
+          <NavLink to={`/invited`} >
+            <DropdownItem>알림</DropdownItem>
+          </NavLink>
+          <DropdownItem divider />
           <button 
           className='logout'
-          onClick={clickLogout}>Logout</button>
-          <DropdownItem divider />
+          onClick={clickLogout}>로그아웃</button>
           <DropdownItem>
-            Message <Badge color="primary">10</Badge>
           </DropdownItem>
         </DropdownMenu>
       </UncontrolledDropdown>
