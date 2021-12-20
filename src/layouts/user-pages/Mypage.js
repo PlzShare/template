@@ -13,7 +13,10 @@ const Mypage = () => {
     const refForm = useRef(null);
     const refPassword = useRef(null);
     const refNickname = useRef(null);
-
+    
+    const removeProfile = async () => {
+        const response = await axios.get()
+    }
     // user 가져오기
     const fetchUserInfo = async () => {
         try {
@@ -25,7 +28,7 @@ const Mypage = () => {
             console.error(err);
         }
     }
-
+    
     useEffect(() => {
         if(authUser.no)
             fetchUserInfo()
@@ -55,6 +58,7 @@ const Mypage = () => {
             }
         }
     }
+
 
     const handleSubmit = function (e) {
         e.preventDefault();
@@ -104,7 +108,8 @@ const Mypage = () => {
                         >
                             <span style={{
                                 backgroundImage: `url(${User.profile})`
-                            }} />
+                            }}>
+                            </span>
                             <input
                                 type={'file'}
                                 name={'uploadImage'}

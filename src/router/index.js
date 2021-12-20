@@ -39,6 +39,32 @@ const pageList = [
     component: WorkspaceAdd
   },
   {
+    name: '초대된 워크스페이스',
+    path: '/invited',
+    component: Invited,
+  },
+  // {
+  //   name: '초대한 워크스페이스',
+  //   path: '/invite',
+  //   component: Invite,
+  // },
+  {
+    name: '새로운 문서',
+    path: '/newDocuments',
+    component: NewDocuments
+  },
+  {
+    name: '새로운 채널',
+    path: '/newChannels',
+    component: NewChannels
+  },
+  {
+    name: '새로운 채팅',
+    path: '/newChatrooms',
+    component: NewChatrooms
+  },
+
+  {
     name: '마이페이지',
     path: '/mypage',
     component: Mypage
@@ -52,31 +78,7 @@ const pageList = [
     name : 'ㅁㅁ',
     path : '/workspace/:wno',
     children: [
-      {
-        name: '초대된 워크스페이스',
-        path: 'invited',
-        component: Invited,
-      },
-      {
-        name: '초대한 워크스페이스',
-        path: 'invite',
-        component: Invite,
-      },
-      {
-        name: '새로운 문서',
-        path: 'newDocuments',
-        component: NewDocuments
-      },
-      {
-        name: '새로운 채널',
-        path: 'newChannels',
-        component: NewChannels
-      },
-      {
-        name: '새로운 채팅',
-        path: 'newChatrooms',
-        component: NewChatrooms
-      },
+
       {
         name : '워크스페이스',
         path : '',

@@ -9,6 +9,10 @@ import Login from './layouts/user-pages/Login';
 import Mypage from './layouts/user-pages/Mypage';
 import Register from './layouts/user-pages/Register';
 import WorkList from './layouts/WorkList';
+import Invited from './layouts/user-pages/Invited'
+import NewChannels from './components/SidebarNav/components/NewChannels'
+import NewDocuments from './components/SidebarNav/components/NewDocuments'
+import NewChatrooms from './components/SidebarNav/components/NewChatrooms'
 import {UserContextProvider} from './components/utilities/ContextProviders/UserContext';
 import routes from './router'
 import Noti from './components/Messenger/Noti'
@@ -31,6 +35,11 @@ export default function App() {
             <Route path='/worklist' element={<WorkList/>}/>
             <Route path='/workspaceadd' element={<WorkspaceAdd/>} />
             <Route path='/mypage' element={<Mypage />} />
+            <Route path='/invited' element={<Invited />} />
+            <Route path='/newChannels' element={<NewChannels />} />
+            <Route path='/newDocuments' element={<NewDocuments />} />
+            <Route path='/newChatrooms' element={<NewChatrooms />} />
+
             
             <Route path={workspacePath} element={<DashboardLayout/>}>
                 {routes.filter((el) => el.path == workspacePath)[0].children.map((el) => {
