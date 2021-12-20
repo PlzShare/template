@@ -33,7 +33,7 @@ export default function ConversationList(props) {
 
 
  const getConversations = () => {
-    axios.get(`/workspaces/${params.wno}/chatroom`).then(response => {
+    axios.get(`/workspaces/${params.wno}/chat`).then(response => {
         let newConversations = response.data.data.map(result => {
           return {
             no: `${result.no}`,
