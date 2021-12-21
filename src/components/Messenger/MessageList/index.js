@@ -11,7 +11,8 @@ import * as StompJs from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { useParams } from 'react-router';
 import UserContext from '../../utilities/ContextProviders/UserContext';
-
+import ChatMemberAddComponent from '../../SidebarNav/components/ChatMemberAddComponent';
+import ChatExit from '../../SidebarNav/components/ChatExit';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col} from 'reactstrap';
 
 import './MessageList.css';
@@ -19,7 +20,8 @@ import './MessageList.css';
 export default function MessageList(props) {
   const {callBackOnClickExit, chatRoomInfo} = props
   const [messages, setMessages] = useState([])
-  const [modals,setModals] = useState(false);
+  const [modals, setModals] = useState(false);
+  const [exitmodals, setExitModals] = useState(false);
   const [userList,setUserList] = useState([]);
   const [selectdata, setSelectData] = useState([]);
   const animatedComponents = makeAnimated();
@@ -35,6 +37,7 @@ export default function MessageList(props) {
 
   useEffect(() => {
     connect();
+    getMessages(chatRoomInfo.roomNo);
     console.log("대화 시작")
     fetchList();
     return () => disconnect();
@@ -44,8 +47,9 @@ export default function MessageList(props) {
     client.current = new StompJs.Client({
       webSocketFactory: () => new SockJS('http://localhost:8081/stomp/chat'), 
       // connectHeaders: {
-      //   "auth-token": "spring-chat-auth-token",
+      //   "auth-token": "spring-chat-auth-token", 
       // },
+      // 헤더에 실어 보낼거면 여기에 추가
       debug: function (str) {
         console.log(str);
       },
@@ -62,6 +66,7 @@ export default function MessageList(props) {
         console.error(frame);
       },
     });
+
     client.current.activate();
   };
 
@@ -71,9 +76,10 @@ export default function MessageList(props) {
 
   // 브로드캐스팅 받는 부분
   const subscribe = () => {
-    client.current.subscribe(`/sub/greetings`, ({ body }) => {
+    client.current.subscribe(`/sub/greetings/${chatRoomInfo.roomNo}`, ({ body }) => {
       const broadCastingMessage = {}
       broadCastingMessage.userNo = JSON.parse(body).userNo;
+      broadCastingMessage.userName = JSON.parse(body).userName;
       broadCastingMessage.message = JSON.parse(body).contents;
       broadCastingMessage.timestamp = new Date().getTime();
       
@@ -88,7 +94,6 @@ export default function MessageList(props) {
   };
 
   const publish = (mySendMessage) => {
-
     if (!client.current.connected) {
       return;
     }
@@ -98,6 +103,7 @@ export default function MessageList(props) {
       destination: "/pub/server",
       body: JSON.stringify({
         userNo: mySendMessage.userNo,
+        userName: mySendMessage.userName,
         contents: mySendMessage.message,
         chatroomNo: mySendMessage.chatroomNo,
       }),
@@ -108,16 +114,27 @@ export default function MessageList(props) {
     setModals(!modals)
   }
 
+  const exittoggle = () =>{
+    setExitModals(!exitmodals)
+  }
+
+
   const modalevent = (e) => {
       e.preventDefault();
       setModals(true)
   }
+
+  const exitmodal = (e) => {
+    e.preventDefault();
+    setExitModals(true)
+}
 
     // console.dir(userList)
     const fetchList = async () => {
       const response = await axios.get(`/workspaces/workspace-users?wno=${params.wno}&?uno=${params.uno}`)
       response.data.data.forEach(e => {e['label'] = e.id; e['value'] = e.id})
       setUserList(response.data.data.filter( el => el.userNo != 3))
+      console.log(chatRoomInfo)
   }
 
   const pushData = () =>{
@@ -134,11 +151,26 @@ export default function MessageList(props) {
   const callbackMessage = {
     add: function(mySendMessage) {
         mySendMessage.userNo = authUser.no; // 유저 고유번호
+        mySendMessage.userName = authUser.name // 유저 이름
         mySendMessage.chatroomNo = chatRoomInfo.roomNo // 방 고유번호
         publish(mySendMessage) // 보냄
         console.log(mySendMessage);
     }
   }
+
+  const getMessages = async (no) => {
+    const response = await axios.get(`/workspaces/${params.wno}/chat/${no}`);
+    var tempMessages = response.data.data.map( e => {
+      return {
+        userNo:e.userNo,
+        userName:e.userName,
+        message:e.contents,
+        timestamp:e.createdAt,
+      }
+    })
+
+     setMessages([...messages, ...tempMessages])
+ }
   
   const renderMessages = () => {
     let i = 0;
@@ -150,6 +182,7 @@ export default function MessageList(props) {
       let current = messages[i];
       let next = messages[i + 1];
       let isMine = current.userNo === authUser.no;
+      let userName = current.userName;
       let currentMoment = moment(current.timestamp);
       let prevBySameAuthor = false;
       let nextBySameAuthor = false;
@@ -184,6 +217,7 @@ export default function MessageList(props) {
       tempMessages.push(
         <Message
           key={i}
+          name={userName}
           isMine={isMine}
           startsSequence={startsSequence}
           endsSequence={endsSequence}
@@ -209,43 +243,19 @@ export default function MessageList(props) {
           ]}
           title={chatRoomInfo.name}
           rightItems={[
+            <ToolbarButton key="trash" icon="ion-ios-trash" callBackOnClick={exitmodal}/>,
             <ToolbarButton key="person" icon="ion-ios-person-add" callBackOnClick={modalevent}>
-            </ToolbarButton>,
-          <ToolbarButton key="video" icon="ion-ios-videocam" />
+            </ToolbarButton>
         ]}
           
         />
         
-        {/* <Modal isOpen={modals}>
-            <ModalHeader toggle={toggle}></ModalHeader>
-            <ModalBody>
-                수락하시겠습니까 ?
-            </ModalBody>
-            <ModalFooter>
-                <Button color="primary" onClick={toggle}>수락하기</Button>{' '}
-                <Button color="secondary" onClick={toggle}>취소하기</Button>
-            </ModalFooter>
-        </Modal> */}
+       
+        <ChatMemberAddComponent isOpen={modals} callBackToggle={toggle}/>
+        <ChatExit isOpen={exitmodals} callBackToggle={exittoggle}/>
 
-        <Modal isOpen={modals} toggle={toggle}>
-                <ModalHeader toggle={toggle}>멤버 초대</ModalHeader>
-                <ModalBody>
-                    <div>
-                        <h5>🔹 초대할 멤버 아이디</h5>
-                        <Select 
-                        options={userList} 
-                        components={animatedComponents} 
-                        isMulti 
-                        onChange={selectBoxChange}
-                        />
-    
-                    </div>
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="primary" onClick={pushData}>초대하기</Button>
-                  <Button color="secondary" onClick={toggle}>취소하기</Button>
-                </ModalFooter>
-         </Modal>
+
+
 
         <div className="message-list-container">{renderMessages()}</div>
 

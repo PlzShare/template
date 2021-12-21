@@ -2,13 +2,11 @@ import React, { useState, useRef, useEffect, useContext } from 'react';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import axios from 'axios';
-import { useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import '../../../assets/scss/components/chatadd.scss';
 import TagsInput from '../../TagsInput'
 import UserContext from '../../utilities/ContextProviders/UserContext';
-import { useNavigate } from 'react-router'
-
 
 const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
     const {authUser} = useContext(UserContext);
@@ -28,8 +26,7 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
     const fetchList = async () => {
         const response = await axios.get(`/workspaces/workspace-users?wno=${params.wno}&uno=${params.uno}`)
         response.data.data.forEach(e => {e['label'] = e.userid; e['value'] = e.userid})
-        setUserList(response.data.data.filter( el => el.userNo != authUser.no))
-        
+        setUserList(response.data.data.filter(el => el.userNo != authUser.no))
     }
 
     const selectBoxChange = (e) =>{
@@ -46,7 +43,7 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
     const createWorkspace = async () => {
         const result = (selectdata.map((user) => user.userNo));
         console.log(result);
-        const response = await axios.post(`/workspaces/${params.wno}/chatroom`, {
+        const response = await axios.post(`/workspaces/${params.wno}/chat`, {
             name: nameInput.current.value,
             workspaceNo : params.wno,
             userNums : [...result, authUser.no]

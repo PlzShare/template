@@ -235,7 +235,7 @@ export function HeaderNav() {
     navigate('/login');
 
   }
-  
+  console.dir(authUser)
 
   return (
     <React.Fragment>
@@ -263,20 +263,17 @@ export function HeaderNav() {
           </div>
           <DropdownMenu right>
           <NavLink to={`/mypage`} >
-            <DropdownItem>Mypage</DropdownItem>
+            <DropdownItem>마이페이지</DropdownItem>
           </NavLink>
+          <NavLink to={`/invited`} >
+            <DropdownItem>알림</DropdownItem>
+          </NavLink>
+          <DropdownItem divider />
           <button 
           className='logout'
-          onClick={clickLogout}>Logout</button>
-          <DropdownItem divider />
-          {/* <div onClick={clickInvite}> */}
-          <NavLink to={'/invite'}>
-            <DropdownItem>
-              알림
-            </DropdownItem>
-          </NavLink>
-          {/* </div> */}
-          
+          onClick={clickLogout}>로그아웃</button>
+          <DropdownItem>
+          </DropdownItem>
         </DropdownMenu>
       </UncontrolledDropdown>
 

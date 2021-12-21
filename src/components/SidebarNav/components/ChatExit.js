@@ -7,7 +7,7 @@ import { useParams } from 'react-router';
 import UserContext from '../../utilities/ContextProviders/UserContext';
 
 
-const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
+const ChatExit = ({callBackToggle, isOpen}) => {
     const [selectdata, setSelectData] = useState([]);
     const [userList, setUserList] = useState([]);
     const {authUser} = useContext(UserContext)
@@ -39,21 +39,18 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
 
     return (
         <Modal isOpen={isOpen} toggle={callBackToggle}>
-                <ModalHeader toggle={callBackToggle}>친구 추가</ModalHeader>
+                <ModalHeader toggle={callBackToggle} />
                 <ModalBody>
                     <div>
-                        <h5>🔹 초대할 멤버 아이디</h5>
-                        <Select options={userList} components={animatedComponents} isMulti 
-                        onChange={selectBoxChange}
-                        />
+                        <h3>🔹 채팅방을 나가시겠습니까?</h3>
                     </div>
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="primary" onClick={pushData}>초대하기</Button>{' '}
+                  <Button color="primary" onClick={pushData}>나가기</Button>
                   <Button color="secondary" onClick={callBackToggle}>취소하기</Button>
                 </ModalFooter>
         </Modal>
     );
 };
 
-export default ChatMemberAddComponent;
+export default ChatExit;

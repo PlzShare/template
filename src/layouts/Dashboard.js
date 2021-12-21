@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Row, Col, Button } from 'reactstrap';
 import axios from 'axios';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import '../assets/scss/components/main.scss';
-import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import UserContext from '../components/utilities/ContextProviders/UserContext';
 const Dashboard = () => {
