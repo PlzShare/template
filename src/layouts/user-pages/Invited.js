@@ -22,24 +22,24 @@ const Invited = () => {
   console.log(noti, "sdfsdfsdfsdfsdfsdfsdfsdfs")
 
   useEffect(() => {
-    if (authUser) {
+    if (authUser.no) {
       fetchNotiList();
     }
   }, [authUser]);
 
   const fetchNotiList = async () => {
-    const response = await axios.get(`/noti?uno=${authUser.no}`);
+    const response = await axios.get(`/noti`);
     setNoti([...response.data.data])
   }
 
 
   const accept = async (e) => {
-
     const response = await axios.put(`/workspaces/workspace_users`, {
       userNo: authUser.no,
       workspaceNo: e.target.id,
       notiNo: e.target.name
     })
+    
   }
 
   const reject = async (e) => {
@@ -50,7 +50,6 @@ const Invited = () => {
     noti.map((e) =>
       <Col md={12}>
         <div className="invitebox">
-
           <div className="profile_img">
             <span  style={{
                     backgroundImage: `url(${e.profile})`
