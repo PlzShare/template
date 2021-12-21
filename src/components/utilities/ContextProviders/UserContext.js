@@ -62,9 +62,11 @@ export const UserContextProvider = ({children}) => {
             onConnect: () => {
                 stompClient.noti.subscribe(`/sub/${authUser.no}`, ({body}) => {
                     // setNoti(JSON.parse(body));
+                    console.log(body);
                     console.dir(JSON.parse(body))
-                    setNoti(body);
+                    setNoti(JSON.parse(body));
                 });
+                
             },
             onStompError: (frame) => {
                 console.error(frame);
@@ -106,7 +108,7 @@ export const UserContextProvider = ({children}) => {
     }, [authUser])
 
     return (
-        <UserContext.Provider value={{authUser, storeToken, noti}}>
+        <UserContext.Provider value={{authUser, storeToken, noti, setNoti}}>
             {children}
         </UserContext.Provider>
     );

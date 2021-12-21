@@ -4,12 +4,15 @@ import makeAnimated from 'react-select/animated';
 import axios from 'axios';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { useParams } from 'react-router';
+import UserContext from '../../utilities/ContextProviders/UserContext';
+
 
 
 const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
     const [selectdata, setSelectData] = useState([]);
     const [userList, setUserList] = useState([]);
     const animatedComponents = makeAnimated();
+    const {authUser} = useContext(UserContext);
     const params = useParams();
 
     useEffect(() => {
@@ -18,10 +21,11 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
     
     // console.dir(userList)
     const fetchList = async () => {
+        alert("!!!")
         const response = await axios.get(`/workspaces/workspace-users?wno=${params.wno}&uno=${params.uno}`)
-        response.data.data.forEach(e => {e['label'] = e.id; e['value'] = e.id})
-
-        setUserList(response.data.data.filter( el => el.userNo != 3))
+        response.data.data.forEach(e => {e['label'] = e.userd; e['value'] = e.userid})
+        console.log(response.data.data, "DFSdfsdfsdfsdfsdf")
+        setUserList(response.data.data.filter( el => el.userNo != authUser.no))
         // console.response.data.data
     }
 

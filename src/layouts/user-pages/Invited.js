@@ -33,15 +33,19 @@ const Invited = () => {
 
   const accept = async (e) => {
     console.log(noti);
+    const targetNo = e.target.name
     const response = await axios.put(`/workspaces/workspace_users`, {
       userNo: authUser.no,
       workspaceNo: e.target.id,
-      notiNo: e.target.name
+      notiNo: targetNo
     })
+    setNoti([...(noti.filter(name => name.no != targetNo))])
   }
 
   const reject = async (e) => {
-    const response = await axios.delete(`/workspaces/workspace_users/noti?nno=${e.target.name}`)
+    const targetNo = e.target.name
+    const response = await axios.delete(`/workspaces/workspace_users/noti?nno=${targetNo}`)
+    setNoti([...(noti.filter(name => name.no != targetNo))])
   }
 
   const NotiList =

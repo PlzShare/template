@@ -28,7 +28,7 @@ const Setting = () => {
   // 점검 - 확인 부탁
   const fetchList = async () => {
     const response = await axios.get(`/workspaces/workspace-users?uno=4&wno=${params.wno}`)
-    response.data.data.forEach(e => { e['label'] = e.id; e['value'] = e.id })
+    response.data.data.forEach(e => { e['label'] = e.userid; e['value'] = e.userid })
 
     setUserList(response.data.data.filter(el => el.userNo != 21))
     // console.response.data.data
@@ -36,7 +36,7 @@ const Setting = () => {
 
   const updateWorkspaceName = async () => {
     const response = await axios.put(`/workspaces`, {
-      no: 125,
+      no: params.wno,
       name: wnameInput.current.value
     })
     console.log(wnameInput.current.value)
@@ -46,7 +46,7 @@ const Setting = () => {
   const changeAdmin = async () => {
     const response = await axios.put(`/workspaces/workspace-users/change-role?uno=25`, {
       userNo: selectdata.userNo,
-      workspaceNo: 126
+      workspaceNo: params.wno
     })
   }
   
