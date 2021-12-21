@@ -8,7 +8,7 @@ import '../../../assets/scss/components/chatadd.scss';
 import TagsInput from '../../TagsInput'
 import UserContext from '../../utilities/ContextProviders/UserContext';
 
-const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
+const ChatAddComponent = ({callBackToggle, isOpen}) => {
     const {authUser} = useContext(UserContext);
     const nameInput = useRef();
     const params = useParams()
@@ -49,7 +49,7 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
             userNums : [...result, authUser.no]
         })
         
-        console.log("방 정보(방 만들 때 바로 그 방으로 들어갈 수 있게 정보를 남깁니다.) : ");
+        console.log("만들어진 방 정보");
         console.log(response.data.data);
         callBackToggle();
     }
@@ -79,4 +79,4 @@ const ChatMemberAddComponent = ({callBackToggle, isOpen}) => {
     );
 };
 
-export default ChatMemberAddComponent;
+export default ChatAddComponent;
