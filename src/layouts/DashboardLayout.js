@@ -1,5 +1,5 @@
 import React, { Children, Component, createContext, Fragment ,useContext} from 'react';
-import { NavLink, BrowserRouter as Router } from 'react-router-dom';
+import { NavLink, BrowserRouter as Router, Link } from 'react-router-dom';
 import { Outlet, Routes, Route, useLocation, useParams , useNavigate} from 'react-router'
 import { Button, Badge, NavItem, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Header, SidebarNav, PageContent, PageAlert, Page } from '../components';
@@ -219,15 +219,24 @@ export function HeaderNav() {
   
   const {authUser} = useContext(UserContext)
   const navigate = useNavigate()
+  const params = useParams()
+
+  
+  // const clickInvite = () =>{
+  //   console.log(params.wno);
+
+  //   navigate('/invited');
+  // }
+
+  
   const clickLogout = () =>{
 
     localStorage.removeItem("token");
 
     navigate('/login');
 
-    
   }
-  
+  console.dir(authUser)
 
   return (
     <React.Fragment>

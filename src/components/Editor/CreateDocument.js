@@ -18,11 +18,9 @@ const CreateDocument = () => {
         // alert(document.getElementById('document-title').value)
         const response = await axios.post(url,{
             title: document.getElementById('document-title').value,
-            contents:window.editor.getData(),
+            contents: window.qe.root.innerHTML,
             channelNo: params.cno,
             workspaceNo: params.wno,
-            nickname : authUser.nickname,
-            makeUser: authUser.no
         })
 
         navigate(`/workspace/${params.wno}/channel/${params.cno}`)

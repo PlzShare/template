@@ -53,16 +53,16 @@ const Channel = () => {
                 </Link>
             </div>
             <Row>
-                  {documentList.map( doc => 
-                    <Col xl={size} key={doc.no}>
-                        <div className='document' doc-no={doc.no} style={{cursor: 'pointer'}} onClick={onClickDocument}>
-                            <div className='documentbody'>
-                            <div className='triangle'></div>
-                            <p style={{fontWeight:'bold'}}>{doc.title}</p>
-                            </div>
+                {documentList.map( doc => 
+                <Col xl={size} key={doc.no}>
+                    <div className='document' doc-no={doc.no} style={{cursor: 'pointer'}} onClick={onClickDocument}>
+                        <div className='documentbody'>
+                        <div className='triangle'></div>
+                        <p style={{fontWeight:'bold'}}>{doc.title}</p>
                         </div>
-                    </Col>
-                  )}
+                    </div>
+                </Col>
+                )}
           </Row>
         </div>
     );

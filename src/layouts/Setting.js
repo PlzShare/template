@@ -1,10 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import '../assets/scss/components/setting.scss';
 import axios from 'axios';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { useParams } from 'react-router';
+import UserContext from '../components/utilities/ContextProviders/UserContext';
+import { WorkSpaceContext } from './DashboardLayout';
 
 const Setting = () => {
 
@@ -14,20 +16,28 @@ const Setting = () => {
   const [modals, setModal] = useState(false);
   const wnameInput = useRef();
   const params = useParams()
-
+  const {authUser} = useContext(UserContext)
+  const {workspaceInfo} = useContext(WorkSpaceContext); 
   const toggle = () => {
     setModal(!modals)
 
   }
 
   useEffect(() => {
-    fetchList();
-  }, []);
+    if(authUser.no)
+      fetchList();
+  }, [authUser]);
+  useEffect(() => {
+    if(workspaceInfo && workspaceInfo.name){
+      wnameInput.current.value=workspaceInfo.name
+    }
+  }, [workspaceInfo])
 
   // console.dir(userList)
   // 점검 - 확인 부탁
   const fetchList = async () => {
-    const response = await axios.get(`/workspaces/workspace-users?uno=4&wno=${params.wno}`)
+
+    const response = await axios.get(`/workspaces/workspace-users?wno=${params.wno}`)
     response.data.data.forEach(e => { e['label'] = e.userid; e['value'] = e.userid })
 
     setUserList(response.data.data.filter(el => el.userNo != 21))
@@ -44,7 +54,7 @@ const Setting = () => {
   }
 
   const changeAdmin = async () => {
-    const response = await axios.put(`/workspaces/workspace-users/change-role?uno=25`, {
+    const response = await axios.put(`/workspaces/workspace-users/change-role`, {
       userNo: selectdata.userNo,
       workspaceNo: params.wno
     })
