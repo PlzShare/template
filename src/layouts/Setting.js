@@ -36,10 +36,11 @@ const Setting = () => {
   // console.dir(userList)
   // 점검 - 확인 부탁
   const fetchList = async () => {
+
     const response = await axios.get(`/workspaces/workspace-users?wno=${params.wno}`)
     response.data.data.forEach(e => { e['label'] = e.userid; e['value'] = e.userid })
 
-    setUserList(response.data.data.filter(el => el.userNo != 21))
+    setUserList(response.data.data.filter(el => el.userNo != authUser.no))
     // console.response.data.data
   }
 

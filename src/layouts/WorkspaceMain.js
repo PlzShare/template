@@ -12,7 +12,9 @@ const WorkspaceMain = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenFile, setIsOpenFile] = useState(false)
   const [documentList, setDocumentList] = useState([])
+  const [channels, setChannels] = useState([]);
   const {channelList} = useContext(WorkSpaceContext)
+  const {fetchChannelList} = useContext(WorkSpaceContext)
   const [isShow, setIsShow] = useState(false);
   const params = useParams()
   const workspaceNo = params.wno
@@ -31,7 +33,9 @@ const WorkspaceMain = () => {
 
   const deleteChannel = async (e) => {
     e.stopPropagation();
-    const response = await axios.delete(`workspaces/${params.wno}/channels/${e.target.id}`)
+    const deleteNo = e.target.id
+    await axios.delete(`workspaces/${params.wno}/channels/${deleteNo}`)
+    setChannels([...(channelList.filter(name => name.no != deleteNo))])
     }
 
   const size=3
@@ -46,8 +50,9 @@ const WorkspaceMain = () => {
   }
 
   useEffect(() => {
-    fetchDocument()
-  },[])
+    fetchDocument();
+    fetchChannelList()
+  },[channels])
   
   return (
     <div className='workspacemain'>

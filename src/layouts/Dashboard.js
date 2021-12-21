@@ -17,6 +17,7 @@ const Dashboard = () => {
       const response = await axios.get(`/workspaces?uno=${params.uno}`);
       setNames([...response.data.data]);
     },
+    
     leave: async (e) => {
       // 스크롤 이동 막기
       e.preventDefault();

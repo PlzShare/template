@@ -33,8 +33,10 @@ const NewChannels = () => {
   const deleteChannelNoti = async (e) => {
     e.stopPropagation();
     console.log(e.target.id)
-    const response = await axios.delete(`noti?no=${e.target.id}`)
-    }
+    const deleteNo = e.target.id
+    const response = await axios.delete(`noti?no=${deleteNo}`)
+    setNoti([...(noti.filter(name => name.no != deleteNo))])
+  }
 
   const fetchNotiList = async () => {
     const response = await axios.get(`/noti/type?uno=${authUser.no}&type=doc`);
@@ -75,7 +77,7 @@ const NewChannels = () => {
           return <WorkspaceNotiChildren key={index} item={item}/>;
         }
       } else {
-        alert('dddd')
+        // alert('dddd')
         console.dir(item)
         return <NavSingleItem2 item={item} key={index} />;
       }
