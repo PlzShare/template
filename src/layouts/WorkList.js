@@ -13,7 +13,6 @@ import UserContext from '../components/utilities/ContextProviders/UserContext';
 import {HeaderNav} from './DashboardLayout'
 import ContextProviders from '../components/utilities/ContextProviders';
 
-
 const Dashboard = () => {
   
   const [names, setNames] = useState([]);
@@ -21,31 +20,32 @@ const Dashboard = () => {
   const params = useParams()
 
   useEffect(() => {
-    
     if(authUser.no){
-      
       dashBoardManagement.list();
     }
   }, [authUser]);
   
-  
   const dashBoardManagement = {
     list: async () => {
       console.log('========worklist===========')
-      console.log(authUser)
-      const response = await axios.get(`/workspaces?userNo=${authUser.no}`);
+      const response = await axios.get(`/workspaces`);
+      console.log(response.data.data)
       setNames([...response.data.data]);
     },
 
     leave: async (e) => {
       // 스크롤 이동 막기
       e.preventDefault();
-
       const deleteNo = e.target.id;
-      await axios.delete(`/workspaces/workspace-users?uno=${authUser.no}&wno=${deleteNo}`);
+      await axios.delete(`/workspaces/workspace-users?wno=${deleteNo}`);
 
       console.log("삭제한 워크스페이스 번호:" + deleteNo);
       setNames([...(names.filter(name => name.no != deleteNo))])
+    },
+
+    prevent: (e) => {
+      e.preventDefault();
+      alert("관리자 권한을 변경안하면 못나가지롱~ 메롱메롱");
     }
   }
   
@@ -62,7 +62,12 @@ const Dashboard = () => {
             <span to='' id={e.no}>{e.name}</span>
           </h3>
           <NavLink to={`/workspace/${e.no}`} className="in" id={e.no}>IN</NavLink>
-          <NavLink to="#" className="out" id={e.no} onClick={dashBoardManagement.leave}>OUT</NavLink>
+
+          {
+            e.role === 'user'
+            ? <NavLink to="#" className="out" id={e.no} onClick={dashBoardManagement.leave}>OUT</NavLink>
+            : <NavLink to="#" className="out" id={e.no} onClick={dashBoardManagement.prevent}>OUT</NavLink>
+          }
         </div>
       </Col>
     );
