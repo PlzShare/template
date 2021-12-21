@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useParams } from 'react-router'
 import NavSpacer from './components/NavSpacer';
+import Bottom from './components/Bottom.js';
 import NavOverlay from './components/NavOverlay';
 import NavDivider from './components/NavDivider';
 import NavSingleItem from './components/NavSingleItem';
@@ -12,6 +13,8 @@ import navlogo from '../../assets/images/logo1.png';
 import MemberChildren from './components/MemberChildren';
 import WorkspaceNotiChildren from './components/WorkspaceNotiChildren';
 import ChannelChildren from './components/ChannelChildren';
+import UserContext from '../utilities/ContextProviders/UserContext';
+import { WorkSpaceContext } from '../../layouts/DashboardLayout';
 
 
 class SidebarNav extends Component {
@@ -22,6 +25,10 @@ class SidebarNav extends Component {
   
   render() {
     const navItems = items => {
+      return items.map((item, index) => itemType(item, index));
+    };
+
+    const navItems2 = items => {
       return items.map((item, index) => itemType(item, index));
     };
 
@@ -58,6 +65,7 @@ class SidebarNav extends Component {
       <PageAlertContext.Consumer>
         {consumer => {
           const hasPageAlertClass = consumer.alert ? 'has-alert' : '';
+          
           return (
             <div>
               <div className={`app-sidebar ${hasPageAlertClass}`}>
@@ -66,10 +74,28 @@ class SidebarNav extends Component {
                   <ul id="main-menu">
                     {navItems(this.props.nav.top)}
                     <NavSpacer />
-                    {navItems(this.props.nav.bottom)}
-                  </ul>
-                  {/* <div><button>dsfsdf</button></div> */}
-                </nav>
+                    <UserContext.Consumer>
+                      { ({authUser}) => {
+                          return(
+                            <WorkSpaceContext.Consumer>
+                            {
+                              ({memberList}) => {
+                                return(
+                                  authUser.no && memberList.length > 0 && memberList.filter((e) => {
+                                    return e.userNo == authUser.no
+                                  })[0].role == 'admin'?
+                                    navItems2(this.props.nav.bottom):''
+                                )
+                              }
+                            }
+                            </WorkSpaceContext.Consumer>
+                          )
+                        } 
+                      }
+                      </UserContext.Consumer>
+                      </ul>
+                      {/* <div><button>dsfsdf</button></div> */}
+                      </nav>
               </div>
               {this.props.isSidebarCollapsed && <NavOverlay onClick={this.props.toggleSidebar} />}
             </div>

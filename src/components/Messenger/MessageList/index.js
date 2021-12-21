@@ -11,7 +11,8 @@ import * as StompJs from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { useParams } from 'react-router';
 import UserContext from '../../utilities/ContextProviders/UserContext';
-import ChatMemberAddComponent from '../../SidebarNav/components/ChatMemberAddComponent'
+import ChatMemberAddComponent from '../../SidebarNav/components/ChatMemberAddComponent';
+import ChatExit from '../../SidebarNav/components/ChatExit';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col} from 'reactstrap';
 import ChatExit from '../../SidebarNav/components/ChatExit';
 import './MessageList.css';
@@ -22,6 +23,7 @@ export default function MessageList(props) {
   const {callBackOnClickExit, chatRoomInfo} = props
   const [messages, setMessages] = useState([])
   const [modals, setModals] = useState(false);
+  const [exitmodals, setExitModals] = useState(false);
   const [userList,setUserList] = useState([]);
   const [selectdata, setSelectData] = useState([]);
   const animatedComponents = makeAnimated();
@@ -124,6 +126,11 @@ export default function MessageList(props) {
       e.preventDefault();
       setModals(true)
   }
+  const exitmodal = (e) => {
+    e.preventDefault();
+    setExitModals(true)
+}
+
   const exitmodal = (e) => {
     e.preventDefault();
     setExitModals(true)
@@ -244,23 +251,16 @@ export default function MessageList(props) {
           ]}
           title={chatRoomInfo.name}
           rightItems={[
+
             <ToolbarButton key="person" icon="ion-ios-person-add" callBackOnClick={modalevent}/>,
             <ToolbarButton key="trash" icon="ion-ios-trash" callBackOnClick={exitmodal}/>
+
         ]}
           
         />
         
-        {/* <Modal isOpen={modals}>
-            <ModalHeader toggle={toggle}></ModalHeader>
-            <ModalBody>
-                수락하시겠습니까 ?
-            </ModalBody>
-            <ModalFooter>
-                <Button color="primary" onClick={toggle}>수락하기</Button>{' '}
-                <Button color="secondary" onClick={toggle}>취소하기</Button>
-            </ModalFooter>
-        </Modal> */}
        
+
         <ChatMemberAddComponent 
             ctno={chatRoomInfo.roomNo} 
             callBackToggle={toggle}
@@ -270,6 +270,7 @@ export default function MessageList(props) {
             ctno={chatRoomInfo.roomNo} 
             isOpen={exitmodals} 
             callBackToggle={exittoggle}/>
+
 
         <div className="message-list-container">{renderMessages()}</div>
 

@@ -7,7 +7,9 @@ import { useParams } from 'react-router';
 import UserContext from '../../utilities/ContextProviders/UserContext';
 
 
+
 const ChatExit = ({callBackToggle, isOpen, ctno}) => {
+
     const [selectdata, setSelectData] = useState([]);
     const [userList, setUserList] = useState([]);
     const {authUser} = useContext(UserContext)
@@ -29,6 +31,7 @@ const ChatExit = ({callBackToggle, isOpen, ctno}) => {
     const pushData = async () =>{
         alert("방탈출 성공!")
         await axios.delete(`/workspaces/${params.wno}/chat?ctno=${ctno}`)
+
         console.log(selectdata);
         callBackToggle();
     }

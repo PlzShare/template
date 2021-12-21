@@ -16,10 +16,16 @@
 .message .bubble-container {
   font-size: 14px;
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  
 }
 
 .message.mine .bubble-container {
   justify-content: flex-end;
+  align-items: flex-end;
+  margin-bottom: 10px;
 }
 
 .message.start .bubble-container .bubble {
@@ -43,6 +49,7 @@
 }
 
 .message .bubble-container .bubble {
+  font-family: 'Noto Sans KR', sans-serif;
   margin: 1px 0px;
   background: #f4f4f8;
   padding: 10px 15px;
@@ -55,10 +62,26 @@
 }
 
 .message.mine .bubble-container .bubble {
+  font-family: 'Noto Sans KR', sans-serif;
   background: #007aff;
   color: white;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
+  max-width: 70%;
+  overflow:hidden;
+  word-wrap:break-word;
 }
+
+.message.mine .name{
+  display: none;
+
+}
+.message .name{
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #999;
+}
+
+
+

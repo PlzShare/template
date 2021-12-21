@@ -28,7 +28,9 @@ export default function Message(props) {
         }
           
         <div className="bubble-container">
-          <div>{ name }</div>
+          <div className='name'>
+            { name }
+          </div>
           <div className="bubble" title={friendlyTimestamp}>
             { data.message }
           </div>

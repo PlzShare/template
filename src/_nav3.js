@@ -11,11 +11,6 @@ export default {
       type: 'workspaceName',
     },
     {
-      name: '환경설정',
-      icon: 'Settings',
-      url: '/set',
-    },
-    {
       type : 'channel',
       name: '채널',
       icon: 'Folder',
@@ -52,7 +47,12 @@ export default {
       getComponent: (toggle, isOpen) => <MemberAddComponent callBackToggle={toggle} isOpen={isOpen}/>,
     }
   ],
+
   bottom: [
-    
+    {
+      name: '환경설정',
+      icon: 'Settings',
+      url: '/set',
+    },
   ],
 };

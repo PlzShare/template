@@ -8,8 +8,8 @@ import Logo from '../assets/images/vibe-logo.svg';
 import '../assets/css/dashboardlayout.css';
 
 // import nav from '../_nav3';    // 채널scrollable sidebar sidebar-right
-import nav from '../_nav3';   // 알림
-// import nav from '../_nav3';     // 워크스페이스
+// import nav from '../_nav2';   // 알림
+import nav from '../_nav3';     // 워크스페이스
 
 import routes from '../router';
 import ContextProviders from '../components/utilities/ContextProviders';
@@ -152,6 +152,7 @@ class DashboardLayout extends Component {
             workspaceInfo : this.state.workspaceInfo || {}, 
             setWorkspaceInfo : this.setWorkspaceInfo,
             channelList : this.state.channelList,
+            fetchChannelList : this.fetchChannelList,
             memberList : this.state.memberList,
             pushMemberList : this.pushMemberList,
             pushChannelList : this.pushChannelList, 
@@ -178,7 +179,7 @@ class DashboardLayout extends Component {
                 &&
                 <div className="scrollable sidebar sidebar-right">
                 <MessageList callBackOnClickExit={this.exitChatRoom} chatRoomInfo={this.state.chatRoomInfo}/>
-              </div>
+                </div>
               }
 
               <Page>
