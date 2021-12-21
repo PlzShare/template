@@ -7,6 +7,7 @@ import { useParams } from 'react-router';
 import UserContext from '../../utilities/ContextProviders/UserContext';
 
 
+
 const ChatMemberAddComponent = ({ctno, callBackToggle, isOpen}) => {
     const [selectdata, setSelectData] = useState([]);
     const [userList, setUserList] = useState([]);
@@ -33,8 +34,10 @@ const ChatMemberAddComponent = ({ctno, callBackToggle, isOpen}) => {
 
     // 용수가 구분한 구간
     const fetchList = async () => {
+
         const response = await axios.get(`/workspaces/workspace-users?wno=${params.wno}`)
-        console.log(response.data.data.forEach(e => {e['label'] = e.userid; e['value'] = e.userid}))
+
+        response.data.data.forEach(e => {e['label'] = e.userid; e['value'] = e.userid})
         setUserList(response.data.data.filter( el => {
             if(el.userNo == authUser.no) return false; // 워크스페이스 유저랑 본인이랑 같으면 return false
 
@@ -44,6 +47,7 @@ const ChatMemberAddComponent = ({ctno, callBackToggle, isOpen}) => {
 
             return true;
         }))
+
     }
 
     const pushData = async() =>{

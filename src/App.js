@@ -29,24 +29,24 @@ export default function App() {
   return (
     <Router>
         <UserContextProvider>
-        <Routes>
-            <Route path='/login' element={<Login />}/>
-            <Route path='/register' element={<Register/>}/>
-            <Route path='/worklist' element={<WorkList/>}/>
-            <Route path='/workspaceadd' element={<WorkspaceAdd/>} />
-            <Route path='/mypage' element={<Mypage />} />
-            <Route path='/invited' element={<Invited />} />
-            <Route path='/newChannels' element={<NewChannels />} />
-            <Route path='/newDocuments' element={<NewDocuments />} />
-            <Route path='/newChatrooms' element={<NewChatrooms />} />
+          <Routes>
+              <Route path='/login' element={<Login />}/>
+              <Route path='/register' element={<Register/>}/>
+              <Route path='/worklist' element={<WorkList/>}/>
+              <Route path='/workspaceadd' element={<WorkspaceAdd/>} />
+              <Route path='/mypage' element={<Mypage />} />
+              <Route path='/invited' element={<Invited />} />
+              <Route path='/newChannels' element={<NewChannels />} />
+              <Route path='/newDocuments' element={<NewDocuments />} />
+              <Route path='/newChatrooms' element={<NewChatrooms />} />
 
-            
-            <Route path={workspacePath} element={<DashboardLayout/>}>
-                {routes.filter((el) => el.path == workspacePath)[0].children.map((el) => {
-                  return <Route path={el.path} element={<el.component/>} />
-                })}
-            </Route>
-        </Routes>
+              
+              <Route path={workspacePath} element={<DashboardLayout/>}>
+                  {routes.filter((el) => el.path == workspacePath)[0].children.map((el) => {
+                    return <Route path={el.path} element={<el.component/>} />
+                  })}
+              </Route>
+          </Routes>
           <Noti />
         </UserContextProvider>
     </Router>

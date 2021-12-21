@@ -36,6 +36,7 @@ const Setting = () => {
   // console.dir(userList)
   // 점검 - 확인 부탁
   const fetchList = async () => {
+
     const response = await axios.get(`/workspaces/workspace-users?wno=${params.wno}`)
     response.data.data.forEach(e => { e['label'] = e.userid; e['value'] = e.userid })
 
