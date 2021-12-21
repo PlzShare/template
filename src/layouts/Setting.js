@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { useParams } from 'react-router';
 import UserContext from '../components/utilities/ContextProviders/UserContext';
+import { WorkSpaceContext } from './DashboardLayout';
 
 const Setting = () => {
 
@@ -16,6 +17,7 @@ const Setting = () => {
   const wnameInput = useRef();
   const params = useParams()
   const {authUser} = useContext(UserContext)
+  const {workspaceInfo} = useContext(WorkSpaceContext); 
   const toggle = () => {
     setModal(!modals)
 
@@ -25,6 +27,11 @@ const Setting = () => {
     if(authUser.no)
       fetchList();
   }, [authUser]);
+  useEffect(() => {
+    if(workspaceInfo && workspaceInfo.name){
+      wnameInput.current.value=workspaceInfo.name
+    }
+  }, [workspaceInfo])
 
   // console.dir(userList)
   // 점검 - 확인 부탁

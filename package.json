@@ -63,6 +63,7 @@
     "postcss-preset-env": "6.7.0",
     "postcss-safe-parser": "5.0.2",
     "prompts": "2.4.0",
+    "quill-delta": "^4.2.2",
     "react": "^16.8.1",
     "react-app-polyfill": "^2.0.0",
     "react-bootstrap": "^2.0.3",
