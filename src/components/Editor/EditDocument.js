@@ -202,8 +202,23 @@ const EditDocument = () => {
         }
     }
 
-    const initEditor = (editor) => {
-        setEditor(editor);
+    // 문서 동기화
+    const handleChange = (content, delta, source, editor) => {
+        console.log('===========source==============')
+        console.dir(source)
+        if(source != 'user') return;
+        console.log('===========delta==============')
+        console.dir(delta)
+        
+        console.log('===========editor==============')
+        console.dir(editor)
+        
+        
+      
+        axios.post(`http://localhost:4444/share-doc/pub/${params.docNo}`,{
+            delta : delta,
+            sid: sid
+        })
     }
 
     return (

@@ -6,7 +6,6 @@ import './assets/scss/styles.scss';
 import axios from 'axios';
 import Login from './layouts/user-pages/Login';
 import Mypage from './layouts/user-pages/Mypage';
-import Invite from './layouts/user-pages/Invite';
 import Register from './layouts/user-pages/Register';
 import WorkList from './layouts/WorkList';
 import Invited from './layouts/user-pages/Invited'

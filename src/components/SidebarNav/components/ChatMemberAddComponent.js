@@ -38,6 +38,7 @@ const ChatMemberAddComponent = ({ctno, callBackToggle, isOpen}) => {
         const response = await axios.get(`/workspaces/workspace-users?wno=${params.wno}`)
 
         response.data.data.forEach(e => {e['label'] = e.userid; e['value'] = e.userid})
+
         setUserList(response.data.data.filter( el => {
             if(el.userNo == authUser.no) return false; // 워크스페이스 유저랑 본인이랑 같으면 return false
 
@@ -47,6 +48,7 @@ const ChatMemberAddComponent = ({ctno, callBackToggle, isOpen}) => {
 
             return true;
         }))
+
 
     }
 

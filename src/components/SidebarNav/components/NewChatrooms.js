@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Row, Col, Button } from 'reactstrap';
 import UserContext from '../../utilities/ContextProviders/UserContext';
 import '../../../assets/scss/components/newtype.scss';
-
 import { NavLink, } from 'react-router-dom';
 import { HeaderNav } from '../../../layouts/DashboardLayout'
 import Logo from '../../../assets/images/logo3.png';
@@ -12,7 +11,6 @@ import nav from '../../../_nav2'
 import '../../../assets/scss/components/headerNav.scss'
 import '../../../assets/scss/components/primaryNav.scss'
 import '../../../assets/scss/components/invite.scss'
-
 import WorkspaceNotiChildren from '../../../components/SidebarNav/components/WorkspaceNotiChildren';
 import NavSingleItem2 from '../../../components/SidebarNav/components/NavSingleItem2';
 
@@ -76,7 +74,7 @@ const NewChannels = () => {
           return <WorkspaceNotiChildren key={index} item={item}/>;
         }
       } else {
-        // alert('dddd')
+
         console.dir(item)
         return <NavSingleItem2 item={item} key={index} />;
       }
