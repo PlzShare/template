@@ -82,14 +82,12 @@ const NewChannels = () => {
         return <WorkspaceNotiChildren key={index} item={item} />;
       }
     } else {
-      alert('dddd')
+      // alert('dddd')
       console.dir(item)
       return <NavSingleItem2 item={item} key={index} />;
     }
   };
-
-
-
+  
   return (
     <div className='workspaceinvite'>
       <div className="app-sidebar">

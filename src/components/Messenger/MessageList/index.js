@@ -13,8 +13,10 @@ import { useParams } from 'react-router';
 import UserContext from '../../utilities/ContextProviders/UserContext';
 import ChatMemberAddComponent from '../../SidebarNav/components/ChatMemberAddComponent'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col} from 'reactstrap';
-
+import ChatExit from '../../SidebarNav/components/ChatExit';
 import './MessageList.css';
+import { useNavigate } from 'react-router';
+
 
 export default function MessageList(props) {
   const {callBackOnClickExit, chatRoomInfo} = props
@@ -25,18 +27,18 @@ export default function MessageList(props) {
   const animatedComponents = makeAnimated();
   const params = useParams()
   const {authUser} = useContext(UserContext);
+  const [exitmodals, setExitModals] = useState(false);
+  const navigate = useNavigate()
 
   // 정대겸 : 커넥트
   const client = useRef({});
 
   console.log("받아온 방번호 : " + chatRoomInfo.roomNo)
   console.log("받아온 방이름 : " + chatRoomInfo.name)
-  console.log(authUser)
 
   useEffect(() => {
     connect();
     getMessages(chatRoomInfo.roomNo);
-    console.log("대화 시작")
     fetchList();
     return () => disconnect();
   }, []);
@@ -88,6 +90,7 @@ export default function MessageList(props) {
         return [...prev, broadCastingMessage]
       }, console.log(broadCastingMessage));
       ////////////////////////////////////////
+      
     });
   };
 
@@ -112,17 +115,25 @@ export default function MessageList(props) {
     setModals(!modals)
   }
 
+  const exittoggle = () =>{
+    setExitModals(!exitmodals)
+    // 여기서 렌더링 다시
+  }
+
   const modalevent = (e) => {
       e.preventDefault();
       setModals(true)
   }
+  const exitmodal = (e) => {
+    e.preventDefault();
+    setExitModals(true)
+}
 
     // console.dir(userList)
     const fetchList = async () => {
       const response = await axios.get(`/workspaces/workspace-users?wno=${params.wno}&?uno=${params.uno}`)
       response.data.data.forEach(e => {e['label'] = e.id; e['value'] = e.id})
-      setUserList(response.data.data.filter( el => el.userNo != 3))
-      console.log(chatRoomInfo)
+      setUserList(response.data.data.filter( el => el.userNo != authUser.no))
   }
 
   const pushData = () =>{
@@ -202,10 +213,12 @@ export default function MessageList(props) {
         }
       }
 
+      // isMine 이 false면 null 값을 Message 컴포넌트에 넘겨줌으로써,
+      // Message 컴포넌트에서 이름이 뜨지 않게함
       tempMessages.push(
         <Message
           key={i}
-          name={userName}
+          name={isMine ? '' : userName}
           isMine={isMine}
           startsSequence={startsSequence}
           endsSequence={endsSequence}
@@ -231,9 +244,8 @@ export default function MessageList(props) {
           ]}
           title={chatRoomInfo.name}
           rightItems={[
-            <ToolbarButton key="person" icon="ion-ios-person-add" callBackOnClick={modalevent}>
-            </ToolbarButton>,
-          <ToolbarButton key="video" icon="ion-ios-videocam"/>
+            <ToolbarButton key="person" icon="ion-ios-person-add" callBackOnClick={modalevent}/>,
+            <ToolbarButton key="trash" icon="ion-ios-trash" callBackOnClick={exitmodal}/>
         ]}
           
         />
@@ -249,28 +261,15 @@ export default function MessageList(props) {
             </ModalFooter>
         </Modal> */}
        
-        <ChatMemberAddComponent isOpen={modals} callBackToggle={toggle}/>
+        <ChatMemberAddComponent 
+            ctno={chatRoomInfo.roomNo} 
+            callBackToggle={toggle}
+            isOpen={modals} />
 
-{/* 
-        <Modal isOpen={modals} toggle={toggle}>
-                <ModalHeader toggle={toggle}>멤버 초대</ModalHeader>
-                <ModalBody>
-                    <div>
-                        <h5>🔹 초대할 멤버 아이디</h5>
-                        <Select 
-                        options={userList} 
-                        components={animatedComponents} 
-                        isMulti 
-                        onChange={selectBoxChange}
-                        />
-    
-                    </div>
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="primary" onClick={pushData}>초대하기</Button>
-                  <Button color="secondary" onClick={toggle}>취소하기</Button>
-                </ModalFooter>
-         </Modal> */}
+        <ChatExit 
+            ctno={chatRoomInfo.roomNo} 
+            isOpen={exitmodals} 
+            callBackToggle={exittoggle}/>
 
         <div className="message-list-container">{renderMessages()}</div>
 

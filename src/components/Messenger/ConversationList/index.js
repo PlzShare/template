@@ -21,10 +21,13 @@ export default function ConversationList(props) {
 
   const toggle = () => {
     setModals(!modals)
-}
+  }
+
   useEffect(() => {
-    getConversations()
-  },[])
+    if(authUser.no){
+      getConversations()
+    }
+  }, [modals]) // 모달이 바뀌면 다시 useEffect 실행
 
   const notifyKeywordChanged = (keyword) => {
     // console.log(keyword); // 입력받은 값이 전부 소문자로 변경됐는가 확인
@@ -32,8 +35,8 @@ export default function ConversationList(props) {
   };
 
 
- const getConversations = () => {
-    axios.get(`/workspaces/${params.wno}/chat`).then(response => {
+ const getConversations = async () => {
+    await axios.get(`/workspaces/${params.wno}/chat`).then(response => {
         let newConversations = response.data.data.map(result => {
           return {
             no: `${result.no}`,
@@ -42,8 +45,9 @@ export default function ConversationList(props) {
             text: '최신메세지'
           };
         });
-
-        setConversations([...conversations, ...newConversations])
+        
+        // 추가 없이, 처음부터 새로 뿌려주기
+        setConversations([...newConversations])
     });
   }
 
