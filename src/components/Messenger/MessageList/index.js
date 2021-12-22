@@ -14,7 +14,6 @@ import UserContext from '../../utilities/ContextProviders/UserContext';
 import ChatMemberAddComponent from '../../SidebarNav/components/ChatMemberAddComponent';
 import ChatExit from '../../SidebarNav/components/ChatExit';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col} from 'reactstrap';
-import ChatExit from '../../SidebarNav/components/ChatExit';
 import './MessageList.css';
 import { useNavigate } from 'react-router';
 
@@ -29,7 +28,7 @@ export default function MessageList(props) {
   const animatedComponents = makeAnimated();
   const params = useParams()
   const {authUser} = useContext(UserContext);
-  const [exitmodals, setExitModals] = useState(false);
+
   const navigate = useNavigate()
 
   // 정대겸 : 커넥트
@@ -126,11 +125,6 @@ export default function MessageList(props) {
       e.preventDefault();
       setModals(true)
   }
-  const exitmodal = (e) => {
-    e.preventDefault();
-    setExitModals(true)
-}
-
   const exitmodal = (e) => {
     e.preventDefault();
     setExitModals(true)

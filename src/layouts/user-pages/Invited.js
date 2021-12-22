@@ -22,13 +22,13 @@ const Invited = () => {
   console.log(noti, "sdfsdfsdfsdfsdfsdfsdfsdfs")
 
   useEffect(() => {
-    if (authUser) {
+    if (authUser.no) {
       fetchNotiList();
     }
   }, [authUser]);
 
   const fetchNotiList = async () => {
-    const response = await axios.get(`/noti?uno=${authUser.no}`);
+    const response = await axios.get(`/noti`);
     setNoti([...response.data.data])
   }
 
@@ -56,7 +56,6 @@ const Invited = () => {
     noti.map((e) =>
       <Col md={12}>
         <div className="invitebox">
-
           <div className="profile_img">
             <span  style={{
                     backgroundImage: `url(${e.profile})`

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useParams } from 'react-router'
 import NavSpacer from './components/NavSpacer';
-import Bottom from './components/Bottom.js';
 import NavOverlay from './components/NavOverlay';
 import NavDivider from './components/NavDivider';
 import NavSingleItem from './components/NavSingleItem';
