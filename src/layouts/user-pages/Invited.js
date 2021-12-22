@@ -14,7 +14,6 @@ import NavSingleItem2 from '../../components/SidebarNav/components/NavSingleItem
 import NavDropdownItem from '../../components/SidebarNav/components/NavDropdownItem';
 import '../../assets/scss/components/invite.scss'
 
-
 const Invited = () => {
   const [noti, setNoti] = useState([]);
   const { authUser } = useContext(UserContext);
@@ -22,22 +21,19 @@ const Invited = () => {
   console.log(noti, "sdfsdfsdfsdfsdfsdfsdfsdfs")
 
   useEffect(() => {
-    if (authUser.no) {
+    if (authUser) {
       fetchNotiList();
     }
   }, [authUser]);
 
   const fetchNotiList = async () => {
-    const response = await axios.get(`/noti`);
+    const response = await axios.get(`/noti?uno=${authUser.no}`);
     setNoti([...response.data.data])
   }
 
-
   const accept = async (e) => {
-
     console.log(noti);
     const targetNo = e.target.name
-
     const response = await axios.put(`/workspaces/workspace_users`, {
       userNo: authUser.no,
       workspaceNo: e.target.id,
@@ -48,6 +44,7 @@ const Invited = () => {
 
   const reject = async (e) => {
     const targetNo = e.target.name
+    
     const response = await axios.delete(`/workspaces/workspace_users/noti?nno=${targetNo}`)
     setNoti([...(noti.filter(name => name.no != targetNo))])
   }
@@ -56,7 +53,7 @@ const Invited = () => {
     noti.map((e) =>
       <Col md={12}>
         <div className="invitebox">
-          <div className="profile_img">
+        <div className="profile_img">
             <span  style={{
                     backgroundImage: `url(${e.profile})`
                     }} />
@@ -68,7 +65,6 @@ const Invited = () => {
       </Col>
     )
   
-
 
   const navItems = items => {
     
@@ -83,7 +79,6 @@ const Invited = () => {
         return <WorkspaceNotiChildren key={index} item={item}/>;
       }
     } else {
-      // alert('dddd')
       console.dir(item)
       return <NavSingleItem2 item={item} key={index} />;
     }
