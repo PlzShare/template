@@ -9,6 +9,7 @@ import QuillEditor from './QuillEditor';
 import Delta from 'quill-delta';
 import { Stomp } from '@stomp/stompjs';
 import { transform } from '@babel/core';
+import DocumentEditor from './DocumentEditor';
 const EditDocument = () => {
     const params = useParams();
     const navigate = useNavigate()
@@ -202,29 +203,16 @@ const EditDocument = () => {
         }
     }
 
-    // 문서 동기화
-    const handleChange = (content, delta, source, editor) => {
-        console.log('===========source==============')
-        console.dir(source)
-        if(source != 'user') return;
-        console.log('===========delta==============')
-        console.dir(delta)
-        
-        console.log('===========editor==============')
-        console.dir(editor)
-        
-        
-      
-        axios.post(`http://localhost:4444/share-doc/pub/${params.docNo}`,{
-            delta : delta,
-            sid: sid
-        })
+    const initEditor = (editor) => {
+        setEditor(editor);
     }
-
     return (
         <div>
             {authUser && document && authUser.no == document.userNo ? <button className='btn-primary' onClick={deleteDoc}>삭제</button> : ''}
             <QuillEditor passEditor={initEditor} callBackOnChange={handleChange} initDocumentData={document}/>
+            {/* <QuillEditor passEditor={initEditor} callBackOnChange={handleChange}/> */}
+            {/* <ChatAddComponent */}
+            
             {/* <DocumentEditor initDocumentData={document} callBackOnChange={onChange}/> */}
         </div>
     );

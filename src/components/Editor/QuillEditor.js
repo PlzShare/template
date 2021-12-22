@@ -1,9 +1,11 @@
 import ReactQuill from 'react-quill'
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef} from 'react';
 import 'react-quill/dist/quill.snow.css'
 import '../../assets/scss/components/quilleditor.scss'
-import axios from 'axios';
-const QuillEditor = ({callBackOnChange, passEditor, initDocumentData}) => {
+
+const QuillEditor = (props) => {
+    const {callBackOnChange, passEditor, initDocumentData} = props;
+    console.dir(props)
     const refQuill = useRef(null)
 
     const modules = {
@@ -26,7 +28,8 @@ const QuillEditor = ({callBackOnChange, passEditor, initDocumentData}) => {
 
     useEffect(() => {
         window.qe = refQuill.current.getEditor()
-        passEditor(refQuill.current.getEditor())
+        if(passEditor)
+            passEditor(refQuill.current.getEditor())
     }, [])
 
     return (

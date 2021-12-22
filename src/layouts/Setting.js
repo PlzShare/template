@@ -50,14 +50,17 @@ const Setting = () => {
       name: wnameInput.current.value
     })
     console.log(wnameInput.current.value)
+
     changeAdmin();
   }
 
   const changeAdmin = async () => {
-    const response = await axios.put(`/workspaces/workspace-users/change-role`, {
-      userNo: selectdata.userNo,
-      workspaceNo: params.wno
-    })
+    if(selectdata && selectdata.userNo){
+      const response = await axios.put(`/workspaces/workspace-users/change-role`, {
+        userNo: selectdata.userNo,
+        workspaceNo: params.wno
+      })
+    }
   }
   
   const DeleteWorkspace = async () => {
