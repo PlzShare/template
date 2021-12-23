@@ -9,7 +9,7 @@ import './ConversationList.css';
 import UserContext from '../../utilities/ContextProviders/UserContext';
 import { WorkSpaceContext } from '../../../layouts/DashboardLayout';
 import { useParams } from 'react-router';
-import luffy from '../../../assets/images/luffy.jpg';
+import luffy from '../../../assets/images/profile.jpg';
 
 export default function ConversationList(props) {
   const {callBackOnClickListItem, callBackCollapseConversationList} = props 
