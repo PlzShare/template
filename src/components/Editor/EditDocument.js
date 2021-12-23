@@ -8,6 +8,9 @@ import { v4 as uuidv4 } from 'uuid';
 import QuillEditor from './QuillEditor';
 import Delta from 'quill-delta';
 import IPContext from '../utilities/ContextProviders/IPContext';
+import './nametag.scss'
+import MemberList from './MemberList';
+
 const EditDocument = () => {
     const params = useParams();
     const navigate = useNavigate()
@@ -16,7 +19,7 @@ const EditDocument = () => {
     const [editor, setEditor] = useState(null)
     const [document, setDocument] = useState(null)
     const [sid, setSid] = useState(uuidv4());
-
+    
     const [deltaNotSent] = useState([])
     const [deltaNotACKed] = useState([null])
     const [isACKed] = useState([true])
@@ -24,6 +27,8 @@ const EditDocument = () => {
 
     const [transformedChange] = useState([])
     const {docServer} = useContext(IPContext);
+
+    
     window.Delta = Delta
     const fetchDocument = async () => {
         const url = `/workspaces/${params.wno}/channels/${params.cno}/documents/${params.docNo}`
@@ -54,7 +59,7 @@ const EditDocument = () => {
 
         baseVersion[0] = history.data[history.data.length - 1].version
     }
-
+   
 
     const connectWebsocket = () => {
         const client = new StompJs.Client({
@@ -74,6 +79,7 @@ const EditDocument = () => {
                 },{
                     'token' :'token'
                 });
+                
             },
             onStompError: (frame) => {
                 console.error(frame);
@@ -151,24 +157,23 @@ const EditDocument = () => {
     }
 
     // remote change를 local에 반영
-    const updateDocument = (remoteChange) => {
+    const updateDocument = () => {
         const editor = window.qe;
         
         baseVersion[0] = transformedChange[transformedChange.length - 1].version;
-        
-        console.dir(transformedChange)
+      
         //transform된 change 적용
         //단, deltaNotSent에 있는 delta들을 고려하여 change를 적용해야 함
         transformedChange.forEach((change) => {
             if(change.sid == sid) return;
             
+            let incomingCursor = 0;
             if(deltaNotSent.length == 0 && deltaNotACKed[0] == null){
                 editor.updateContents(change.delta)
-                
+                showNameTag(incomingCursor, change);
                 return;
             }
             
-            let incomingCursor = 0;
             let retainOP
 
             if(!(Object.keys(change.delta.ops[0]).length == 1
@@ -207,17 +212,30 @@ const EditDocument = () => {
                 return incomingOP
             })
 
+            
             if(retainOP){
                 editor.updateContents([retainOP,...transformedOPs])
             }else{
                 editor.updateContents(transformedOPs)
+            
             }
+            showNameTag(incomingCursor, change);
         })
         
         
         transformedChange.splice(0)
         isACKed[0] = true;
         deltaNotACKed[0] = null;
+    }
+    const showNameTag = (incomingCursor, change) => {
+        
+        const pos = window.qe.getBounds(incomingCursor, 0)
+        const name = change.nickname
+        
+        console.dir(pos)
+        console.log(name)
+       
+
     }
 
     const publish = () => {
@@ -283,11 +301,18 @@ const EditDocument = () => {
         setEditor(editor);
     }
 
+    
+
     return (
         <div>
-            {authUser && document && authUser.no == document.userNo ? <button className='btn-primary' onClick={deleteDoc}>삭제</button> : ''}
-            <QuillEditor passEditor={initEditor} callBackOnChange={handleChange} initDocumentData={document}>
-            </QuillEditor>
+            <div style={{display:'flex'}}>
+                {authUser && document && authUser.no == document.userNo ? <button style={{height:'40px'}} className='btn-primary' onClick={deleteDoc}>삭제</button> : ''}
+                <MemberList sid={sid}/>
+            </div>
+            <QuillEditor
+                passEditor={initEditor} 
+                callBackOnChange={handleChange} 
+                initDocumentData={document}/>
         </div>
     );
 };
