@@ -7,9 +7,6 @@ import * as SockJS from "sockjs-client";
 import { v4 as uuidv4 } from 'uuid';
 import QuillEditor from './QuillEditor';
 import Delta from 'quill-delta';
-import { Stomp } from '@stomp/stompjs';
-import { transform } from '@babel/core';
-import DocumentEditor from './DocumentEditor';
 const EditDocument = () => {
     const params = useParams();
     const navigate = useNavigate()
@@ -20,12 +17,13 @@ const EditDocument = () => {
     const [sid, setSid] = useState(uuidv4());
 
     const [deltaNotSent] = useState([])
-    const [deltaNotACKed] = useState([])
+    const [deltaNotACKed] = useState([null])
     const [isACKed] = useState([true])
     const [baseVersion] = useState([])
 
     const [transformedChange] = useState([])
 
+    window.Delta = Delta
     const fetchDocument = async () => {
         const url = `/workspaces/${params.wno}/channels/${params.cno}/documents/${params.docNo}`
         const response = await axios.get(url)
@@ -39,14 +37,18 @@ const EditDocument = () => {
     const fetchHistory = async () => {
         const history = await axios.get(`http://localhost:4444/share-doc/history/${params.docNo}`)
         
-        if(!history.data) return;
+        if(!history.data || history.data.length == 0) return;
         
+        console.dir(history)
+        // history.data.forEach((changeItem) => {
+        //     changeItem.deltas.forEach((delta) => {
+        //         console.dir(new Delta())
+        //         console.dir(delta)
+        //         editor.updateContents(delta)
+        //     })
+        // })
         history.data.forEach((changeItem) => {
-            changeItem.deltas.forEach((delta) => {
-                console.dir(new Delta())
-                console.dir(delta)
-                editor.updateContents(delta)
-            })
+            editor.updateContents(changeItem.delta)
         })
 
         baseVersion[0] = history.data[history.data.length - 1].version
@@ -92,7 +94,7 @@ const EditDocument = () => {
         if(source != 'user') return;
         
         // push my delta for undo
-        deltaNotSent.push(delta)
+        deltaNotSent.push({delta, baseVersion : baseVersion[0]})
     }
 
 
@@ -108,64 +110,137 @@ const EditDocument = () => {
 
         updateDocument(remoteChange)
     }
+    
+    const getTransformedOffset = (incomingCursor, incomingSid) => {
+        let localCursor = 0
+        let offset = 0;
+        let len;
+
+        let deltas = []
+        if(deltaNotACKed[0] != null){
+            deltas.push(deltaNotACKed[0])
+        }
+        if(deltaNotSent.length > 0){
+            deltas.push(...deltaNotSent.map(d => d.delta))
+        }
+        const localOPs = deltas
+                            .reduce((composed, curDelta) => composed.compose(curDelta))
+                            .ops
+
+        for(let localOP of localOPs){
+            if(localCursor > incomingCursor) break;
+            if(localCursor == incomingCursor && incomingSid < sid) break;
+
+            if(localOP.retain) localCursor += localOP.retain
+            if(localOP.insert){
+                if(typeof localOP.insert == 'string'){
+                    len = localOP.insert.length
+                }else{
+                    len = 1
+                }
+                offset += len;
+                localCursor += len;
+            }
+
+            if(localOP.delete){
+                offset -= localOP.delete
+            }
+        }
+        return offset
+    }
 
     // remote change를 local에 반영
     const updateDocument = (remoteChange) => {
-        //local에 쌓아뒀던 Not ACKed delta를 undo
-        if(deltaNotACKed.length > 0){
-            let composedDelta = deltaNotACKed.reduce((composed, curDelta) => composed.compose(curDelta))
-            console.dir(composedDelta)
-            editor.updateContents(new Delta(composedDelta).invert(editor.getContents()))
-        }
-                
+        const editor = window.qe;
+        
+        baseVersion[0] = transformedChange[transformedChange.length - 1].version;
+        
+        console.dir(transformedChange)
         //transform된 change 적용
-        transformedChange.forEach((changeItem) => {
-            changeItem.deltas.forEach((delta) => {
-                console.dir(delta)
-                editor.updateContents(delta)
-            })
+        //단, deltaNotSent에 있는 delta들을 고려하여 change를 적용해야 함
+        transformedChange.forEach((change) => {
+            if(change.sid == sid) return;
+            
+            if(deltaNotSent.length == 0 && deltaNotACKed[0] == null){
+                editor.updateContents(change.delta)
+                
+                return;
+            }
+            
+            let incomingCursor = 0;
+            let retainOP
 
-            if(changeItem.sid == sid){
-                //커서 이동
-                const lastDelta = changeItem.deltas[changeItem.deltas.length - 1]
-                if(lastDelta.ops[1] && lastDelta.ops[1].insert){ 
-                    if(typeof lastDelta.ops[1].insert == 'string'){
-                        editor.setSelection(lastDelta.ops[0].retain  + lastDelta.ops[1].insert.length)
-                    }else{
-                        editor.setSelection(lastDelta.ops[0].retain  + 1)
-                    }
+            if(!(Object.keys(change.delta.ops[0]).length == 1
+                && change.delta.ops[0].retain)){
+                  const offset = getTransformedOffset(incomingCursor, change.sid)
+                    
+                if(offset != 0){
+                    retainOP = {retain: offset}
+                    incomingCursor += offset;
                 }
             }
-        }) 
 
-        //baseVersion 변경 및 버퍼 flush
-        baseVersion[0] = transformedChange[transformedChange.length - 1].version;
-        deltaNotACKed.splice(0)
+            const transformedOPs = change.delta.ops.map((incomingOP) => {
+                if(incomingOP.retain) incomingCursor += incomingOP.retain
+                
+                let len
+                if(incomingOP.insert){
+                    if(typeof incomingOP.insert == 'string'){
+                        len = incomingOP.insert.length
+                    }else {
+                        len = 1
+                    }
+                    incomingCursor += len
+                }
+
+                if(!(Object.keys(incomingOP).length == 1 && incomingOP.retain)) return incomingOP;
+
+                console.log('before transforemd...' , incomingOP)
+                let offset = getTransformedOffset(incomingCursor, change.sid)
+                if(offset != 0){
+                    incomingCursor += offset
+                    incomingOP.retain += offset 
+                }
+                console.log('transformed incoming OP... ', incomingOP)
+
+                return incomingOP
+            })
+
+            if(retainOP){
+                editor.updateContents([retainOP,...transformedOPs])
+            }else{
+                editor.updateContents(transformedOPs)
+            }
+        })
+        
+        
         transformedChange.splice(0)
-
         isACKed[0] = true;
+        deltaNotACKed[0] = null;
     }
 
-
+    
     const publish = () => {
         if(deltaNotSent.length == 0) return;
         
         // pub을 보낸 후, 서버로 부터 ACK를 받지 않았으면
         if(!isACKed[0]) return;
-
         isACKed[0] = false;
-        // move
-        deltaNotACKed.push(...deltaNotSent.splice(0))
-        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!=', deltaNotACKed)   
+        
+        const bv = deltaNotSent[0].baseVersion
+        let i = 0
+        for(i = 0; i < deltaNotSent.length; i++){
+            if(deltaNotSent[i].baseVersion != bv) break;
+        }
 
+        const composedDelta = deltaNotSent.splice(0, i).map(d => d.delta).reduce((composed, curDelta) => composed.compose(curDelta))
+        deltaNotACKed[0] = composedDelta
         axios.post(`http://localhost:4444/share-doc/pub/${params.docNo}`,{
-            deltas : deltaNotACKed,
+            delta : composedDelta,
             sid: sid,
-            baseVersion: baseVersion[0]
+            baseVersion: bv
         })
     }
-
-
 
 //////////////////////////////////////////////////////////////////////////////
     useEffect(() => {
@@ -193,6 +268,7 @@ const EditDocument = () => {
             publish()
         }
     },[])
+
     // 문서 삭제
     const deleteDoc = async () => {
         const deleteConfirmed = window.confirm('정말로 삭제하시겠습니까')
@@ -206,14 +282,12 @@ const EditDocument = () => {
     const initEditor = (editor) => {
         setEditor(editor);
     }
+
     return (
         <div>
             {authUser && document && authUser.no == document.userNo ? <button className='btn-primary' onClick={deleteDoc}>삭제</button> : ''}
-            <QuillEditor passEditor={initEditor} callBackOnChange={handleChange} initDocumentData={document}/>
-            {/* <QuillEditor passEditor={initEditor} callBackOnChange={handleChange}/> */}
-            {/* <ChatAddComponent */}
-            
-            {/* <DocumentEditor initDocumentData={document} callBackOnChange={onChange}/> */}
+            <QuillEditor passEditor={initEditor} callBackOnChange={handleChange} initDocumentData={document}>
+            </QuillEditor>
         </div>
     );
 };

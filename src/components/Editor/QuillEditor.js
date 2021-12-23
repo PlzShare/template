@@ -28,6 +28,7 @@ const QuillEditor = (props) => {
 
     useEffect(() => {
         window.qe = refQuill.current.getEditor()
+        
         if(passEditor)
             passEditor(refQuill.current.getEditor())
     }, [])
