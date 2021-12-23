@@ -11,7 +11,7 @@ export const UserContextProvider = ({children}) => {
     const [token, setToken] = useState();
     const navigate = useNavigate()
     const location = useLocation()
-    
+    const [roomNumber, setRoomNumber] = useState(null);
     const [noti, setNoti] = useState(null);
     const [stompClient, setStompClient] = useState({})
 
@@ -110,7 +110,7 @@ export const UserContextProvider = ({children}) => {
     }, [authUser])
 
     return (
-        <UserContext.Provider value={{authUser, storeToken, noti, setNoti, token}}>
+        <UserContext.Provider value={{authUser, storeToken, noti, setNoti, token, setRoomNumber, roomNumber}}>
             {children}
         </UserContext.Provider>
     );
