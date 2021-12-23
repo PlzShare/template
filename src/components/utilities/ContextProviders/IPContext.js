@@ -7,8 +7,8 @@ export const IPContextProvider = ({children}) => {
     // const [chatServer] = useState('http://localhost:8081');
     // const [docServer] = useState('http://localhost:4444/share-doc');
 
-    const [notiServer] = useState('http://34.64.213.19:8888');
-    const [chatServer] = useState('http://34.64.213.19:8081');
+    const [notiServer] = useState('http://34.64.107.41:8888');
+    const [chatServer] = useState('http://34.64.107.41:8081');
     const [docServer] = useState('http://34.64.213.19:9999/share-doc');
     
     return (
