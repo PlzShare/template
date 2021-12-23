@@ -15,7 +15,7 @@ export const UserContextProvider = ({children}) => {
     const [noti, setNoti] = useState(null);
     const [stompClient, setStompClient] = useState({})
 
-
+    console.log(noti)
     const fetchAuthUser = async () => {
         // loginUser 정보 가져오기
         // axios.get

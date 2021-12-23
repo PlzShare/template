@@ -21,8 +21,7 @@ const ChatAddComponent = ({callBackToggle, isOpen}) => {
     useEffect(() => {
         fetchList();
     }, []);
-    
-    // console.dir(userList)
+
     const fetchList = async () => {
         const response = await axios.get(`/workspaces/workspace-users?wno=${params.wno}&uno=${params.uno}`)
         response.data.data.forEach(e => {e['label'] = e.userid; e['value'] = e.userid})

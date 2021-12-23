@@ -34,6 +34,7 @@ export default function MessageList(props) {
   // 정대겸 : 커넥트
   const client = useRef({});
 
+  console.log(chatRoomInfo)
   console.log("받아온 방번호 : " + chatRoomInfo.roomNo)
   console.log("받아온 방이름 : " + chatRoomInfo.name)
 
@@ -91,7 +92,6 @@ export default function MessageList(props) {
         return [...prev, broadCastingMessage]
       }, console.log(broadCastingMessage));
       ////////////////////////////////////////
-      
     });
   };
 
@@ -107,7 +107,7 @@ export default function MessageList(props) {
         userNo: mySendMessage.userNo,
         userName: mySendMessage.userName,
         contents: mySendMessage.message,
-        chatroomNo: mySendMessage.chatroomNo,
+        chatroomNo: mySendMessage.chatroomNo
       }),
     });
   };
