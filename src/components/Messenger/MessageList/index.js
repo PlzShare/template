@@ -16,6 +16,7 @@ import ChatExit from '../../SidebarNav/components/ChatExit';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col} from 'reactstrap';
 import './MessageList.css';
 import { useNavigate } from 'react-router';
+import IPContext from '../../utilities/ContextProviders/IPContext';
 
 
 export default function MessageList(props) {
@@ -29,6 +30,7 @@ export default function MessageList(props) {
   const params = useParams()
   const {authUser} = useContext(UserContext);
 
+  const {chatServer} = useContext(IPContext)
   const navigate = useNavigate()
 
   // 정대겸 : 커넥트
@@ -46,7 +48,7 @@ export default function MessageList(props) {
 
   const connect = () => {
     client.current = new StompJs.Client({
-      webSocketFactory: () => new SockJS('http://localhost:8081/stomp/chat'), 
+      webSocketFactory: () => new SockJS(`${chatServer}/stomp/chat`), 
       // connectHeaders: {
       //   "auth-token": "spring-chat-auth-token", 
       // },

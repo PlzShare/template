@@ -17,6 +17,8 @@ import routes from './router'
 import Noti from './components/Messenger/Noti'
 import Setting from './layouts/Setting';
 import WorkspaceAdd from './layouts/WorkspaceAdd';
+import {IPContextProvider} from './components/utilities/ContextProviders/IPContext';
+
 
 export default function App() {
   axios.defaults.baseURL = '/api'
@@ -27,6 +29,7 @@ export default function App() {
   console.log('=================================================')
   return (
     <Router>
+      <IPContextProvider>
         <UserContextProvider>
           <Routes>
               <Route path='/login' element={<Login />}/>
@@ -48,6 +51,7 @@ export default function App() {
           </Routes>
           <Noti />
         </UserContextProvider>
+      </IPContextProvider>
     </Router>
   );
 }

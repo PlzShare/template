@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import * as StompJs from "@stomp/stompjs";
 import * as SockJS from "sockjs-client";
+import IPContext from './IPContext';
 
 const UserContext = createContext();
 
@@ -14,7 +15,7 @@ export const UserContextProvider = ({children}) => {
     
     const [noti, setNoti] = useState(null);
     const [stompClient, setStompClient] = useState({})
-
+    const {chatServer} = useContext(IPContext)
 
     const fetchAuthUser = async () => {
         // loginUser 정보 가져오기
@@ -54,7 +55,7 @@ export const UserContextProvider = ({children}) => {
     console.log(noti, "Dfdfasdfasdf")
     const connect = () => {
         stompClient.noti = new StompJs.Client({
-            webSocketFactory: () => new SockJS("http://localhost:8888/websocket"),
+            webSocketFactory: () => new SockJS(`${chatServer}/websocket`),
             debug: function (str) {
                 console.log(str);
             },
