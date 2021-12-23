@@ -15,7 +15,7 @@ export const UserContextProvider = ({children}) => {
     
     const [noti, setNoti] = useState(null);
     const [stompClient, setStompClient] = useState({})
-    const {chatServer} = useContext(IPContext)
+    const {notiServer} = useContext(IPContext)
 
     const fetchAuthUser = async () => {
         // loginUser 정보 가져오기
@@ -55,7 +55,7 @@ export const UserContextProvider = ({children}) => {
     console.log(noti, "Dfdfasdfasdf")
     const connect = () => {
         stompClient.noti = new StompJs.Client({
-            webSocketFactory: () => new SockJS(`${chatServer}/websocket`),
+            webSocketFactory: () => new SockJS(`${notiServer}/websocket`),
             debug: function (str) {
                 console.log(str);
             },
