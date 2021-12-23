@@ -240,14 +240,14 @@ export function HeaderNav() {
 
   return (
     <React.Fragment>
-        <NavItem>
+        {/* <NavItem>
           <form className="form-inline">
             <input className="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search" />
             <Button type="submit" className="d-none d-sm-block">
               <i className="fa fa-search" />
             </Button>
           </form>
-        </NavItem>
+        </NavItem> */}
 
       <UncontrolledDropdown nav inNavbar>
           <div className='profilebox'>
