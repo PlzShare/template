@@ -69,7 +69,6 @@ export const UserContextProvider = ({children}) => {
                     console.dir(JSON.parse(body))
                     setNoti(JSON.parse(body));
                 });
-                
             },
             onStompError: (frame) => {
                 console.error(frame);
