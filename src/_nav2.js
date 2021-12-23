@@ -24,10 +24,10 @@ export default {
           name: '새로운 채널',
           url: '/newChannels',
         },
-        {
-          name: '새로운 채팅',
-          url: '/newChatrooms',
-        },
+        // {
+        //   name: '새로운 채팅',
+        //   url: '/newChatrooms',
+        // },
       ]
     },
   ],

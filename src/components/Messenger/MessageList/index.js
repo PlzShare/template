@@ -25,22 +25,27 @@ export default function MessageList(props) {
   const [exitmodals, setExitModals] = useState(false);
   const [userList,setUserList] = useState([]);
   const [selectdata, setSelectData] = useState([]);
+  const [chatUserList, setChatUserList] = useState([]);
   const animatedComponents = makeAnimated();
   const params = useParams()
-  const {authUser} = useContext(UserContext);
+  const {authUser, setRoomNumber} = useContext(UserContext);
 
   const navigate = useNavigate()
+
 
   // 정대겸 : 커넥트
   const client = useRef({});
 
   console.log("받아온 방번호 : " + chatRoomInfo.roomNo)
   console.log("받아온 방이름 : " + chatRoomInfo.name)
+  
+  setRoomNumber(chatRoomInfo.roomNo);
 
   useEffect(() => {
     connect();
     getMessages(chatRoomInfo.roomNo);
     fetchList();
+    getMemberList();
     return () => disconnect();
   }, []);
 
@@ -108,6 +113,7 @@ export default function MessageList(props) {
         userName: mySendMessage.userName,
         contents: mySendMessage.message,
         chatroomNo: mySendMessage.chatroomNo,
+        chatroomUsers : chatUserList
       }),
     });
   };
@@ -151,7 +157,7 @@ export default function MessageList(props) {
   const callbackMessage = {
     add: function(mySendMessage) {
         mySendMessage.userNo = authUser.no; // 유저 고유번호
-        mySendMessage.userName = authUser.name // 유저 이름
+        mySendMessage.userName = authUser.nickname // 유저 이름
         mySendMessage.chatroomNo = chatRoomInfo.roomNo // 방 고유번호
         publish(mySendMessage) // 보냄
         console.log(mySendMessage);
@@ -171,6 +177,14 @@ export default function MessageList(props) {
 
      setMessages([...messages, ...tempMessages])
  }
+
+  const getMemberList = async () => {
+    const response = await axios.get(`/workspaces/${params.wno}/chat/noti/${chatRoomInfo.roomNo}`);
+    
+    setChatUserList([...response.data.data])
+    console.log("========================ㅎㅇ=====================")
+
+  }
   
   const renderMessages = () => {
     let i = 0;
