@@ -51,7 +51,9 @@ const NewChannels = () => {
             onMouseEnter={() => setIsShow(true)}
             onMouseLeave={() => setIsShow(false)}>
           <div className="profile_img">
-            사진 <img src="" />
+            <span style={{
+              backgroundImage: `url(${e.profile})`
+            }} />
           </div>
           <h2>{e.contents}</h2>
           {isShow && (
