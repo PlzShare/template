@@ -29,10 +29,11 @@ export default function App() {
 
   // const [notiServer] = useState('http://localhost:8888');
   // const [chatServer] = useState('http://localhost:8081');
-  // const [docServer] = useState('http://localhost:4444/share-doc');
+  const [docServer] = useState('http://localhost:4444/share-doc');
+  
   const [notiServer] = useState('http://34.64.107.41:8888');
   const [chatServer] = useState('http://34.64.107.41:8081');
-  const [docServer] = useState('http://34.64.213.19:9999/share-doc');
+  // const [docServer] = useState('http://34.64.213.19:9999/share-doc');
   
   const [authUser,setAuthUser] = useState({})
   const [token,setToken] = useState()

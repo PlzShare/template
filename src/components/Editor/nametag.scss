@@ -43,9 +43,93 @@
     background: #24b2c9;
   }
 }
-
+.darkcyan{
+  &:before {
+    background: darkcyan;
+  }
+}
+.blueviolet{
+  &:before {
+    background: blueviolet;
+  }
+}
+.coral{
+  &:before {
+    background: coral;
+  }
+}
+.cornflowerblue{
+  &:before {
+    background: cornflowerblue;
+  }
+}
+.crimson{
+  &:before {
+    background: crimson;
+  }
+}
+.darkgray{
+  &:before {
+    background: darkgray;
+  }
+}
+.darkgreen{
+  &:before {
+    background: darkgreen;
+  }
+}
+.darkkhaki{
+  &:before {
+    background: darkkhaki;
+  }
+}
+.darkolivegreen{
+  &:before {
+    background: darkolivegreen;
+  }
+}
+.darksalmon{
+  &:before {
+    background: darksalmon;
+  }
+}
+.darkseagreen{
+  &:before {
+    background: darkseagreen;
+  }
+}
+.dimgrey{
+  &:before {
+    background: dimgrey;
+  }
+}
+.indianred{
+  &:before {
+    background: indianred;
+  }
+}
+.indigo{
+  &:before {
+    background: indigo;
+  }
+}
+.lightblue{
+  &:before {
+    background: lightblue;
+  }
+}
+.lightcoral{
+  &:before {
+    background: lightcoral;
+  }
+}
+.lightseagreen{
+  &:before {
+    background: lightseagreen;
+  }
+}
 .disqus-comment-count {
-    position: absolute;
+  position: absolute;
     z-index: 100;
     display: inline-block;
     padding: 0.3em 0.5em;
