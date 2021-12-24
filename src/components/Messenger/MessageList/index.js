@@ -16,10 +16,10 @@ import ChatExit from '../../SidebarNav/components/ChatExit';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col} from 'reactstrap';
 import './MessageList.css';
 import { useNavigate } from 'react-router';
-import IPContext from '../../utilities/ContextProviders/IPContext';
-
+import {IPContext} from '../../../App'
 
 export default function MessageList(props) {
+  
   const {callBackOnClickExit, chatRoomInfo} = props
   const [messages, setMessages] = useState([])
   const [modals, setModals] = useState(false);

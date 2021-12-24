@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
-import IPContext from '../utilities/ContextProviders/IPContext';
 import UserContext from '../utilities/ContextProviders/UserContext';
 import axios from 'axios'
 import { useParams } from 'react-router';
 import * as StompJs from "@stomp/stompjs";
 import * as SockJS from "sockjs-client";
 import './nametag.scss'
+import { IPContext } from '../../App';
 const MemberList = ({sid, memberColors,setMemberColorWithoutRender}) => {
     const {docServer} = useContext(IPContext)
     const {authUser, token} = useContext(UserContext)
     const [members, setMembers] = useState([]);
     const [nameTags, setNameTags] = useState([]);
-
+    
     const params = useParams()
 
     const backgroundColors = ['yellowgreen', 'cadetblue', 'burlywood', '#935e38',

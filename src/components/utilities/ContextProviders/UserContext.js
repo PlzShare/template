@@ -3,14 +3,16 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import * as StompJs from "@stomp/stompjs";
 import * as SockJS from "sockjs-client";
-import IPContext from './IPContext';
+import { IPContext } from '../../../App';
+
 
 const UserContext = createContext();
 
-export const UserContextProvider = ({children}) => {
+export const UserContextProvider = ({children, callbackAuthUser, callbackToken}) => {
     const [authUser, setAuthUser] = useState({});
     const [token, setToken] = useState();
     const navigate = useNavigate()
+
     const location = useLocation()
     const [roomNumber, setRoomNumber] = useState(null);
     const [noti, setNoti] = useState(null);
@@ -47,6 +49,8 @@ export const UserContextProvider = ({children}) => {
         } 
         setToken(token)
         setAuthUser(userInfo)
+        callbackAuthUser(userInfo)
+        callbackToken(token)
     }
 
     /**

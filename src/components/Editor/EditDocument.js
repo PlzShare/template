@@ -7,14 +7,14 @@ import * as SockJS from "sockjs-client";
 import { v4 as uuidv4 } from 'uuid';
 import QuillEditor from './QuillEditor';
 import Delta from 'quill-delta';
-import IPContext from '../utilities/ContextProviders/IPContext';
+
 import './nametag.scss'
 import MemberList from './MemberList';
+import { IPContext } from '../../App';
 
-const EditDocument = () => {
+const EditDocument = ({authUser, token, docServer}) => {
     const params = useParams();
     const navigate = useNavigate()
-    const {authUser, token} = useContext(UserContext)
     
     const [editor, setEditor] = useState(null)
     const [document, setDocument] = useState(null)
@@ -24,13 +24,14 @@ const EditDocument = () => {
     const [deltaNotACKed] = useState([null])
     const [isACKed] = useState([true])
     const [baseVersion] = useState([])
-    
     const [transformedChange] = useState([])
-    const {docServer} = useContext(IPContext);
-    
     const [memberColors] = useState({})
-
     const editorContainer = useRef(null); 
+    
+    // const {authUser, token} = useContext(UserContext)
+    // const {docServer} = useContext(IPContext);
+    
+
     
     window.Delta = Delta
     const fetchDocument = async () => {
@@ -301,12 +302,12 @@ const EditDocument = () => {
     useEffect(() => {
         if(document && editor){
             fetchHistory()
-            window.document.getElementsByClassName('ql-container')[0].addEventListener('scroll', () => {
+            window.document.getElementsByClassName('ql-container')[0].onscroll = () => {
                 const tags = window.document.getElementsByClassName('disqus-comment-count')
                 for(let tag of tags){
                     tag.parentElement.removeChild(tag)
                 }
-            })
+            }
         }
         
     }, [document, editor])
@@ -357,4 +358,4 @@ const EditDocument = () => {
         </div>
     );
 };
-export default EditDocument;
+export default React.memo(EditDocument);
