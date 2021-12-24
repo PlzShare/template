@@ -1,3 +1,49 @@
+.yellowgreen{
+  &:before {
+    background: yellowgreen;
+  }
+}
+.cadetblue{
+  &:before {
+    background: cadetblue;
+  }
+}
+.burlywood{
+  &:before {
+    background: burlywood;
+  }
+}
+.\#935e38{
+  &:before {
+    background: #935e38;
+  }
+}
+.\#f5838e{
+  &:before {
+    background: #f5838e;
+  }
+}
+.\#8eb9e7{
+  &:before {
+    background: #8eb9e7;
+  }
+}
+.\#1c4673{
+  &:before {
+    background: #1c4673;
+  }
+}
+.\#e7b419{
+  &:before {
+    background: #e7b419;
+  }
+}
+.\#24b2c9{
+  &:before {
+    background: #24b2c9;
+  }
+}
+
 .disqus-comment-count {
     position: absolute;
     z-index: 100;
@@ -24,7 +70,7 @@
       width: 200%;
       height: 200%;
       border-radius: 0.2em;
-      background: #28f;
+      // background: red;
     }
     
     &:after {

@@ -5,16 +5,22 @@ import axios from 'axios'
 import { useParams } from 'react-router';
 import * as StompJs from "@stomp/stompjs";
 import * as SockJS from "sockjs-client";
-const MemberList = ({sid}) => {
+import './nametag.scss'
+const MemberList = ({sid, memberColors,setMemberColorWithoutRender}) => {
     const {docServer} = useContext(IPContext)
     const {authUser, token} = useContext(UserContext)
     const [members, setMembers] = useState([]);
+    const [nameTags, setNameTags] = useState([]);
+
     const params = useParams()
-    const backgroundColors = ['yellow', 'limegreen', 'lightgrey', 'skyblue','lightseagreen', 'pupple', 'hotpink','coral','crimson']
-    const onMemberJoin = (body) => {
+
+    const backgroundColors = ['yellowgreen', 'cadetblue', 'burlywood', '#935e38',
+    '#f5838e', '#8eb9e7', '#1c4673','#e7b419','#24b2c9']
+    
+    const onMemberJoin = (user) => {
         updateMemberList()
     }
-    const onMemberLeave = (body) => {
+    const onMemberLeave = (user) => {
         updateMemberList()
     }
 
@@ -42,7 +48,6 @@ const MemberList = ({sid}) => {
                 })
                 await axios.post(`${docServer}/join/${params.docNo}?sid=${sid}`)
                 updateMemberList()
-                
             },
             onStompError: (frame) => {
                 console.error(frame);
@@ -54,8 +59,26 @@ const MemberList = ({sid}) => {
 
     const updateMemberList = async () => {
         const response = await axios.get(`${docServer}/members/${params.docNo}`)
-        console.dir(response.data)
-        setMembers(response.data)
+        
+        setMembers((prev) => {
+            const updatedList = response.data.map((updatedMem) => {
+                let cache = prev.find((m) => m.no == updatedMem.no)
+
+                if(cache){
+                    updatedMem.color = cache.color
+                }
+                return updatedMem
+            });
+
+            updatedList.forEach((mem) => {
+                if(!mem.color){
+                    mem.color = backgroundColors[Math.floor(Math.random() * backgroundColors.length)]
+                    setMemberColorWithoutRender(mem.no, mem.color)
+                }
+            })
+            
+            return updatedList
+        })
     }
 
     const notifyLeave = () => {
@@ -80,9 +103,9 @@ const MemberList = ({sid}) => {
             display:'flex',
             marginLeft:'auto'
         }}>
-            {members.map(mem => 
-                <div style={{  
-                    backgroundColor:backgroundColors[Math.floor(Math.random() * backgroundColors.length)],
+            {members.map(mem => {
+                return <div style={{  
+                    backgroundColor: mem.color,
                     width: '50px',
                     height: '50px',
                     borderRadius: '24px',
@@ -91,8 +114,10 @@ const MemberList = ({sid}) => {
                     lineHeight: '50px',
                     fontWeight: 'bold',
                     marginRight: '20px',
-                    border: 'solid 3px darkblue'
-                }}>{mem.nickname}</div>)}
+                    border: '1px solid #bfbebe',
+                    color: '#fff'
+                }}>{mem.nickname}</div>
+            })}
         </div>
     );
 };
