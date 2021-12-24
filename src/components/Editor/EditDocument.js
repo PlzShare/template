@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import UserContext from '../utilities/ContextProviders/UserContext';
 import * as StompJs from "@stomp/stompjs";
@@ -24,10 +24,13 @@ const EditDocument = () => {
     const [deltaNotACKed] = useState([null])
     const [isACKed] = useState([true])
     const [baseVersion] = useState([])
-
+    
     const [transformedChange] = useState([])
     const {docServer} = useContext(IPContext);
+    
+    const [memberColors] = useState({})
 
+    const editorContainer = useRef(null); 
     
     window.Delta = Delta
     const fetchDocument = async () => {
@@ -119,6 +122,10 @@ const EditDocument = () => {
     }
     
     const getTransformedOffset = (incomingCursor, incomingSid) => {
+        if(deltaNotSent.length == 0 && deltaNotACKed[0] == null){
+            return 0;
+        }
+
         let localCursor = 0
         let offset = 0;
         let len;
@@ -164,15 +171,18 @@ const EditDocument = () => {
       
         //transform된 change 적용
         //단, deltaNotSent에 있는 delta들을 고려하여 change를 적용해야 함
+        let finalCursorPos = 0
+        let finalChange;
         transformedChange.forEach((change) => {
             if(change.sid == sid) return;
             
+            finalChange = change;
             let incomingCursor = 0;
-            if(deltaNotSent.length == 0 && deltaNotACKed[0] == null){
-                editor.updateContents(change.delta)
-                showNameTag(incomingCursor, change);
-                return;
-            }
+
+            // if(deltaNotSent.length == 0 && deltaNotACKed[0] == null){
+            //     editor.updateContents(change.delta)
+            //     return;
+            // }
             
             let retainOP
 
@@ -217,26 +227,44 @@ const EditDocument = () => {
                 editor.updateContents([retainOP,...transformedOPs])
             }else{
                 editor.updateContents(transformedOPs)
-            
             }
-            showNameTag(incomingCursor, change);
+            finalCursorPos += incomingCursor
         })
         
+        if(finalChange){
+            showNameTag(finalCursorPos, finalChange);
+        }
         
         transformedChange.splice(0)
         isACKed[0] = true;
         deltaNotACKed[0] = null;
     }
-    const showNameTag = (incomingCursor, change) => {
+    
+    const div = window.document.createElement('div');
+    const showNameTag = (incomingCursor, change) => {    
         
         const pos = window.qe.getBounds(incomingCursor, 0)
         const name = change.nickname
         
-        console.dir(pos)
-        console.log(name)
-       
+        const nameTag = window.document.getElementById(`${change.user}`)
+        nameTag && nameTag.parentElement.removeChild(nameTag)
+        
+        div.innerHTML =  `<span id='${change.user}' class='disqus-comment-count ${memberColors[change.user]}'
+                style='
+                    top: ${93 + pos.top - 10}px;
+                    left: ${pos.left}px;
+                    background-color: 'blue'
+                '>${name}</span>`
+            
+        editorContainer.current.prepend(div.firstElementChild)        
 
+
+        setTimeout(() => {
+            let nameTag = window.document.getElementById(`${change.user}`)
+            nameTag &&  editorContainer.current.removeChild(nameTag);
+        }, 3000)
     }
+    window.showNameTag = showNameTag
 
     const publish = () => {
         if(deltaNotSent.length == 0) return;
@@ -273,8 +301,14 @@ const EditDocument = () => {
     useEffect(() => {
         if(document && editor){
             fetchHistory()
+            window.document.getElementsByClassName('ql-container')[0].addEventListener('scroll', () => {
+                const tags = window.document.getElementsByClassName('disqus-comment-count')
+                for(let tag of tags){
+                    tag.parentElement.removeChild(tag)
+                }
+            })
         }
-
+        
     }, [document, editor])
     useEffect(() => {
         setInterval(() => {
@@ -301,18 +335,25 @@ const EditDocument = () => {
         setEditor(editor);
     }
 
+    const setMemberColorWithoutRender = (userNo, color) => {
+        memberColors[userNo] = color;
+    }
     
 
     return (
         <div>
-            <div style={{display:'flex'}}>
+            <div style={{display:'flex', position:'relative'}}>
                 {authUser && document && authUser.no == document.userNo ? <button style={{height:'40px'}} className='btn-primary' onClick={deleteDoc}>삭제</button> : ''}
-                <MemberList sid={sid}/>
+                <MemberList setMemberColorWithoutRender={setMemberColorWithoutRender} sid={sid}/>
             </div>
-            <QuillEditor
-                passEditor={initEditor} 
-                callBackOnChange={handleChange} 
-                initDocumentData={document}/>
+            <div ref={editorContainer}
+                style={{position:'relative'}}>
+                <QuillEditor
+                    memberColors={memberColors}
+                    passEditor={initEditor} 
+                    callBackOnChange={handleChange} 
+                    initDocumentData={document}/>
+            </div>
         </div>
     );
 };
