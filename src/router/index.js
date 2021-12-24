@@ -31,6 +31,7 @@ import EditDocument from '../components/Editor/EditDocument';
 import CreateDoument from '../components/Editor/CreateDocument';
 import DocumentEditor from '../components/Editor/DocumentEditor';
 import Channel from '../components/Channel/Channel';
+import React from 'react';
 // See React Router documentation for details: https://reacttraining.com/react-router/web/api/Route
 const pageList = [
   {
@@ -108,11 +109,11 @@ const pageList = [
         path: 'channel/:cno/create-document',
         component: CreateDoument
       },
-      {
-        name: 'edit-document',
-        path: 'channel/:cno/edit-document/:docNo',
-        component: EditDocument
-      },
+      // {
+      //   name: 'edit-document',
+      //   path: 'channel/:cno/edit-document/:docNo',
+      //   component: EditDocument
+      // },
       {
         name: 'test-document',
         path: 'test-document',
