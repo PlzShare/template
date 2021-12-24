@@ -16,6 +16,7 @@ import ChatExit from '../../SidebarNav/components/ChatExit';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col} from 'reactstrap';
 import './MessageList.css';
 import { useNavigate } from 'react-router';
+import IPContext from '../../utilities/ContextProviders/IPContext';
 
 
 export default function MessageList(props) {
@@ -25,11 +26,14 @@ export default function MessageList(props) {
   const [exitmodals, setExitModals] = useState(false);
   const [userList,setUserList] = useState([]);
   const [selectdata, setSelectData] = useState([]);
+  const [chatUserList, setChatUserList] = useState([]);
   const animatedComponents = makeAnimated();
   const params = useParams()
-  const {authUser} = useContext(UserContext);
+  const {authUser, setRoomNumber} = useContext(UserContext);
 
+  const {chatServer} = useContext(IPContext)
   const navigate = useNavigate()
+
 
   // 정대겸 : 커넥트
   const client = useRef({});
@@ -37,17 +41,20 @@ export default function MessageList(props) {
   console.log(chatRoomInfo)
   console.log("받아온 방번호 : " + chatRoomInfo.roomNo)
   console.log("받아온 방이름 : " + chatRoomInfo.name)
+  
+  setRoomNumber(chatRoomInfo.roomNo);
 
   useEffect(() => {
     connect();
     getMessages(chatRoomInfo.roomNo);
     fetchList();
+    getMemberList();
     return () => disconnect();
   }, []);
 
   const connect = () => {
     client.current = new StompJs.Client({
-      webSocketFactory: () => new SockJS('http://localhost:8081/stomp/chat'), 
+      webSocketFactory: () => new SockJS(`${chatServer}/stomp/chat`), 
       // connectHeaders: {
       //   "auth-token": "spring-chat-auth-token", 
       // },
@@ -107,7 +114,12 @@ export default function MessageList(props) {
         userNo: mySendMessage.userNo,
         userName: mySendMessage.userName,
         contents: mySendMessage.message,
+<<<<<<< HEAD
         chatroomNo: mySendMessage.chatroomNo
+=======
+        chatroomNo: mySendMessage.chatroomNo,
+        chatroomUsers : chatUserList
+>>>>>>> cf7cb033a210a1d69ccffd790e335fb30fff61d7
       }),
     });
   };
@@ -151,7 +163,7 @@ export default function MessageList(props) {
   const callbackMessage = {
     add: function(mySendMessage) {
         mySendMessage.userNo = authUser.no; // 유저 고유번호
-        mySendMessage.userName = authUser.name // 유저 이름
+        mySendMessage.userName = authUser.nickname // 유저 이름
         mySendMessage.chatroomNo = chatRoomInfo.roomNo // 방 고유번호
         publish(mySendMessage) // 보냄
         console.log(mySendMessage);
@@ -171,6 +183,14 @@ export default function MessageList(props) {
 
      setMessages([...messages, ...tempMessages])
  }
+
+  const getMemberList = async () => {
+    const response = await axios.get(`/workspaces/${params.wno}/chat/noti/${chatRoomInfo.roomNo}`);
+    
+    setChatUserList([...response.data.data])
+    console.log("========================ㅎㅇ=====================")
+
+  }
   
   const renderMessages = () => {
     let i = 0;

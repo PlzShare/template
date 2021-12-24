@@ -4,7 +4,7 @@ import 'react-quill/dist/quill.snow.css'
 import '../../assets/scss/components/quilleditor.scss'
 
 const QuillEditor = (props) => {
-    const {callBackOnChange, passEditor, initDocumentData} = props;
+    const {callBackOnChange, passEditor, initDocumentData, nameTags} = props;
     console.dir(props)
     const refQuill = useRef(null)
 
@@ -28,13 +28,14 @@ const QuillEditor = (props) => {
 
     useEffect(() => {
         window.qe = refQuill.current.getEditor()
+
         if(passEditor)
             passEditor(refQuill.current.getEditor())
     }, [])
 
     return (
-        <div>
-            <input id='document-title' type='text' placeholder='문서 제목' style={{width:'100%', fontWeight: 'bold', fontSize: '16px', height: '8vh' }}></input>
+        <div style={{position:'relative'}}>
+            <input id='document-title' type='text' placeholder='문서 제목' style={{width:'100%', fontWeight: 'bold', fontSize: '16px', height: '50px' }}></input>
             <ReactQuill
                 value={initDocumentData? initDocumentData.contents : ''}
                 style={{
@@ -44,7 +45,7 @@ const QuillEditor = (props) => {
                 formats={formats}
                 ref={refQuill}
                 onChange={callBackOnChange}
-                 />
+                />
         </div>
     );
 };

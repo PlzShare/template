@@ -6,7 +6,7 @@
   font-weight: 500;
   border-bottom: 1px solid #eeeef1;
 
-  position: sticky;
+  position: fixed;
   top: 0px;
 }
 

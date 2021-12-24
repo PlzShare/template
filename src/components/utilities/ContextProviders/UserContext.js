@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import * as StompJs from "@stomp/stompjs";
 import * as SockJS from "sockjs-client";
+import IPContext from './IPContext';
 
 const UserContext = createContext();
 
@@ -11,11 +12,16 @@ export const UserContextProvider = ({children}) => {
     const [token, setToken] = useState();
     const navigate = useNavigate()
     const location = useLocation()
-    
+    const [roomNumber, setRoomNumber] = useState(null);
     const [noti, setNoti] = useState(null);
     const [stompClient, setStompClient] = useState({})
+<<<<<<< HEAD
 
     console.log(noti)
+=======
+    const {notiServer} = useContext(IPContext)
+
+>>>>>>> cf7cb033a210a1d69ccffd790e335fb30fff61d7
     const fetchAuthUser = async () => {
         // loginUser 정보 가져오기
         // axios.get
@@ -54,7 +60,7 @@ export const UserContextProvider = ({children}) => {
     console.log(noti, "Dfdfasdfasdf")
     const connect = () => {
         stompClient.noti = new StompJs.Client({
-            webSocketFactory: () => new SockJS("http://localhost:8888/websocket"),
+            webSocketFactory: () => new SockJS(`${notiServer}/websocket`),
             debug: function (str) {
                 console.log(str);
             },
@@ -68,7 +74,6 @@ export const UserContextProvider = ({children}) => {
                     console.dir(JSON.parse(body))
                     setNoti(JSON.parse(body));
                 });
-                
             },
             onStompError: (frame) => {
                 console.error(frame);
@@ -110,7 +115,7 @@ export const UserContextProvider = ({children}) => {
     }, [authUser])
 
     return (
-        <UserContext.Provider value={{authUser, storeToken, noti, setNoti, token}}>
+        <UserContext.Provider value={{authUser, storeToken, noti, setNoti, token, setRoomNumber, roomNumber}}>
             {children}
         </UserContext.Provider>
     );

@@ -1,6 +1,11 @@
 .message-list-container {
+  margin-top: 55px;
   padding: 10px;
   padding-bottom: 70px;
+  width: 385px;
 }
 
+.message-list{
+  width: 295px;
+}
 

@@ -1,0 +1,40 @@
+.disqus-comment-count {
+    position: absolute;
+    z-index: 100;
+    display: inline-block;
+    padding: 0.3em 0.5em;
+    color: #fff;
+    font-weight: bold;
+    line-height: 1;
+    font-size: 10px;  
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      // Upscale with font-size and shrink with scale for smoother appearance
+      font-size: 2em;
+      transform: scale(0.5);
+      transform-origin: left top;
+    }
+    
+    &:before {
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      border-radius: 0.2em;
+      background: #28f;
+    }
+    
+    &:after {
+      top: 95%;
+      top: calc(100% - 1px);
+      left: 0;
+      border: 0.25em solid transparent;
+      border-top-width: 0.18em;
+      border-bottom-width: 0.18em;
+      border-top-color: #28f;
+      border-right-color: #28f;
+    }
+  }
