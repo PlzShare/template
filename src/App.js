@@ -41,8 +41,8 @@ export default function App() {
   
   const [chatServer] = useState('http://34.64.107.41:8081');
   const [notiServer] = useState(notiServerList[Math.floor(Math.random() * notiServerList.length)]);
-  // const [docServer] = useState(docServerList[Math.floor(Math.random() * docServerList.length)])
-  const [docServer] = useState(['http://localhost:4444/share-doc']);
+  const [docServer] = useState(docServerList[Math.floor(Math.random() * docServerList.length)])
+  // const [docServer] = useState(['http://localhost:4444/share-doc']);
 
   const [authUser,setAuthUser] = useState({})
   const [token,setToken] = useState()
