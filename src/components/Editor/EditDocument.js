@@ -32,12 +32,11 @@ const EditDocument = ({authUser, token, docServer}) => {
     // const {docServer} = useContext(IPContext);
     
 
-    
     window.Delta = Delta
     const fetchDocument = async () => {
         const url = `/workspaces/${params.wno}/channels/${params.cno}/documents/${params.docNo}`
         const response = await axios.get(url)
-        
+              
         baseVersion[0] = response.data.data.version
         window.document.getElementById('document-title').value = response.data.data.title
 
@@ -79,6 +78,7 @@ const EditDocument = ({authUser, token, docServer}) => {
             },
             onConnect: () => {
                 client.subscribe(`/sub/${params.docNo}`, ({body}) => {
+                    console.dir(body)
                     onTransFormedChangeArrived(JSON.parse(body));
                 },{
                     'token' :'token'
@@ -115,7 +115,7 @@ const EditDocument = ({authUser, token, docServer}) => {
         transformedChange.sort((o1, o2) => o1.version > o2.version? 1 : -1)
  
         if(transformedChange[0].version != baseVersion[0] + 1) {
-            alert('version not matched')
+            console.error('version not matched')
             return;
         }
 
@@ -241,7 +241,7 @@ const EditDocument = ({authUser, token, docServer}) => {
         deltaNotACKed[0] = null;
     }
     
-    const div = window.document.createElement('div');
+    
     const showNameTag = (incomingCursor, change) => {    
         
         const pos = window.qe.getBounds(incomingCursor, 0)
@@ -249,20 +249,29 @@ const EditDocument = ({authUser, token, docServer}) => {
         
         const nameTag = window.document.getElementById(`${change.user}`)
         nameTag && nameTag.parentElement.removeChild(nameTag)
-        
-        div.innerHTML =  `<span id='${change.user}' class='disqus-comment-count ${memberColors[change.user]}'
-                style='
-                    top: ${93 + pos.top - 10}px;
-                    left: ${pos.left}px;
-                    background-color: 'blue'
-                '>${name}</span>`
-            
-        editorContainer.current.prepend(div.firstElementChild)        
+       
+        const span = window.document.createElement('span')
+        span.id = change.user
+        span.classList.add('disqus-comment-count')
+        span.classList.add(memberColors[change.user])
+        span.style.top = `${93 + pos.top - 10}px`
+        span.style.left = `${pos.left}px`
+        span.style.backgroundColor = 'blue'
+        span.innerText = name;
 
+        // div.append(span);
+        // span.outerHTML =  `<span id='${change.user}' class='disqus-comment-count ${memberColors[change.user]}'
+        //         style='
+        //             top: ${93 + pos.top - 10}px;
+        //             left: ${pos.left}px;
+        //             background-color: 'blue'
+        //         '>${name}</span>`
+            
+        editorContainer.current.prepend(span)        
 
         setTimeout(() => {
-            let nameTag = window.document.getElementById(`${change.user}`)
-            nameTag &&  editorContainer.current.removeChild(nameTag);
+            // let nameTag = window.document.getElementById(`${change.user}`)
+            span && span.parentElement && editorContainer.current.removeChild(span);
         }, 3000)
     }
     window.showNameTag = showNameTag

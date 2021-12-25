@@ -15,7 +15,10 @@ const MemberList = ({sid, memberColors,setMemberColorWithoutRender}) => {
     const params = useParams()
 
     const backgroundColors = ['yellowgreen', 'cadetblue', 'burlywood', '#935e38',
-    '#f5838e', '#8eb9e7', '#1c4673','#e7b419','#24b2c9']
+    '#f5838e', '#8eb9e7', '#1c4673','#e7b419','#24b2c9', 
+    'darkcyan', 'blueviolet', 'coral', 'cornflowerblue', 'crimson', 'darkgray', 'darkgreen',
+    'darkkhaki', 'darkolivegreen', 'darksalmon', 'darkseagreen', 'dimgrey', 'indianred', 'indigo',
+    'lightblue', 'lightcoral', 'lightseagreen']
     
     const onMemberJoin = (user) => {
         updateMemberList()
