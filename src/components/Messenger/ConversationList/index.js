@@ -7,7 +7,6 @@ import axios from 'axios';
 import ChatAddComponent from '../../SidebarNav/components/ChatAddComponent'
 import './ConversationList.css';
 import UserContext from '../../utilities/ContextProviders/UserContext';
-import { WorkSpaceContext } from '../../../layouts/DashboardLayout';
 import { useParams } from 'react-router';
 import luffy from '../../../assets/images/profile.jpg';
 

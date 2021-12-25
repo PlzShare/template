@@ -4,9 +4,9 @@ import './ToolbarButton.css';
 export default function ToolbarButton(props) {
   
     
-    const { icon, callBackOnClick } = props;
+    const { icon, callBackOnClick, color } = props;
     
     return (
-      <i className={`toolbar-button ${icon}`} onClick={() => {callBackOnClick()}} />
+      <i className={`toolbar-button ${icon}`} style={{color: color}} onClick={() => {callBackOnClick()}} />
     );
 }
