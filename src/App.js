@@ -26,15 +26,24 @@ export default function App() {
   axios.defaults.withCredentials = true;
  
   const workspacePath = '/workspace/:wno';
-
-  // const [notiServer] = useState('http://localhost:8888');
+  
+  /**
+   * Server List
+   */
+  
+  // const notiServerList = ['http://localhost:8888','http://localhost:8889']
+  const notiServerList = ['http://34.64.107.41:8888', 'http://34.64.107.41:8889']
+  const docServerList = ['http://34.64.213.19:9999/share-doc','http://34.64.213.19:8888/share-doc'
+  ,'http://34.64.213.19:7777/share-doc']
+  
+  
+  // const [docServer] = useState(['http://localhost:4444/share-doc']);
   // const [chatServer] = useState('http://localhost:8081');
-  const [docServer] = useState('http://localhost:4444/share-doc');
-  
-  const [notiServer] = useState('http://34.64.107.41:8888');
+
   const [chatServer] = useState('http://34.64.107.41:8081');
-  // const [docServer] = useState('http://34.64.213.19:9999/share-doc');
-  
+  const [notiServer] = useState(notiServerList[Math.floor(Math.random() * notiServerList.length)]);
+  const [docServer] = useState(docServerList[Math.floor(Math.random() * docServerList.length)])
+
   const [authUser,setAuthUser] = useState({})
   const [token,setToken] = useState()
   
@@ -67,9 +76,9 @@ export default function App() {
                   })}
                   {/* <Route path='channel/:cno/edit-document/:docNo' element={React.memo(<EditDocument/>)}/> */}
                   <Route path='channel/:cno/edit-document/:docNo' element={<EditDocument 
-                  authUser={authUser}
-                  token={token}
-                  docServer={docServer}/>}/>
+                      authUser={authUser}
+                      token={token}
+                      docServer={docServer}/>}/>
               </Route>
           </Routes>
           <Noti />
