@@ -45,7 +45,7 @@ const Dashboard = () => {
 
     prevent: (e) => {
       e.preventDefault();
-      alert("관리자 권한을 변경안하면 못나가지롱~ 메롱메롱");
+      alert("관리자는 워크스페이스를 나갈 수 없습니다. 환경설정에서 관리자를 변경해주세요.");
     }
   }
   

@@ -20,7 +20,7 @@ const ChatMemberAddComponent = ({ctno, callBackToggle, isOpen}) => {
     useEffect(() => {
         fetchChatMemberList(); // 채팅방 번호를 기준으로 채팅방 구성원을 불러옴
     }, []);
-    
+
     useEffect(() => {
         chatMemberList && fetchList()
     }, [chatMemberList])
@@ -49,7 +49,6 @@ const ChatMemberAddComponent = ({ctno, callBackToggle, isOpen}) => {
             return true;
         }))
 
-
     }
 
     const pushData = async() =>{
@@ -64,11 +63,12 @@ const ChatMemberAddComponent = ({ctno, callBackToggle, isOpen}) => {
             userNums : [...result]
         })
         
-        alert("친구가 추가되었습니다!");
-        
-        // console.log("추가된 친구 정보들");
-        // console.log(response.data.data);
-        callBackToggle();
+        callBackToggle(selectdata);
+        fetchChatMemberList()
+    }
+
+    const pushNullData = () => {
+        callBackToggle(null);
     }
 
     const selectBoxChange = (e) =>{
@@ -90,7 +90,7 @@ const ChatMemberAddComponent = ({ctno, callBackToggle, isOpen}) => {
                 </ModalBody>
                 <ModalFooter>
                   <Button color="primary" onClick={pushData}>초대하기</Button>{' '}
-                  <Button color="secondary" onClick={callBackToggle}>취소하기</Button>
+                  <Button color="secondary" onClick={pushNullData}>취소하기</Button>
                 </ModalFooter>
         </Modal>
     );

@@ -34,10 +34,9 @@ export default function MessageList(props) {
   const {chatServer} = useContext(IPContext)
   const navigate = useNavigate()
 
-
-  // 정대겸 : 커넥트
   const client = useRef({});
 
+  console.log(chatRoomInfo)
   console.log("받아온 방번호 : " + chatRoomInfo.roomNo)
   console.log("받아온 방이름 : " + chatRoomInfo.name)
   
@@ -91,14 +90,9 @@ export default function MessageList(props) {
       broadCastingMessage.message = JSON.parse(body).contents;
       broadCastingMessage.timestamp = new Date().getTime();
       
-      // 정대겸 바보 이걸로 삽질함 ㅠ
-      ////////////////////////////////////////
-      // setMessages([...messages, broadCastingMessage])
       setMessages((prev) => {
         return [...prev, broadCastingMessage]
       }, console.log(broadCastingMessage));
-      ////////////////////////////////////////
-      
     });
   };
 
@@ -120,8 +114,21 @@ export default function MessageList(props) {
     });
   };
 
-  const toggle = () =>{
+  const toggle = (addList) =>{
     setModals(!modals)
+    console.log(addList)
+    if(addList && Array.isArray(addList)){
+      console.log(addList)
+      console.log(addList.map((user) => {
+        const addSendMessage = {}
+        addSendMessage.userNo = user.userNo;
+        addSendMessage.userName = user.nickname;
+        addSendMessage.chatroomNo = chatRoomInfo.roomNo;
+        addSendMessage.message = '접속'
+
+        publish(addSendMessage)
+    }))
+    }
   }
 
   const exittoggle = () =>{
@@ -133,6 +140,7 @@ export default function MessageList(props) {
       e.preventDefault();
       setModals(true)
   }
+
   const exitmodal = (e) => {
     e.preventDefault();
     setExitModals(true)
@@ -155,7 +163,6 @@ export default function MessageList(props) {
     setSelectData(e);
 }
 
-   // 정대겸
   const callbackMessage = {
     add: function(mySendMessage) {
         mySendMessage.userNo = authUser.no; // 유저 고유번호
@@ -185,9 +192,8 @@ export default function MessageList(props) {
     
     setChatUserList([...response.data.data])
     console.log("========================ㅎㅇ=====================")
-
   }
-  
+
   const renderMessages = () => {
     let i = 0;
     let messageCount = messages.length;
@@ -197,6 +203,7 @@ export default function MessageList(props) {
       let previous = messages[i - 1];
       let current = messages[i];
       let next = messages[i + 1];
+      let memberAddState = current.message;
       let isMine = current.userNo === authUser.no;
       let userName = current.userName;
       let currentMoment = moment(current.timestamp);
@@ -205,7 +212,9 @@ export default function MessageList(props) {
       let startsSequence = true;
       let endsSequence = true;
       let showTimestamp = true;
+      let addMemberstamp = false;
 
+      // 시간 추가
       if (previous) {
         let previousMoment = moment(previous.timestamp);
         let previousDuration = moment.duration(currentMoment.diff(previousMoment));
@@ -230,6 +239,10 @@ export default function MessageList(props) {
         }
       }
 
+      if(memberAddState === '접속'){
+        addMemberstamp = true;
+      }
+
       // isMine 이 false면 null 값을 Message 컴포넌트에 넘겨줌으로써,
       // Message 컴포넌트에서 이름이 뜨지 않게함
       tempMessages.push(
@@ -240,6 +253,7 @@ export default function MessageList(props) {
           startsSequence={startsSequence}
           endsSequence={endsSequence}
           showTimestamp={showTimestamp}
+          addMemberstamp={addMemberstamp}
           data={current}
         />
       );
@@ -259,28 +273,26 @@ export default function MessageList(props) {
               <ToolbarButton key="info" icon="ion-md-exit" callBackOnClick={ callBackOnClickExit }/>
             </span>
           ]}
+
           title={chatRoomInfo.name}
           rightItems={[
 
             <ToolbarButton key="person" icon="ion-ios-person-add" callBackOnClick={modalevent}/>,
             <ToolbarButton key="trash" icon="ion-ios-trash" callBackOnClick={exitmodal}/>
-
         ]}
-          
+
         />
-        
-       
 
         <ChatMemberAddComponent 
-            ctno={chatRoomInfo.roomNo} 
+            ctno={chatRoomInfo.roomNo}
             callBackToggle={toggle}
             isOpen={modals} />
 
         <ChatExit 
             ctno={chatRoomInfo.roomNo} 
             isOpen={exitmodals} 
+            callBackExitToggle={callBackOnClickExit}
             callBackToggle={exittoggle}/>
-
 
         <div className="message-list-container">{renderMessages()}</div>
 
