@@ -8,7 +8,7 @@ import UserContext from '../../utilities/ContextProviders/UserContext';
 
 
 
-const ChatExit = ({callBackToggle, isOpen, ctno}) => {
+const ChatExit = ({callBackToggle, callBackExitToggle, isOpen, ctno}) => {
 
     const [selectdata, setSelectData] = useState([]);
     const [userList, setUserList] = useState([]);
@@ -29,11 +29,9 @@ const ChatExit = ({callBackToggle, isOpen, ctno}) => {
     }
 
     const pushData = async () =>{
-        alert("방탈출 성공!")
         await axios.delete(`/workspaces/${params.wno}/chat?ctno=${ctno}`)
-
         console.log(selectdata);
-        callBackToggle();
+        callBackExitToggle();
     }
 
     const selectBoxChange = (e) =>{

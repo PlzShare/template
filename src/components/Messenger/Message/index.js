@@ -9,10 +9,12 @@ export default function Message(props) {
       isMine,
       startsSequence,
       endsSequence,
-      showTimestamp
+      showTimestamp,
+      addMemberstamp
     } = props;
 
     const friendlyTimestamp = moment(data.timestamp).format('LLLL');
+    const addName = name;
     return (
       <div className={[
         'message',
@@ -26,15 +28,24 @@ export default function Message(props) {
               { friendlyTimestamp }
             </div>
         }
-          
+        {
+          addMemberstamp &&
+              <div className="timestamp">
+              { addName } 참가하였습니다.
+            </div>
+        }
+        { !addMemberstamp &&  
         <div className="bubble-container">
           <div className='name'>
             { name }
           </div>
+          
           <div className="bubble" title={friendlyTimestamp}>
             { data.message }
           </div>
+          
         </div>
+        }
       </div>
     );
 }

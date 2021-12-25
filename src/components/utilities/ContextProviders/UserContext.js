@@ -15,13 +15,8 @@ export const UserContextProvider = ({children}) => {
     const [roomNumber, setRoomNumber] = useState(null);
     const [noti, setNoti] = useState(null);
     const [stompClient, setStompClient] = useState({})
-<<<<<<< HEAD
-
-    console.log(noti)
-=======
     const {notiServer} = useContext(IPContext)
 
->>>>>>> cf7cb033a210a1d69ccffd790e335fb30fff61d7
     const fetchAuthUser = async () => {
         // loginUser 정보 가져오기
         // axios.get
