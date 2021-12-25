@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import UserContext from '../utilities/ContextProviders/UserContext';
 import * as StompJs from "@stomp/stompjs";
@@ -11,6 +11,7 @@ import Delta from 'quill-delta';
 import './nametag.scss'
 import MemberList from './MemberList';
 import { IPContext } from '../../App';
+import ToolbarButton from '../Messenger/ToolbarButton';
 
 const EditDocument = ({authUser, token, docServer}) => {
     const params = useParams();
@@ -30,7 +31,6 @@ const EditDocument = ({authUser, token, docServer}) => {
     
     // const {authUser, token} = useContext(UserContext)
     // const {docServer} = useContext(IPContext);
-    
 
     window.Delta = Delta
     const fetchDocument = async () => {
@@ -81,9 +81,17 @@ const EditDocument = ({authUser, token, docServer}) => {
                     console.dir(body)
                     onTransFormedChangeArrived(JSON.parse(body));
                 },{
-                    'token' :'token'
+                    'token' : token
                 });
-                
+
+                client.subscribe(`/sub/${params.docNo}/save`, async ({body}) => {
+                    console.dir(body)
+                    const res = await fetchDocument()
+                    fetchHistory()
+                    // onTransFormedChangeArrived(JSON.parse(body));
+                },{
+                    'token' : token
+                });
             },
             onStompError: (frame) => {
                 console.error(frame);
@@ -349,11 +357,30 @@ const EditDocument = ({authUser, token, docServer}) => {
         memberColors[userNo] = color;
     }
     
+    const saveDoc = async () => {
+        window.qe.disable()
+        publish()
 
+        const html = window.qe.root.innerHTML;
+        const res = await axios.put(`${docServer}/save/${params.docNo}`,{
+            title : window.document.getElementById('document-title').value,
+            contents: html
+        })
+
+        alert('저장되었습니다')
+        window.qe.enable()
+    }
     return (
         <div>
             <div style={{display:'flex', position:'relative'}}>
-                {authUser && document && authUser.no == document.userNo ? <button style={{height:'40px'}} className='btn-primary' onClick={deleteDoc}>삭제</button> : ''}
+                <div  style={{marginRight:'20px'}}>    
+                    {authUser && document && authUser.no == document.userNo ? 
+                        <ToolbarButton color="crimson" icon="ion-ios-trash" callBackOnClick={deleteDoc}/>
+                        : ''}
+                </div>
+                <div style={{marginRight:'20px'}}>
+                    <ToolbarButton color="black" icon="ion-ios-save" callBackOnClick={saveDoc}/>
+                </div>
                 <MemberList setMemberColorWithoutRender={setMemberColorWithoutRender} sid={sid}/>
             </div>
             <div ref={editorContainer}
