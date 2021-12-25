@@ -79,10 +79,13 @@ class SidebarNav extends Component {
                             <WorkSpaceContext.Consumer>
                             {
                               ({memberList}) => {
+
+                                const user = authUser.no && memberList.length > 0 && memberList.filter((e) => {
+                                  return e.userNo == authUser.no
+                                })[0];
+                                
                                 return(
-                                  authUser.no && memberList.length > 0 && memberList.filter((e) => {
-                                    return e.userNo == authUser.no
-                                  })[0].role == 'admin'?
+                                  user && user.role == 'admin'?
                                     navItems2(this.props.nav.bottom):''
                                 )
                               }

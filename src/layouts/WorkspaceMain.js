@@ -46,12 +46,16 @@ const WorkspaceMain = () => {
   //   console.dir(response)
   //   setWorkspaceInfo(response.data.data)
 
-  const fetchDocument = async () => {    
-  }
+  
 
   useEffect(() => {
-    fetchDocument();
-    fetchChannelList()
+
+    let timer = setInterval(() => {
+      if(axios.defaults.headers && axios.defaults.headers['Authorization']){
+        fetchChannelList()
+        clearInterval(timer)
+      }
+    }, 200)
   },[channels])
   
   return (
