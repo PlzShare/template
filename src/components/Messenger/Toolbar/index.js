@@ -1,6 +1,5 @@
 import React from 'react';
 import './Toolbar.css';
-import FontAwesomeIcon from 'react-fontawesome';
 
 export default function Toolbar(props) {
     const { title, leftItems, rightItems} = props;
