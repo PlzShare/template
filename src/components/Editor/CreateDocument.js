@@ -9,26 +9,25 @@ import UserContext from '../utilities/ContextProviders/UserContext';
 
 const CreateDocument = () => {
     const params = useParams()
-    const {setSidebarCollapsed} =  useContext(WorkSpaceContext)
     const navigate = useNavigate()
-    const {authUser} = useContext(UserContext);
 
     const save = async () => {
         const url = `/workspaces/${params.wno}/channels/${params.cno}/documents`
         // alert(document.getElementById('document-title').value)
-        const response = await axios.post(url,{
-            title: document.getElementById('document-title').value,
-            contents: window.qe.root.innerHTML,
-            channelNo: params.cno,
-            workspaceNo: params.wno,
-        })
+        try{
+            const response = await axios.post(url,{
+                title: document.getElementById('document-title').value,
+                contents: window.qe.root.innerHTML,
+                channelNo: params.cno,
+                workspaceNo: params.wno,
+            })
 
+        }catch(e){
+            console.log(e)
+        }
+        alert('문서가 작성되었습니다.')
         navigate(`/workspace/${params.wno}/channel/${params.cno}`)
     }
-
-    useEffect(() => {
-        setSidebarCollapsed(true)
-    }, [])
 
     return (
         <div>
