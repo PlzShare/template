@@ -316,21 +316,22 @@ const EditDocument = ({authUser, token, docServer}) => {
             }
         }
     }, [authUser])
+    const removeTags = () => {
+        const tags = window.document.getElementsByClassName('disqus-comment-count')
+        for(let tag of tags){
+            tag.parentElement.removeChild(tag)
+        }
+    }
     useEffect(() => {
         if(document && editor){
             fetchHistory()
-            window.document.getElementsByClassName('ql-container')[0].onscroll = () => {
-                const tags = window.document.getElementsByClassName('disqus-comment-count')
-                for(let tag of tags){
-                    tag.parentElement.removeChild(tag)
-                }
-            }
+            window.document.getElementsByClassName('ql-container')[0].addEventListener('scroll', removeTags)
+            window.document.getElementsByClassName('ql-container')[0].addEventListener('keydown', removeTags)
         }
         
     }, [document, editor])
     useEffect(() => {
         setInterval(() => {
-            // alert('pub')
             publish()  
         }, 500)
 

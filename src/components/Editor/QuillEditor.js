@@ -1,13 +1,14 @@
 import ReactQuill from 'react-quill'
-import React, { useEffect, useRef} from 'react';
+import React, { useContext, useEffect, useRef} from 'react';
 import 'react-quill/dist/quill.snow.css'
 import '../../assets/scss/components/quilleditor.scss'
+import { WorkSpaceContext } from '../../layouts/DashboardLayout';
 
 const QuillEditor = (props) => {
     const {callBackOnChange, passEditor, initDocumentData, nameTags} = props;
     console.dir(props)
     const refQuill = useRef(null)
-
+    const {setSidebarCollapsed} =  useContext(WorkSpaceContext)
     const modules = {
         toolbar:{
             container: [
@@ -28,7 +29,7 @@ const QuillEditor = (props) => {
 
     useEffect(() => {
         window.qe = refQuill.current.getEditor()
-
+        setSidebarCollapsed(true)
         if(passEditor)
             passEditor(refQuill.current.getEditor())
     }, [])

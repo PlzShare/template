@@ -4,7 +4,7 @@ import makeAnimated from 'react-select/animated';
 import '../assets/scss/components/setting.scss';
 import axios from 'axios';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { useParams } from 'react-router';
+import { Navigate, useNavigate, useParams } from 'react-router';
 import UserContext from '../components/utilities/ContextProviders/UserContext';
 import { WorkSpaceContext } from './DashboardLayout';
 
@@ -17,7 +17,9 @@ const Setting = () => {
   const wnameInput = useRef();
   const params = useParams()
   const {authUser} = useContext(UserContext)
-  const {workspaceInfo} = useContext(WorkSpaceContext); 
+  const {workspaceInfo, fetchWorkspaceInfo} = useContext(WorkSpaceContext); 
+  const navigate = useNavigate()
+  
   const toggle = () => {
     setModal(!modals)
 
@@ -52,6 +54,9 @@ const Setting = () => {
     console.log(wnameInput.current.value)
 
     changeAdmin();
+    alert('변경되었습니다.')
+    fetchWorkspaceInfo()
+    navigate(`/workspace/${params.wno}`)
   }
 
   const changeAdmin = async () => {

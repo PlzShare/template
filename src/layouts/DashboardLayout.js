@@ -152,6 +152,7 @@ class DashboardLayout extends Component {
             workspaceInfo : this.state.workspaceInfo || {}, 
             setWorkspaceInfo : this.setWorkspaceInfo,
             channelList : this.state.channelList,
+            fetchWorkspaceInfo : this.fetchWorkspaceInfo,
             fetchChannelList : this.fetchChannelList,
             memberList : this.state.memberList,
             pushMemberList : this.pushMemberList,
