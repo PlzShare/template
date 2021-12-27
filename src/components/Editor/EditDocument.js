@@ -29,9 +29,6 @@ const EditDocument = ({authUser, token, docServer}) => {
     const [memberColors] = useState({})
     const editorContainer = useRef(null); 
     
-    // const {authUser, token} = useContext(UserContext)
-    // const {docServer} = useContext(IPContext);
-
     window.Delta = Delta
     const fetchDocument = async () => {
         const url = `/workspaces/${params.wno}/channels/${params.cno}/documents/${params.docNo}`
@@ -61,6 +58,28 @@ const EditDocument = ({authUser, token, docServer}) => {
         baseVersion[0] = history.data[history.data.length - 1].version
     }
    
+    const publish = () => {
+        if(deltaNotSent.length == 0) return;
+        
+        console.log(isACKed)
+        // pub을 보낸 후, 서버로부터 ACK를 받지 않았으면
+        if(!isACKed[0]) return;
+        isACKed[0] = false;
+        
+        const bv = deltaNotSent[0].baseVersion
+        let i = 0
+        for(i = 0; i < deltaNotSent.length; i++){
+            if(deltaNotSent[i].baseVersion != bv) break;
+        }
+
+        const composedDelta = deltaNotSent.splice(0, i).map(d => d.delta).reduce((composed, curDelta) => composed.compose(curDelta))
+        deltaNotACKed[0] = composedDelta
+        axios.post(`${docServer}/pub/${params.docNo}`,{
+            delta : composedDelta,
+            sid: sid,
+            baseVersion: bv
+        })
+    }
 
     const connectWebsocket = () => {
         const client = new StompJs.Client({
@@ -82,6 +101,10 @@ const EditDocument = ({authUser, token, docServer}) => {
                     'token' : token
                 });
 
+                setInterval(() => {
+                    publish()  
+                }, 500)
+                
                 client.subscribe(`/sub/${params.docNo}/save`, async ({body}) => {
                     console.dir(body)
                     fetchDocument()
@@ -173,6 +196,7 @@ const EditDocument = ({authUser, token, docServer}) => {
         //단, deltaNotSent에 있는 delta들을 고려하여 change를 적용해야 함
         let finalCursorPos = 0
         let finalChange;
+
         transformedChange.forEach((change) => {
             if(change.sid == sid) return;
             
@@ -236,6 +260,7 @@ const EditDocument = ({authUser, token, docServer}) => {
         }
         
         transformedChange.splice(0)
+       
         isACKed[0] = true;
         deltaNotACKed[0] = null;
     }
@@ -275,38 +300,17 @@ const EditDocument = ({authUser, token, docServer}) => {
     }
     window.showNameTag = showNameTag
 
-    const publish = () => {
-        if(deltaNotSent.length == 0) return;
-        
-        // pub을 보낸 후, 서버로 부터 ACK를 받지 않았으면
-        if(!isACKed[0]) return;
-        isACKed[0] = false;
-        
-        const bv = deltaNotSent[0].baseVersion
-        let i = 0
-        for(i = 0; i < deltaNotSent.length; i++){
-            if(deltaNotSent[i].baseVersion != bv) break;
-        }
-
-        const composedDelta = deltaNotSent.splice(0, i).map(d => d.delta).reduce((composed, curDelta) => composed.compose(curDelta))
-        deltaNotACKed[0] = composedDelta
-        axios.post(`${docServer}/pub/${params.docNo}`,{
-            delta : composedDelta,
-            sid: sid,
-            baseVersion: bv
-        })
-    }
-
 //////////////////////////////////////////////////////////////////////////////
     useEffect(() => {
-        if(authUser.no){
+        if(authUser.no && token){
             const client = connectWebsocket();
             fetchDocument()
+
             return () => {
                 client.deactivate()
             }
         }
-    }, [authUser])
+    }, [authUser, token])
     const removeTags = () => {
         const tags = window.document.getElementsByClassName('disqus-comment-count')
         for(let tag of tags){
@@ -330,16 +334,6 @@ const EditDocument = ({authUser, token, docServer}) => {
             window.document.getElementsByClassName('ql-container')[0].addEventListener('keydown', removeTags)
         }
     }, [editor])
-
-    useEffect(() => {
-        setInterval(() => {
-            publish()  
-        }, 500)
-        return () => {
-            publish()
-        }
-    },[])
-
     // 문서 삭제
     const deleteDoc = async () => {
         const deleteConfirmed = window.confirm('정말로 삭제하시겠습니까')
