@@ -5,7 +5,7 @@ import '../../assets/scss/components/quilleditor.scss'
 import { WorkSpaceContext } from '../../layouts/DashboardLayout';
 
 const QuillEditor = (props) => {
-    const {callBackOnChange, passEditor, initDocumentData, nameTags} = props;
+    const {callBackOnChange, passEditor} = props;
     console.dir(props)
     const refQuill = useRef(null)
     const {setSidebarCollapsed} =  useContext(WorkSpaceContext)
@@ -33,12 +33,12 @@ const QuillEditor = (props) => {
         if(passEditor)
             passEditor(refQuill.current.getEditor())
     }, [])
-
+ 
     return (
         <div style={{position:'relative'}}>
-            <input id='document-title' type='text' placeholder='문서 제목' style={{width:'100%', fontWeight: 'bold', fontSize: '16px', height: '50px' }}></input>
+            <input id='document-title' type='text' placeholder='문서 제목' style={{width:'100%', fontWeight: 'bold', fontSize: '16px', height: '50px' }}/>
             <ReactQuill
-                value={initDocumentData? initDocumentData.contents : ''}
+                
                 style={{
                     height: '80vh'
                 }}

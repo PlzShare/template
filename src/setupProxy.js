@@ -3,7 +3,7 @@ module.exports = function (app) {
   console.log("Setup proxy is ever called");
   app.use(
     proxy(['/api'], {
-      target: "http://localhost:8080/"
+      target: "http://34.64.107.41/"
     })
   )
 };

@@ -38,10 +38,15 @@ const EditDocument = ({authUser, token, docServer}) => {
         const response = await axios.get(url)
               
         baseVersion[0] = response.data.data.version
-        window.document.getElementById('document-title').value = response.data.data.title
-
+        let timer = setInterval(() => {
+            if(window.document.getElementById('document-title')){
+                window.document.getElementById('document-title').value = response.data.data.title
+                clearInterval(timer)
+            }
+        }, 100) 
+        window.qe.clipboard.dangerouslyPasteHTML(response.data.data.contents)
+        
         setDocument(response.data.data)
-        fetchHistory()
     }
 
     const fetchHistory = async () => {
@@ -50,7 +55,7 @@ const EditDocument = ({authUser, token, docServer}) => {
         if(!history.data || history.data.length == 0) return;
         
         history.data.forEach((changeItem) => {
-            editor.updateContents(changeItem.delta)
+            window.qe.updateContents(changeItem.delta)
         })
 
         baseVersion[0] = history.data[history.data.length - 1].version
@@ -79,8 +84,7 @@ const EditDocument = ({authUser, token, docServer}) => {
 
                 client.subscribe(`/sub/${params.docNo}/save`, async ({body}) => {
                     console.dir(body)
-                    const res = await fetchDocument()
-                    
+                    fetchDocument()
                     // onTransFormedChangeArrived(JSON.parse(body));
                 },{
                     'token' : token
@@ -97,12 +101,6 @@ const EditDocument = ({authUser, token, docServer}) => {
 ///////////////////////////////////////////////////////////////////////
     // 문서 동기화
     const handleChange = (content, delta, source, editor) => {
-        // console.log('===========source==============')
-        // console.dir(source)
-        if(source == 'user'){
-            console.log('===========delta==============')
-            console.dir(delta)
-        }
         if(source != 'user') return;
         
         // push my delta for undo
@@ -226,9 +224,9 @@ const EditDocument = ({authUser, token, docServer}) => {
 
             
             if(retainOP){
-                editor.updateContents([retainOP,...transformedOPs])
+                window.qe.updateContents([retainOP,...transformedOPs])
             }else{
-                editor.updateContents(transformedOPs)
+                window.qe.updateContents(transformedOPs)
             }
             finalCursorPos += incomingCursor
         })
@@ -303,6 +301,7 @@ const EditDocument = ({authUser, token, docServer}) => {
     useEffect(() => {
         if(authUser.no){
             const client = connectWebsocket();
+            fetchDocument()
             return () => {
                 client.deactivate()
             }
@@ -315,19 +314,27 @@ const EditDocument = ({authUser, token, docServer}) => {
         }
     }
     useEffect(() => {
-        if(document && editor){
-            fetchDocument()
-            
+        if(document){
+            let timer = setInterval(() => {
+                if(authUser.no && window.qe){
+                    fetchHistory()
+                    clearInterval(timer);
+                }
+            }, 100)
+        }
+    }, [document])
+    
+    useEffect(() => {
+        if(editor){
             window.document.getElementsByClassName('ql-container')[0].addEventListener('scroll', removeTags)
             window.document.getElementsByClassName('ql-container')[0].addEventListener('keydown', removeTags)
         }
-    }, [document, editor])
+    }, [editor])
 
     useEffect(() => {
         setInterval(() => {
             publish()  
         }, 500)
-
         return () => {
             publish()
         }
@@ -351,18 +358,15 @@ const EditDocument = ({authUser, token, docServer}) => {
         memberColors[userNo] = color;
     }
     
-    const saveDoc = async () => {
-        window.qe.disable()
+    const saveDoc = () => {
         publish()
-
         const html = window.qe.root.innerHTML;
-        const res = await axios.put(`${docServer}/save/${params.docNo}`,{
+        axios.put(`${docServer}/save/${params.docNo}`,{
             title : window.document.getElementById('document-title').value,
             contents: html
         })
-
         alert('저장되었습니다')
-        window.qe.enable()
+        navigate(`/workspace/${params.wno}/channel/${params.cno}`)
     }
     return (
         <div>
@@ -383,7 +387,7 @@ const EditDocument = ({authUser, token, docServer}) => {
                     memberColors={memberColors}
                     passEditor={initEditor} 
                     callBackOnChange={handleChange} 
-                    initDocumentData={document}/>
+                   />
             </div>
         </div>
     );
