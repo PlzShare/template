@@ -22,7 +22,6 @@ const Setting = () => {
   
   const toggle = () => {
     setModal(!modals)
-
   }
 
   useEffect(() => {

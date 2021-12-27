@@ -41,6 +41,7 @@ const EditDocument = ({authUser, token, docServer}) => {
         window.document.getElementById('document-title').value = response.data.data.title
 
         setDocument(response.data.data)
+        fetchHistory()
     }
 
     const fetchHistory = async () => {
@@ -48,14 +49,6 @@ const EditDocument = ({authUser, token, docServer}) => {
         
         if(!history.data || history.data.length == 0) return;
         
-        console.dir(history)
-        // history.data.forEach((changeItem) => {
-        //     changeItem.deltas.forEach((delta) => {
-        //         console.dir(new Delta())
-        //         console.dir(delta)
-        //         editor.updateContents(delta)
-        //     })
-        // })
         history.data.forEach((changeItem) => {
             editor.updateContents(changeItem.delta)
         })
@@ -87,7 +80,7 @@ const EditDocument = ({authUser, token, docServer}) => {
                 client.subscribe(`/sub/${params.docNo}/save`, async ({body}) => {
                     console.dir(body)
                     const res = await fetchDocument()
-                    fetchHistory()
+                    
                     // onTransFormedChangeArrived(JSON.parse(body));
                 },{
                     'token' : token
@@ -309,7 +302,6 @@ const EditDocument = ({authUser, token, docServer}) => {
 //////////////////////////////////////////////////////////////////////////////
     useEffect(() => {
         if(authUser.no){
-            fetchDocument()
             const client = connectWebsocket();
             return () => {
                 client.deactivate()
@@ -324,12 +316,13 @@ const EditDocument = ({authUser, token, docServer}) => {
     }
     useEffect(() => {
         if(document && editor){
-            fetchHistory()
+            fetchDocument()
+            
             window.document.getElementsByClassName('ql-container')[0].addEventListener('scroll', removeTags)
             window.document.getElementsByClassName('ql-container')[0].addEventListener('keydown', removeTags)
         }
-        
     }, [document, editor])
+
     useEffect(() => {
         setInterval(() => {
             publish()  
